@@ -12,7 +12,7 @@ int radius = 10;
 int showgoal = 0;
 
 void setup() {
-  size(800, 600);
+  size(550, 350);
   posx1 = 5;
   posy1 = height/2 - 30;
   posx2 = width-10;
