@@ -1,3 +1,6 @@
+//import processing.sound.*;
+
+boolean start = false;
 int posx1;
 int posy1;
 int posx2;
@@ -6,13 +9,14 @@ int score1 = 0;
 int score2 = 0;
 int ballposX;
 int ballposY;
-int movX = 5;
-int movY = -2;
+int movX = 2;
+int movY = -1;
 int radius = 10;
 int showgoal = 0;
+//SoundFile goal;
 
 void setup() {
-  size(550, 350);
+  size(800, 600);
   posx1 = 5;
   posy1 = height/2 - 30;
   posx2 = width-10;
@@ -21,14 +25,22 @@ void setup() {
   ballposY = height/2 - 20;
   textFont(createFont("Georgia", 20));
   textAlign(CENTER, CENTER);
+  //goal = new SoundFile(this, "C:\\Users\\prash\\Documents\\Processing\\pong\\data\\goal.wav");
 }
 
 void draw() {
-  startGame();
-  updateBall();
-  checkCollision();
-  checkGoal();
-  updateScores();
+  if (start) {
+    startGame();
+    updateBall();
+    checkCollision();
+    checkGoal();
+    updateScores();
+  }else{
+    textFont(createFont("Georgia", 40));
+    fill(255);
+    text("Click to start or pause game", width/2, height/2 - 30);
+    textFont(createFont("Georgia", 20));
+  }
 }
 
 void startGame() {
@@ -47,13 +59,16 @@ void updateBall() {
   ballposX += movX;
   ballposY += movY;
   
-  if (ballposY+radius > height - 30) {
-    ballposY = height - 30;
+  // Lower wall
+  if (ballposY+radius > height - 20) {
+    ballposY = -ballposY;
     movY = -movY;
+    movY = -movX;
   }
   
-  if (ballposY-radius < 0) {
-    ballposY = 5;
+  // Upper wall
+  if (ballposY < 0) {
+    ballposY = -ballposY;
     movY = -movY;
   }
 }
@@ -102,31 +117,34 @@ void updateScores() {
   text(str(score2), width-20, height-16); // Player 2 score
 }
 
+void mouseClicked() {
+  if (start) {
+    start = false;
+  }else{
+    start = true;
+  }
+}
+
 // Detect pressed keys
 void keyPressed() {
-  // Player 1
   if (keyPressed) {
-    if (key == 'z') {
+    if (key == 'z') { // Player 1
       if (posy1 < height-89) {
         posy1 += 10;
       }
-    } else if (key == 'a') {
+    } else if (key == 'a') { 
       if (posy1 > 5) {
         posy1 -= 10;
       }
-    }
-  }
-
-  // Player 2
-  if (key == CODED) {
-    if (keyCode == UP) {
+    } else if (key == 'k') { // Player 2
       if (posy2 > 5) {
         posy2 -= 10;
       }
-    } else if (keyCode == DOWN) {
+    } else if (key == 'm') {
       if (posy2 < height-89) {
         posy2 += 10;
       }
     }
   }
+  
 }
