@@ -1,4 +1,4 @@
-//import processing.sound.*;
+import processing.sound.*;
 
 boolean start = false;
 int posx1;
@@ -9,11 +9,12 @@ int score1 = 0;
 int score2 = 0;
 int ballposX;
 int ballposY;
-int movX = 2;
-int movY = -1;
+int movX = 3;
+int movY = -2;
 int radius = 10;
 int showgoal = 0;
-//SoundFile goal;
+SoundFile goal;
+SoundFile tock;
 
 void setup() {
   size(800, 600);
@@ -25,7 +26,8 @@ void setup() {
   ballposY = height/2 - 20;
   textFont(createFont("Georgia", 20));
   textAlign(CENTER, CENTER);
-  //goal = new SoundFile(this, "C:\\Users\\prash\\Documents\\Processing\\pong\\data\\goal.wav");
+  goal = new SoundFile(this, "data/goal.mp3");
+  tock = new SoundFile(this, "data/tock.mp3");
 }
 
 void draw() {
@@ -59,32 +61,20 @@ void updateBall() {
   ballposX += movX;
   ballposY += movY;
   
-  // Lower wall
-  if (ballposY+radius > height - 20) {
-    ballposY = -ballposY;
-    movY = -movY;
-    movY = -movX;
-  }
-  
-  // Upper wall
-  if (ballposY < 0) {
-    ballposY = -ballposY;
+  // Lower and upper wall
+  if (ballposY+5 >= height - 25 || ballposY-5 <= 0) {
     movY = -movY;
   }
 }
 
 void checkCollision() {
   // Collision with player 1
-  // ballposX >= width || ballposX <= 0 || 
-  //println(movX);
-  //println("ball: " + (ballposX+radius));
-  if (movX < 0 && posy1 >= ballposY+radius && ballposY-radius <= posy1+55 && posx1 <= ballposX+radius && posx1-radius >= posx1+5) {
+  if (movX < 0 && ballposX-5 <= posx1+5 && ballposY >= posy1 && ballposY <= posy1+55) {
     movX = -movX;
   }
   
   // Collision with player 2
-  // ballposX >= width-10 || ballposX <= 5 ||
-  if (movX > 0 && posy2 <= ballposY+radius && ballposY-radius <= posy2+55 && posx2 <= ballposX+radius && posx2-radius <= posx2+5) {
+  if (movX > 0 && ballposX+5 >= posx2 && ballposY >= posy2 && ballposY <= posy2+55) {
     movX = -movX;
   }
 }
@@ -103,6 +93,7 @@ void checkGoal() {
     textFont(createFont("Georgia", 40));
     text("GOOOAAAL !", width/2, height/2 - 30);
     textFont(createFont("Georgia", 20));
+    //goal.play();
     showgoal--;
     ballposX = width/2;
     ballposY = height/2 - 20;
