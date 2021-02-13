@@ -7,24 +7,24 @@ int posx2;
 int posy2;
 int score1 = 0;
 int score2 = 0;
-int ballposX;
-int ballposY;
-int movX = 3;
-int movY = -2;
-int radius = 10;
+float ballposX;
+float ballposY;
+float angle;
+float movX;
+float movY;
+int diameter = 10;
 int showgoal = 0;
 SoundFile goal;
 SoundFile tock;
 SoundFile whistle;
 
 void setup() {
-  size(800, 600);
+  size(800, 500);
   posx1 = 5;
   posy1 = height/2 - 30;
   posx2 = width-10;
   posy2 = height/2 - 30;
-  ballposX = width/2;
-  ballposY = height/2 - 20;
+  reset();
   textFont(createFont("Georgia", 20));
   textAlign(CENTER, CENTER);
   goal = new SoundFile(this, "data/goal.mp3");
@@ -42,6 +42,7 @@ void draw() {
   }else{
     textFont(createFont("Georgia", 40));
     fill(255);
+    background(0);
     text("Click to start or pause game", width/2, height/2 - 30);
     textFont(createFont("Georgia", 20));
   }
@@ -59,12 +60,12 @@ void startGame() {
 }
 
 void updateBall() {
-  ellipse(ballposX, ballposY, radius, radius);
+  ellipse(ballposX, ballposY, diameter, diameter);
   ballposX += movX;
   ballposY += movY;
   
   // Lower and upper wall
-  if (ballposY+5 >= height - 25 || ballposY-5 <= 0) {
+  if (ballposY+(diameter/2) >= height - 25 || ballposY-(diameter/2) <= 0) {
     movY = -movY;
     thread("tock");
   }
@@ -74,12 +75,22 @@ void checkCollision() {
   // Collision with player 1
   if (movX < 0 && ballposX-5 <= posx1+5 && ballposY >= posy1 && ballposY <= posy1+55) {
     movX = -movX;
+    /*float diff = ballposY - (posy1 - 55/2);
+    float rad = radians(135);
+    float angleP = map(diff, 0, 55/2, -rad, rad);
+    movX = 5 * cos(angleP);
+    movY = 5 * sin(angleP);*/
     thread("tock");
   }
   
   // Collision with player 2
   if (movX > 0 && ballposX+5 >= posx2 && ballposY >= posy2 && ballposY <= posy2+55) {
     movX = -movX;
+    /*float diff = ballposY - (posy1 - 55/2);
+    float rad = radians(45);
+    float angleP = map(diff, 0, 55/2, -rad, rad);
+    movX = 5 * cos(angleP);
+    movY = 5 * sin(angleP);*/
     thread("tock");
   }
 }
@@ -100,8 +111,19 @@ void checkGoal() {
     textFont(createFont("Georgia", 20));
     thread("goal");
     showgoal--;
-    ballposX = width/2;
-    ballposY = height/2 - 20;
+    reset();
+  }
+}
+
+void reset() {
+  ballposX = width/2;
+  ballposY = height/2 - 20;
+  angle = random(-PI/4, PI/4);
+  movX = 5 * cos(angle);
+  movY = 5 * sin(angle);
+  
+  if (random(1) < 0.5) {
+    movX = -movX;
   }
 }
 
@@ -118,7 +140,7 @@ void mouseClicked() {
     thread("whistle");
     start = false;
   }else{
-    thread("whistle");
+    thread("whistle");    
     start = true;
   }
 }
@@ -152,7 +174,7 @@ void whistle() {
 }
 
 void goal() {
-  goal.play();
+  //goal.play();
 }
 
 void tock() {
