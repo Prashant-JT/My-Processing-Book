@@ -22,7 +22,7 @@ void setup() {
   size(800, 500);
   posx1 = 5;
   posy1 = height/2 - 30;
-  posx2 = width-10;
+  posx2 = width-15;
   posy2 = height/2 - 30;
   reset();
   textFont(createFont("Georgia", 20));
@@ -55,8 +55,8 @@ void startGame() {
   stroke(126);
 
   // players bat
-  rect(posx1, posy1, 5, 55); // Player 1
-  rect(posx2, posy2, 5, 55); // Player 2
+  rect(posx1, posy1, 10, 55); // Player 1
+  rect(posx2, posy2, 10, 55); // Player 2
 }
 
 void updateBall() {
@@ -73,24 +73,14 @@ void updateBall() {
 
 void checkCollision() {
   // Collision with player 1
-  if (movX < 0 && ballposX-5 <= posx1+5 && ballposY >= posy1 && ballposY <= posy1+55) {
-    movX = -movX;
-    /*float diff = ballposY - (posy1 - 55/2);
-    float rad = radians(135);
-    float angleP = map(diff, 0, 55/2, -rad, rad);
-    movX = 5 * cos(angleP);
-    movY = 5 * sin(angleP);*/
+  if (movX < 0 && ballposX-10 <= posx1+10 && ballposY >= posy1 && ballposY <= posy1+55) {
+    movX = -movX; 
     thread("tock");
   }
   
   // Collision with player 2
-  if (movX > 0 && ballposX+5 >= posx2 && ballposY >= posy2 && ballposY <= posy2+55) {
+  if (movX > 0 && ballposX+10 >= posx2 && ballposY >= posy2 && ballposY <= posy2+55) {
     movX = -movX;
-    /*float diff = ballposY - (posy1 - 55/2);
-    float rad = radians(45);
-    float angleP = map(diff, 0, 55/2, -rad, rad);
-    movX = 5 * cos(angleP);
-    movY = 5 * sin(angleP);*/
     thread("tock");
   }
 }
@@ -99,9 +89,11 @@ void checkGoal() {
   if (ballposX >= width) {
     score1++; // Player 1 scores
     showgoal = 100;
+    thread("goal");
   } else if (ballposX <= 0) {
     score2++; // Player 2 scores
     showgoal = 100;
+    thread("goal");
   }
 
   // Show goal message
@@ -109,19 +101,20 @@ void checkGoal() {
     textFont(createFont("Georgia", 40));
     text("GOOOAAAL !", width/2, height/2 - 30);
     textFont(createFont("Georgia", 20));
-    thread("goal");
     showgoal--;
     reset();
   }
 }
 
 void reset() {
+  // Reset positions variables
   ballposX = width/2;
   ballposY = height/2 - 20;
   angle = random(-PI/4, PI/4);
   movX = 5 * cos(angle);
   movY = 5 * sin(angle);
   
+  // Left or right
   if (random(1) < 0.5) {
     movX = -movX;
   }
@@ -137,9 +130,11 @@ void updateScores() {
 
 void mouseClicked() {
   if (start) {
+    // Resume game
     thread("whistle");
     start = false;
   }else{
+    // Pause game
     thread("whistle");    
     start = true;
   }
@@ -174,7 +169,7 @@ void whistle() {
 }
 
 void goal() {
-  //goal.play();
+  goal.play();
 }
 
 void tock() {
