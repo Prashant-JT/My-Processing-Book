@@ -44,7 +44,10 @@ void draw() {
     fill(255);
     background(0);
     text("Click to start or pause game", width/2, height/2 - 30);
-    textFont(createFont("Georgia", 20));
+    textFont(createFont("Georgia", 16));
+    text("Controls for players", width/2, height/2 + 20);
+    text("Player 1 - A to move up | Z to move down", width/2, height/2 + 50);
+    text("Player 2 - K to move up | M to move down", width/2, height/2 + 80);
   }
 }
 
