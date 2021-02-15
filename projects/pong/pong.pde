@@ -1,6 +1,7 @@
 import processing.sound.*;
 
 boolean start = false;
+boolean a, z, k, m;
 int posx1;
 int posy1;
 int posx2;
@@ -36,6 +37,7 @@ void draw() {
   if (start) {
     startGame();
     updateBall();
+    move();
     checkCollision();
     checkGoal();
     updateScores();
@@ -45,9 +47,13 @@ void draw() {
     background(0);
     text("Click to start or pause game", width/2, height/2 - 30);
     textFont(createFont("Georgia", 16));
-    text("Controls for players", width/2, height/2 + 20);
-    text("Player 1 - A to move up | Z to move down", width/2, height/2 + 50);
-    text("Player 2 - K to move up | M to move down", width/2, height/2 + 80);
+    text("-----------------------", width/2, height/2 + 20);
+    text("Controls for players", width/2, height/2 + 35);
+    text("-----------------------", width/2, height/2 + 50);
+    text("Player 1 - A to move up | Z to move down", width/2, height/2 + 75);
+    text("Player 2 - K to move up | M to move down", width/2, height/2 + 105);
+    text("To restart scores, press r", width/2, height/2 + 135);
+    text("© Prashant Jeswani Tejwani", width/2, height - 20);
   }
 }
 
@@ -57,7 +63,7 @@ void startGame() {
   line(width/2, 0, width/2, height);
   stroke(126);
 
-  // players bat
+  // Players bat
   rect(posx1, posy1, 10, 55); // Player 1
   rect(posx2, posy2, 10, 55); // Player 2
 }
@@ -77,12 +83,14 @@ void updateBall() {
 void checkCollision() {
   // Collision with player 1
   if (movX < 0 && ballposX-10 <= posx1+10 && ballposY >= posy1 && ballposY <= posy1+55) {
-    movX = -movX; 
+    movX--; // Speed up ball velocity
+    movX = -movX;
     thread("tock");
   }
   
   // Collision with player 2
   if (movX > 0 && ballposX+10 >= posx2 && ballposY >= posy2 && ballposY <= posy2+55) {
+    movX++; // Speed up ball velocity
     movX = -movX;
     thread("tock");
   }
@@ -114,8 +122,8 @@ void reset() {
   ballposX = width/2;
   ballposY = height/2 - 20;
   angle = random(-PI/4, PI/4);
-  movX = 5 * cos(angle);
-  movY = 5 * sin(angle);
+  movX = 3;
+  movY = 5 * sin(angle);  
   
   // Left or right
   if (random(1) < 0.5) {
@@ -131,6 +139,39 @@ void updateScores() {
   text(str(score2), width-20, height-16); // Player 2 score
 }
 
+void restartScores() {
+  score1 = 0;
+  score2 = 0;
+  reset();
+}
+
+// Move players
+void move() {
+  if (z) { // Player 1 down
+    if (posy1 < height-89) {
+      posy1 += 10;
+    }
+  }
+  
+  if (a) { 
+    if (posy1 > 5) { // Player 1 up
+      posy1 -= 10;
+    }
+  }
+  
+  if (k) { // Player 2 up
+    if (posy2 > 5) {
+      posy2 -= 10;
+    }
+  }
+  
+  if (m) {
+    if (posy2 < height-89) { // Player 2 down
+      posy2 += 10;
+    }
+  }
+}
+
 void mouseClicked() {
   if (start) {
     // Resume game
@@ -143,26 +184,22 @@ void mouseClicked() {
   }
 }
 
+// Detect key released
+void keyReleased() {
+  if (key == 'z') z = false;
+  if (key == 'a') a = false;
+  if (key == 'k') k = false;
+  if (key == 'm') m = false;
+}
+
 // Detect pressed keys
 void keyPressed() {
   if (keyPressed) {
-    if (key == 'z') { // Player 1
-      if (posy1 < height-89) {
-        posy1 += 10;
-      }
-    } else if (key == 'a') { 
-      if (posy1 > 5) {
-        posy1 -= 10;
-      }
-    } else if (key == 'k') { // Player 2
-      if (posy2 > 5) {
-        posy2 -= 10;
-      }
-    } else if (key == 'm') {
-      if (posy2 < height-89) {
-        posy2 += 10;
-      }
-    }
+    if (key == 'z') z = true;
+    if (key == 'a') a = true;
+    if (key == 'k') k = true;
+    if (key == 'm') m = true;
+    if (key == 'r') restartScores();
   }
 }
 
