@@ -1,4 +1,4 @@
-PShape obj;
+PShape figure;
 ArrayList <PVector> points;
 
 void setup() {
@@ -6,29 +6,31 @@ void setup() {
   background(0);
   fill(255);
   stroke(255);
+  strokeWeight(4);
   points = new ArrayList<PVector>();
 }
 
 void draw() {
+  background(0);
   // Center line
   line(width/2, 0, width/2, height);
   
   if (!points.isEmpty()) {
     line((points.get(points.size()-1).x), (points.get(points.size()-1).y), mouseX, mouseY);
+    
+    // Draw current figure
+    if (points.size() > 1) {
+      for (int i = 0; i < points.size()-1; i++) {
+        line(points.get(i).x, points.get(i).y, points.get(i+1).x, points.get(i+1).y);
+      }
+    }
   }
-  
-  /*
-  for (int i = 0; i < points.size()-1; i=i+2) {
-    ellipse(points.get(i).x, points.get(i).y, 5, 5);
-    //line(point.x, point.y, width/2, height);
-    line(points.get(i).x, points.get(i).y, points.get(i+1).x, points.get(i+1).y);
-  }
-  */
+   
 }
 
+// Detect when user click to create a vertex
 void mousePressed() {
   if (mouseX >= width/2) { 
-    //ellipse(mouseX, mouseY, 5, 5);
     points.add(new PVector(mouseX, mouseY));
   }
 }
