@@ -198,7 +198,7 @@ Para la tranformación de las coordenadas se han hecho uso de las siguientes fó
 ![](/My-Processing-Book/images/solid_of_revolution/solid-of-revolution-demo.gif  "Ejecución del código en Processing")
 
 ## Descargar código en Processing 
-Para descargar el código en Processing, acceda a: <a href="https://downgit.github.io/#/home?url=https://github.com/Prashant-JT/My-Processing-Book/blob/master/projects/solid_of_revolution/solid_of_revolution.pde">Descargar código en Processing</a> o acceda a la carpeta del repositorio del proyecto en: <a href="https://github.com/Prashant-JT/My-Processing-Book/tree/master/projects/solid_of_revolution">Repositorio del proyecto</a>
+Para descargar el código en Processing, acceda a: <a href="https://downgit.github.io/#/home?url=https://github.com/Prashant-JT/My-Processing-Book/tree/master/projects/solid_of_revolution">Descargar código en Processing</a> o acceda a la carpeta del repositorio del proyecto en: <a href="https://github.com/Prashant-JT/My-Processing-Book/tree/master/projects/solid_of_revolution">Repositorio del proyecto</a>
 
 ---
 
