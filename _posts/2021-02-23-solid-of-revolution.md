@@ -16,13 +16,13 @@ Se implementa un prototipo que recoge puntos de un perfil del sólido de revoluc
 
 ## Diseño 
 
-El diseño original del Pong es el que se puede observar en la siguiente figura. Un tablero color negro dividido en dos por una línea blanca central, dejando a cada lado una pala en forma vertical y su respectivo marcador en la zona inferior de cada campo de juego.
+El diseño ha sido el que se puede observar en la siguiente figura. Un lienzo con fondo negro dividido en dos por una línea blanca central, el usuario dibuja los vértices que desee en la parte derecha del lienzo con el fin de crear un sólido de revolución:
 
 ![](/My-Processing-Book/images/solid_of_revolution/solid_of_revolution.PNG "Diseño del programa en Processing")
 
 ## Código implementado
 
-<p>A continuación se describe el trabajo realizado. Primeramente, se inicializan e importan las variables y librerías necesarias para el control y lógica del juego que se irán explicando a medida que se avance en la explicación del código:</p>
+A continuación se describe el trabajo realizado. Primeramente, se crean e inicializan las variables necesarias para el control de los vértides del usuario que se irán explicando a medida que se avance en la explicación del código. En la función **setup()** se establece el tamaño de la ventana a 800x700 píxeles, se establecen los colores y se inicializa un *ArrayList* que irá almacenando los vértices elegidos por el usuario con elementos de tipo *PVector*:
 
     PShape figure;
     PShape figureSolid;
@@ -39,7 +39,7 @@ El diseño original del Pong es el que se puede observar en la siguiente figura.
       points = new ArrayList<PVector>();
     }
 
-<br>En la función **setup()** se establece el tamaño de la ventana a 800x500 píxeles, se inicializan las posiciones de las palas de ambos jugadores, la posición de la pelota y se cargan los sonidos que se han utilizado para el proyecto:
+<br>En la función **draw()** se dibuja la línea central y se muestran los controles en la parte inferior izquierda. La variable booleana *drawFigure* se establecerá a verdadero cuando el usuario desee crear el sólido de revolución con los puntos escogidos, mientras tanto el usuario podrá seguir escogiendo nuevos vértices para su figura. Estos vértices son dibujados mediante la función *ellipse(x,y,r,r)* y las aristas de la figura mediante *line(x1,y1,x2,y2)*.
 
     void draw() {
       background(0);
@@ -66,9 +66,7 @@ El diseño original del Pong es el que se puede observar en la siguiente figura.
       }
     }
 
-<br>La función **draw()** se ejecuta por defecto de forma continua con una frecuencia de 60 llamadas por segundo. Se ha añadido al juego la funcionalidad de poder pausar o reanudar el juego al hacer click sobre la ventana. Para ello se ha hecho uso de una variable booleana *start* la cual indicará si el juego está en ejecución o en pausa. Por defecto, el juego estará en pausa, mostrando un mensaje textual e informará que al hacer click se podrá iniciar o pausar la partida y mostrará los controles de ambos jugadores para su movimiento de pala. Cuando el usuario desee comenzar a jugar, la variable *start* se establecerá a *true* y el juego comenzará hasta la siguiente pausa. 
-
-Para que el código sea más legible y fácil de entender, se han implementado distintas funciones que realizarán una serie de acciones con el fin de que el juego se ejecute correctamente. 
+<br>Para que el código sea más legible y fácil de entender, se han implementado distintas funciones que realizarán una serie de acciones con el fin de que el programa se ejecute correctamente. Cuando la el usuario 
 
     // Create figure
     void drawFigure() {
@@ -105,7 +103,7 @@ Para que el código sea más legible y fácil de entender, se han implementado d
       return new PVector(x2, y2, z2);
     }
 
-<br>En el momento el cual el usuario decide empezar o reanudar el juego, se ejecutará la función **startGame()** el cual establecerá los colores de fondo utilizando las funciones **background()**, **fill()**. Se dibuja una línea en el centro con la función **line(x,y,h)** con el fin de diferenciar ambos lados de los jugadores y establecer un centro del campo. Para dibujar las palas de ambos jugadores se hace uso de la función **rect(x,y,w,h)** al cual se le pasa como parámetros las coordenadas (x, y), anchura y altura del rectángulo. 
+<br>. 
 
     // Create solid of revolution
     void drawSolidRevolution(ArrayList solid) {
@@ -126,7 +124,7 @@ Para que el código sea más legible y fácil de entender, se han implementado d
       }
     }
     
-<br>En el momento el cual el usuario decide empezar o reanudar el juego, se ejecutará la función **startGame()** el cual establecerá los colores de fondo utilizando las funciones **background()**, **fill()**. Se dibuja una línea en el centro con la función **line(x,y,h)** con el fin de diferenciar ambos lados de los jugadores y establecer un centro del campo. Para dibujar las palas de ambos jugadores se hace uso de la función **rect(x,y,w,h)** al cual se le pasa como parámetros las coordenadas (x, y), anchura y altura del rectángulo. 
+<br>La función **minMaxY()** se encarga de devolver en un array de tamaño dos, los puntos máximos y mínimos de la coordenada Y con el fin de transladar el ratón en el centro del sólido de revolución (vea el método **draw()**).
 
     float[] minMaxY() {
       float maxY = 0;
@@ -138,14 +136,14 @@ Para que el código sea más legible y fácil de entender, se han implementado d
       return new float[] {minY, maxY};
     }
 
-<br>A continuación en la función **updateBall()** se dibuja la pelota mediante la función de **ellipse(x,y,w,h)** pasándole las coordenadas, ancho y alto (en este caso el ancho y el alto es igual, aunque también se podría haber hecho uso de la función **circle(x,y,r)**) y se establecen las velocidades en el cual cirulará la pelota. Además, se contrala los casos en el cual la pelota impacta contra las paredes superiores e inferiores, cuando esto ocurre, simplemente se cambia el signo del eje Y para que haya el efecto rebote. Cabe destacar que cada vez que la pelota rebote en alguna de las paredes (o en las palas como veremos más adelante), se reproduce un sonido. Este sonido se ejecuta lanzando un hilo mediante la función **thread()** (el cual llama la función **tock()**) ya que puede presentarse efectos extraños durante la reproducción de sonido dependiendo de su duración.
+<br>La función **clearPoints()** elimina todos los vértices del usuario con el fin de que se pueda crear nuevos sólidos de revolución. Esta función se invocará cuando el usuario presione la tecla 'c' para limpiar la pantalla (se llamará en el método **keyPressed()**).
 
     // Clear all points of the figure
     void clearPoints() {
       points.clear();
     }
 
-<br>Para el movimiento de los jugadores puedan ser simultáneos, se han tenido que crear las variables booleanas *a, z, k, m*, las cuales indicarán cuándo una tecla ha sido pulsada y cuando se ha dejado de pulsar. Dependiendo de qué tecla se ha pulsado la respectiva pala se moverá. Más adelante, veremos las inicializaciones de estas variables ya que serán modificadas en los eventos **keyPressed()** y **keyReleased()**.
+<br>La finalidad de la función **controlsMessage()** es mostrar los controles del programa. Cabe destacar que tanto el clic izquierdo como el derecho del ratón pueden ser empleados para crear un nuevo vértice en Processing (en el caso de p5.js solo el clic izquierdo).
 
     void controlsMessage() {
       fill(255);
@@ -158,7 +156,7 @@ Para que el código sea más legible y fácil de entender, se han implementado d
       text("© Prashant Jeswani Tejwani", 10, height - 20);
     }
 
-<br>La función **checkCollision()** se encarga de detectar si la pelota ha colisionado con la pala de alguno de los jugadores. Si es así, se invierte la dirección de la cooredenada X de la pelota, la velocidad de la pelota aumenta y se reproduce el sonido de rebote, tanto para el jugador 1 como para el jugador 2.
+<br>La función **mousePressed()** se encarga de detectar el nuevo vértice que ha elegido el usuario en la parte derecha del lienzo. Este se añadirá en el vector de los puntos que almacena los vértices elegidos anteriormente:
 
     // Detect when user clicks to create a new vertex
     void mousePressed() {
@@ -167,7 +165,10 @@ Para que el código sea más legible y fácil de entender, se han implementado d
       }
     }
    
-<br>La función **checkGoal()** chequea si la pelota a sobrepasado la posición de algunas de las palas de los jugadores, es decir, si ha habido un gol. Si hay un gol, se aumenta el contador del jugador que ha marcado, se muestra un texto ("GOOOAAAL !") y se reproduce un sonido de gol. Finalmente, se reestablecen las coordenadas de la pelota llamando la función **reset()**.
+<br>La función **keyPressed()** chequea los distintos tipos de controles. Los controles establecidos son los siguientes:
+    * Tecla 'c' para limpiar la pantalla y crear una nueva figura. Para ello se establece la variable booleana a falso y se invoca al método **clearPoints()** para eliminar todos los vértices.
+    * Tecla 'x' para eliminar el último vertice creado cuando el usuario está creando los vértices de la figura. Para ello lo único que se debe hacer es eliminar el último vértice de la lista de puntos/vértices.
+    * Tecla 'd' para cerrar la figura, calcular y mostrar el sólido de revolución. Para ello se establece la variable booleana a verdadero y se invoca al método **drawFigure()** explicado anteriormente.
 
     // Detect controls
     void keyPressed() {
@@ -185,10 +186,8 @@ Para que el código sea más legible y fácil de entender, se han implementado d
         drawFigure();
       }
     }
-
-<br>El evento **keyPressed()** es el encargado de detectar los movimientos de las palas de los jugadores y actualizar la coordenada Y de las mismas. Los controles que se han establecido son los siguientes:
     
-<br>A continuación, se muestra el resultado final del proyecto con un gif animado: 
+<br>A continuación, se muestra un ejemplo con su resultado final mediante un gif animado: 
 
 ![](/My-Processing-Book/images/solid_of_revolution/solid-of-revolution-demo.gif  "Ejecución del código en Processing")
 
