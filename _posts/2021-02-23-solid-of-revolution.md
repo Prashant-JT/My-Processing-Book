@@ -66,7 +66,7 @@ A continuación se describe el trabajo realizado. Primeramente, se crean e inici
       }
     }
 
-<br>Para que el código sea más legible y fácil de entender, se han implementado distintas funciones que realizarán una serie de acciones con el fin de que el programa se ejecute correctamente. Cuando el usuario presione la tecla 'd' para dibujar, se invocará al método **drawFigure()**. Esta función se encarga de calcular las respectivas transformaciones de coordenadas en un bucle que se ejecuta 360 veces para cada vértice (estos puntos se irán almacenando en el array *solid* como un array, es decir, *solid* es un array de arrays), en donde se llama la función **translatePoints(PVector point, float theta)** para la rotación de los puntos de dicho perfil y obtener los vértices 3D de la malla del objeto.
+<br>Para que el código sea más legible y fácil de entender, se han implementado distintas funciones que realizarán una serie de acciones con el fin de que el programa se ejecute correctamente. Cuando el usuario presione la tecla 'd' para dibujar, se invocará al método **drawFigure()**. Esta función se encarga de calcular las respectivas transformaciones de coordenadas en un bucle que se ejecuta 360 veces para cada vértice (estos puntos se irán almacenando en el array *solid* como un array, es decir, *solid* es un array de arrays).
 
     // Create figure
     void drawFigure() {
@@ -92,7 +92,7 @@ A continuación se describe el trabajo realizado. Primeramente, se crean e inici
       drawSolidRevolution(solid);
     }
     
-<br>
+<br>En el bucle anterior, se llama la función **translatePoints(PVector point, float theta)** para la rotación de los puntos de dicho perfil y obtener los vértices 3D de la malla del objeto:
     
     PVector translatePoints(PVector point, float theta) { 
       // x2 = x1 * cos0 - y1 * sen0
@@ -106,7 +106,7 @@ A continuación se describe el trabajo realizado. Primeramente, se crean e inici
     }
     
 Para la tranformación de las coordenadas se han hecho uso de las siguientes fórmulas:
-[](/My-Processing-Book/images/solid_of_revolution/tranformation.PNG  "Transformaciones de las coordenadas X,Y,Z")
+![](/My-Processing-Book/images/solid_of_revolution/tranformation.PNG  "Transformaciones de las coordenadas X,Y,Z")
 
 
 <br>La función **drawSolidRevolution(ArrayList a)** se encarga de dibujar el sólido de revolución. También se encarga de rellenar la figura con triángulos, para ello, se genera un PShape para cada triángulo generado. Finalmente, para construir la figura final, se utiliza el *figureSolid* creado en la función anterior determinado como GROUP, cuya finalidad es reunir todas las figuras generadas y mostrarlas como una misma (para adjuntar una figura se emplea la función *addChild()*). 
