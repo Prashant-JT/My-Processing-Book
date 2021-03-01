@@ -186,57 +186,28 @@ Para que el código sea más legible y fácil de entender, se han implementado d
       }
     }
 
-
-El menú del juego al pausar queda de la siguiente manera:
-
-![](/My-Processing-Book/images/pong/pause-game.PNG "Juego en pausa en Processing")
-
 <br>El evento **keyPressed()** es el encargado de detectar los movimientos de las palas de los jugadores y actualizar la coordenada Y de las mismas. Los controles que se han establecido son los siguientes:
-
-Jugador 1: A para mover la pala arriba y Z para mover la pala abajo.
-
-Jugador 2: K para mover la pala arriba y M para mover la pala abajo.
-
-    // Detect key released
-    void keyReleased() {
-      if (key == 'z') z = false;
-      if (key == 'a') a = false;
-      if (key == 'k') k = false;
-      if (key == 'm') m = false;
-    }
-
-    // Detect pressed keys
-    void keyPressed() {
-      if (keyPressed) {
-        if (key == 'z') z = true;
-        if (key == 'a') a = true;
-        if (key == 'k') k = true;
-        if (key == 'm') m = true;
-        if (key == 'r') restartScores();
-      }
-    }
     
 <br>A continuación, se muestra el resultado final del proyecto con un gif animado: 
 
-![](/My-Processing-Book/images/pong/gif-demo.gif "Ejecución del código en Processing")
+![](/My-Processing-Book/images/solid_of_revolution/solid-of-revolution-demo.gif "Ejecución del código en Processing")
 
-
-Para descargar el código en Processing, acceda a : <a href="https://downgit.github.io/#/home?url=https://github.com/Prashant-JT/My-Processing-Book/blob/master/projects/solid_of_revolution/solid_of_revolution.pde">Descargar código en Processing</a> o acceder a la carpeta del repositorio del proyecto: <a href="https://github.com/Prashant-JT/My-Processing-Book/tree/master/projects/solid_of_revolution">Repositorio con el código en Processing</a>
+Para descargar el código en Processing, acceda a: <a href="https://downgit.github.io/#/home?url=https://github.com/Prashant-JT/My-Processing-Book/blob/master/projects/solid_of_revolution/solid_of_revolution.pde">Descargar código en Processing</a> o acceda a la carpeta del repositorio del proyecto: <a href="https://github.com/Prashant-JT/My-Processing-Book/tree/master/projects/solid_of_revolution">Repositorio con el código en Processing</a>
 
 ---
 
 
 ## Ver demo 
 
-Se ha implementado el código a p5.js con el fin de poder jugar en un navegador. Para ello se han tenido que modificar algunos aspectos como el tamaño de letra, entre otros:
-{% include info.html text="Para jugar debe abrir el enlace en un navegador. No se podrá jugar en dispositivos móviles" %}
+Se ha implementado el código a p5.js con el fin de poder probarlo en un navegador. Para ello se han tenido que modificar algunos aspectos como el tamaño de letra, tipos de variables, entre otros:
+{% include info.html text="Para probarlo debe abrir el enlace en un navegador. No se podrá jugar en dispositivos móviles" %}
 
 | **Ver demo** | <a href="https://editor.p5js.org/Prashant-JT/full/XKp-ISITk">Dale click para ver demo</a> |
 
 ## Referencias
 
+[Guión de prácticas](https://ncvt-aep.ulpgc.es/cv/ulpgctp21/pluginfile.php/412240/mod_resource/content/37/CIU_Pr_cticas.pdf)
+
 [Página de Processing](https://processing.org/examples/)
 
-[Efectos de sonido](https://www.videvo.net/es/efectos-de-sonido/)
-
-[Guión de prácticas](https://ncvt-aep.ulpgc.es/cv/ulpgctp21/pluginfile.php/412240/mod_resource/content/37/CIU_Pr_cticas.pdf)
+[Creación del enlace de descarga](https://downgit.github.io/#/home)
