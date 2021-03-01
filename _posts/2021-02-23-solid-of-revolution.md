@@ -24,57 +24,45 @@ El diseño original del Pong es el que se puede observar en la siguiente figura.
 
 <p>A continuación se describe el trabajo realizado. Primeramente, se inicializan e importan las variables y librerías necesarias para el control y lógica del juego que se irán explicando a medida que se avance en la explicación del código:</p>
 
-    import processing.sound.*;
+    PShape figure;
+    PShape figureSolid;
+    ArrayList <PVector> points;
+    boolean drawFigure;
 
-    boolean start = false;
-    boolean a, z, k, m;
-    int posx1;
-    int posy1;
-    int posx2;
-    int posy2;
-    int score1 = 0;
-    int score2 = 0;
-    float ballposX;
-    float ballposY;
-    float angle;
-    float movX;
-    float movY;
-    int diameter = 10;
-    int showgoal = 0;
-    SoundFile goal;
-    SoundFile tock;
-    SoundFile whistle;
+    void setup() {
+      size(800, 700, P3D);
+      background(0);
+      fill(255);
+      stroke(255);
+      strokeWeight(3);
+      drawFigure = false;
+      points = new ArrayList<PVector>();
+    }
 
 <br>En la función **setup()** se establece el tamaño de la ventana a 800x500 píxeles, se inicializan las posiciones de las palas de ambos jugadores, la posición de la pelota y se cargan los sonidos que se han utilizado para el proyecto:
 
-    void setup() {
-      size(800, 500);
-      posx1 = 5;
-      posy1 = height/2 - 30;
-      posx2 = width-15;
-      posy2 = height/2 - 30;
-      reset();
-      textFont(createFont("Georgia", 20));
-      textAlign(CENTER, CENTER);
-      goal = new SoundFile(this, "data/goal.mp3");
-      tock = new SoundFile(this, "data/tock.mp3");
-      whistle = new SoundFile(this, "data/whistle.mp3");
-    }
+    void draw() {
+      background(0);
+      // Center line
+      line(width/2, 0, width/2, height);
+      controlsMessage();
 
-<br>En la función **reset()** se resetean las posición de la pelota, además se decide aleatoriamente la dirección a la que irá dirigida cuando comience la ronda del juego, así como en el ángulo al cual apuntará.
-Para calcular el ángulo en el cual la pelota se lanzará, se utiliza la funión **random()** pasando como parámetros -pi/4 y pi/4. A continuación, se establece la velocidad del eje X a 3 (la velocidad irá aumentado cada vez que rebote contra una pala, que se explicará más adelante) y se calcula el del eje Y como *5 * sin(ángulo)*. Para el saque central, se vuelve a utilizar la función random(), al cual se pasa como parámetro un 1. Esto devolverá un valor aleatorio entre 0-1, si el valor es menor que 0.5 la pelota rodará hacia la izquierda, sino, hacia la derecha. 
-
-    void reset() {
-      // Reset positions variables
-      ballposX = width/2;
-      ballposY = height/2 - 20;
-      angle = random(-PI/4, PI/4);
-      movX = 3;
-      movY = 5 * sin(angle);  
-
-      // Left or right
-      if (random(1) < 0.5) {
-        movX = -movX;
+      if (drawFigure) {
+        // [minY, maxY]
+        float[] minMaxY = minMaxY();
+        // Place mouse in the center of the figure
+        translate(mouseX, mouseY - (minMaxY[0] - (minMaxY[0] - minMaxY[1])/2));
+        shape(figureSolid);
+      }else if (!points.isEmpty()) {
+        line((points.get(points.size()-1).x), (points.get(points.size()-1).y), mouseX, mouseY);
+        ellipse((points.get(points.size()-1).x), (points.get(points.size()-1).y), 5, 5);
+        // Draw current edges
+        if (points.size() > 1) {
+          for (int i = 0; i < points.size()-1; i++) {
+            line(points.get(i).x, points.get(i).y, points.get(i+1).x, points.get(i+1).y);
+            ellipse((points.get(i).x), (points.get(i).y), 5, 5);
+          }
+        }
       }
     }
 
@@ -82,160 +70,122 @@ Para calcular el ángulo en el cual la pelota se lanzará, se utiliza la funión
 
 Para que el código sea más legible y fácil de entender, se han implementado distintas funciones que realizarán una serie de acciones con el fin de que el juego se ejecute correctamente. 
 
-    void draw() {
-      if (start) {
-        startGame();
-        updateBall();
-        move();
-        checkCollision();
-        checkGoal();
-        updateScores();
-      }else{
-        textFont(createFont("Georgia", 40));
-        fill(255);
-        background(0);
-        text("Click to start or pause game", width/2, height/2 - 30);
-        textFont(createFont("Georgia", 16));
-        text("-----------------------", width/2, height/2 + 20);
-        text("Controls for players", width/2, height/2 + 35);
-        text("-----------------------", width/2, height/2 + 50);
-        text("Player 1 - A to move up | Z to move down", width/2, height/2 + 75);
-        text("Player 2 - K to move up | M to move down", width/2, height/2 + 105);
-        text("To restart scores, press r", width/2, height/2 + 135);
-        text("© Prashant Jeswani Tejwani", width/2, height - 20);
+    // Create figure
+    void drawFigure() {
+      ArrayList <ArrayList> solid = new ArrayList<ArrayList>();
+      figureSolid = createShape(GROUP);
+      figure = createShape();
+      figure.beginShape(LINES);
+
+      // Translate points
+      for (PVector point : points) {
+        ArrayList <PVector> pointTranslated = new ArrayList<PVector>();
+        for (int i = 0; i < 360; i++) {
+          pointTranslated.add(translatePoints(point, radians(i)));
+        }
+        solid.add(pointTranslated);
+      }
+
+      // Close shape and add to final figure
+      figure.endShape(CLOSE);
+      figureSolid.addChild(figure);
+
+      // Create solid of revolution
+      drawSolidRevolution(solid);
+    }
+
+    PVector translatePoints(PVector point, float theta) { 
+      // x2 = x1 * cos0 - y1 * sen0
+      float x2 = (point.x - width/2) * cos(theta) - point.z * sin(theta);
+      // y2 = y1
+      float y2 = point.y;
+      // z2 = x1 * sen0 + z1 * cos0
+      float z2 = (point.x - width/2) * sin(theta) + point.z * cos(theta);
+      figure.vertex(x2, y2, z2);
+      return new PVector(x2, y2, z2);
+    }
+
+<br>En el momento el cual el usuario decide empezar o reanudar el juego, se ejecutará la función **startGame()** el cual establecerá los colores de fondo utilizando las funciones **background()**, **fill()**. Se dibuja una línea en el centro con la función **line(x,y,h)** con el fin de diferenciar ambos lados de los jugadores y establecer un centro del campo. Para dibujar las palas de ambos jugadores se hace uso de la función **rect(x,y,w,h)** al cual se le pasa como parámetros las coordenadas (x, y), anchura y altura del rectángulo. 
+
+    // Create solid of revolution
+    void drawSolidRevolution(ArrayList solid) {
+      fill(0);
+      for (int i = 1; i < solid.size(); i++) {
+        ArrayList <PVector> currentPoint = (ArrayList) solid.get(i);
+        ArrayList <PVector> previousPoint = (ArrayList) solid.get(i-1);
+        for (int j = 11; j < 360; j = j+10) {
+           PShape t = createShape();
+           t.beginShape(TRIANGLES);
+           t.vertex(currentPoint.get(j).x, currentPoint.get(j).y, currentPoint.get(j).z);
+           t.vertex(previousPoint.get(j).x, previousPoint.get(j).y, previousPoint.get(j).z);
+           t.vertex(currentPoint.get(j-9).x, currentPoint.get(j-9).y, currentPoint.get(j-9).z);
+           t.endShape(CLOSE);
+
+           figureSolid.addChild(t);
+        }
       }
     }
     
 <br>En el momento el cual el usuario decide empezar o reanudar el juego, se ejecutará la función **startGame()** el cual establecerá los colores de fondo utilizando las funciones **background()**, **fill()**. Se dibuja una línea en el centro con la función **line(x,y,h)** con el fin de diferenciar ambos lados de los jugadores y establecer un centro del campo. Para dibujar las palas de ambos jugadores se hace uso de la función **rect(x,y,w,h)** al cual se le pasa como parámetros las coordenadas (x, y), anchura y altura del rectángulo. 
 
-    void startGame() {
-      background(10);
-      fill(255);
-      line(width/2, 0, width/2, height);
-      stroke(126);
-
-      // Players bat
-      rect(posx1, posy1, 10, 55); // Player 1
-      rect(posx2, posy2, 10, 55); // Player 2
+    float[] minMaxY() {
+      float maxY = 0;
+      float minY = 0;
+      for (PVector point : points) {
+        if (point.y > maxY) maxY = point.y;
+        if (point.y < minY) minY = point.y;
+      }
+      return new float[] {minY, maxY};
     }
 
 <br>A continuación en la función **updateBall()** se dibuja la pelota mediante la función de **ellipse(x,y,w,h)** pasándole las coordenadas, ancho y alto (en este caso el ancho y el alto es igual, aunque también se podría haber hecho uso de la función **circle(x,y,r)**) y se establecen las velocidades en el cual cirulará la pelota. Además, se contrala los casos en el cual la pelota impacta contra las paredes superiores e inferiores, cuando esto ocurre, simplemente se cambia el signo del eje Y para que haya el efecto rebote. Cabe destacar que cada vez que la pelota rebote en alguna de las paredes (o en las palas como veremos más adelante), se reproduce un sonido. Este sonido se ejecuta lanzando un hilo mediante la función **thread()** (el cual llama la función **tock()**) ya que puede presentarse efectos extraños durante la reproducción de sonido dependiendo de su duración.
 
-    void updateBall() {
-      ellipse(ballposX, ballposY, diameter, diameter);
-      ballposX += movX;
-      ballposY += movY;
-
-      // Lower and upper wall
-      if (ballposY+(diameter/2) >= height - 25 || ballposY-(diameter/2) <= 0) {
-        movY = -movY;
-        thread("tock");
-      }
+    // Clear all points of the figure
+    void clearPoints() {
+      points.clear();
     }
 
 <br>Para el movimiento de los jugadores puedan ser simultáneos, se han tenido que crear las variables booleanas *a, z, k, m*, las cuales indicarán cuándo una tecla ha sido pulsada y cuando se ha dejado de pulsar. Dependiendo de qué tecla se ha pulsado la respectiva pala se moverá. Más adelante, veremos las inicializaciones de estas variables ya que serán modificadas en los eventos **keyPressed()** y **keyReleased()**.
 
-    // Move players
-    void move() {
-      if (z) { // Player 1 down
-        if (posy1 < height-89) {
-          posy1 += 10;
-        }
-      }
-
-      if (a) { 
-        if (posy1 > 5) { // Player 1 up
-          posy1 -= 10;
-        }
-      }
-
-      if (k) { // Player 2 up
-        if (posy2 > 5) {
-          posy2 -= 10;
-        }
-      }
-
-      if (m) {
-        if (posy2 < height-89) { // Player 2 down
-          posy2 += 10;
-        }
-      }
+    void controlsMessage() {
+      fill(255);
+      textFont(createFont("Georgia", 12));
+      text("Draw vertexes on the right side of the centered line", 10, height - 140);
+      text("Right click to create new vertex", 10, height - 120);
+      text("Press 'x' to delete last vertex", 10, height - 80);
+      text("Press 'd' to draw solid of revolution", 10, height - 60);
+      text("Press 'c' to clear screen", 10, height - 100);
+      text("© Prashant Jeswani Tejwani", 10, height - 20);
     }
 
 <br>La función **checkCollision()** se encarga de detectar si la pelota ha colisionado con la pala de alguno de los jugadores. Si es así, se invierte la dirección de la cooredenada X de la pelota, la velocidad de la pelota aumenta y se reproduce el sonido de rebote, tanto para el jugador 1 como para el jugador 2.
 
-    void checkCollision() {
-      // Collision with player 1
-      if (movX < 0 && ballposX-10 <= posx1+10 && ballposY >= posy1 && ballposY <= posy1+55) {
-        movX--; // Speed up ball velocity
-        movX = -movX;
-        thread("tock");
-      }
-
-      // Collision with player 2
-      if (movX > 0 && ballposX+10 >= posx2 && ballposY >= posy2 && ballposY <= posy2+55) {
-        movX++; // Speed up ball velocity
-        movX = -movX;
-        thread("tock");
+    // Detect when user clicks to create a new vertex
+    void mousePressed() {
+      if (mouseX >= width/2 && !drawFigure) {
+        points.add(new PVector(mouseX, mouseY));
       }
     }
    
 <br>La función **checkGoal()** chequea si la pelota a sobrepasado la posición de algunas de las palas de los jugadores, es decir, si ha habido un gol. Si hay un gol, se aumenta el contador del jugador que ha marcado, se muestra un texto ("GOOOAAAL !") y se reproduce un sonido de gol. Finalmente, se reestablecen las coordenadas de la pelota llamando la función **reset()**.
 
-    void checkGoal() {
-      if (ballposX >= width) {
-        score1++; // Player 1 scores
-        showgoal = 100;
-        thread("goal");
-      } else if (ballposX <= 0) {
-        score2++; // Player 2 scores
-        showgoal = 100;
-        thread("goal");
-      }
-
-      // Show goal message
-      if (showgoal > 0) {
-        textFont(createFont("Georgia", 40));
-        text("GOOOAAAL !", width/2, height/2 - 30);
-        textFont(createFont("Georgia", 20));
-        showgoal--;
-        reset();
+    // Detect controls
+    void keyPressed() {
+      if (key == 'c') {
+        // Clear screen
+        drawFigure = false;
+        clearPoints();
+      }else if(key == 'x' && points.size() > 0 && !drawFigure) {
+        // Remove last vertex
+        points.remove(points.get(points.size()-1));
+      }else if (key == 'd' && points.size() > 2) {
+        // Draw last vertex
+        line((points.get(points.size()-1).x), (points.get(points.size()-1).y), points.get(0).x, points.get(0).y);
+        drawFigure = true;
+        drawFigure();
       }
     }
 
-<br>La función **updateScores()** tiene como único objetivo mostrar y actualizar el marcador. Para ello se dibuja un rectángulo con el número de puntos de cada jugador en sus respectivos lados del campo. 
-
-    void updateScores() {
-      rect(0, height-25, width, height-25);
-      fill(0);
-      text("Scoreboard", width/2, height-16);
-      text(str(score1), 20, height-16); // Player 1 score
-      text(str(score2), width-20, height-16); // Player 2 score
-    }
-
-![](/My-Processing-Book/images/pong/scoreboard.PNG "Marcador de puntos")
- 
-<br>Se ha añadido otra funcionalidad la cual si el usuario desea reiniciar el marcador puiede pulsar la tecla *r* y los marcadores se pondrán a cero, reestableciendo la posición de la pelota al centro del campo mediante la función **reset()**. 
-
-    void restartScores() {
-      score1 = 0;
-      score2 = 0;
-      reset();
-    }
-
-<br>El evento **mouseClicked()** es el encargado de reanudar o pausar el juego, modificando la variable *start* comentada anteriormente. También se reproduce un sonido de pito para indicar que se reanuda o pausa el juego.
-
-    void mouseClicked() {
-      if (start) {
-        // Resume game
-        thread("whistle");
-        start = false;
-      }else{
-        // Pause game
-        thread("whistle");    
-        start = true;
-      }
-    }
 
 El menú del juego al pausar queda de la siguiente manera:
 
@@ -264,20 +214,6 @@ Jugador 2: K para mover la pala arriba y M para mover la pala abajo.
         if (key == 'm') m = true;
         if (key == 'r') restartScores();
       }
-    }
-    
-<br>Finalmente las siguientes funciones son las que se llaman para que se reproduzcan los sonidos:
-
-    void whistle() {
-      whistle.play();
-    }
-
-    void goal() {
-      goal.play();
-    }
-
-    void tock() {
-      tock.play();
     }
     
 <br>A continuación, se muestra el resultado final del proyecto con un gif animado: 
