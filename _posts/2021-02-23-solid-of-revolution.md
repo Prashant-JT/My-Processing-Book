@@ -18,7 +18,7 @@ Se implementa el juego *Pong* para dos jugadores. La propuesta realizada incluye
 
 El diseño original del Pong es el que se puede observar en la siguiente figura. Un tablero color negro dividido en dos por una línea blanca central, dejando a cada lado una pala en forma vertical y su respectivo marcador en la zona inferior de cada campo de juego.
 
-![](/My-Processing-Book/images/pong/pong-design.PNG "Diseño del juego en Processing")
+![](/My-Processing-Book/images/solid_of_revolution/solid_of_revolution.PNG "Diseño del programa en Processing")
 
 ## Código implementado
 
