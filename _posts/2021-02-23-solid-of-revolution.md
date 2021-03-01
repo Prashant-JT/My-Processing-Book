@@ -91,7 +91,9 @@ A continuación se describe el trabajo realizado. Primeramente, se crean e inici
       // Create solid of revolution
       drawSolidRevolution(solid);
     }
-
+    
+<br>
+    
     PVector translatePoints(PVector point, float theta) { 
       // x2 = x1 * cos0 - y1 * sen0
       float x2 = (point.x - width/2) * cos(theta) - point.z * sin(theta);
