@@ -7,12 +7,12 @@
 {:toc}
 
 ## Introducción
-Se implementa el juego *Pong* para dos jugadores. La propuesta realizada incluye: rebote, marcador, sonido, movimiento inicial aleatorio, entre otros. El objetivo de este proyecto es tener un primer contacto con Processing:
+Se implementa un prototipo que recoge puntos de un perfil del sólido de revolución al hacer clic con el ratón sobre la pantalla. Dicho perfil será utilizado por el prototipo para crear un objeto tridimensional por medio de una superficie de revolución, almacenando la geometría resultante en una variable de tipoPShape. A continuación:
 
 * Se describe el trabajo realizado argumentando las decisiones adoptadas para la solución propuesta
 * Se incluye las referencias y herramientas utilizadas
 * Se muestra el resultado con un gif animado
-* Se implementa el código en p5.js con el fin de poder ejecutar y jugar en un navegador
+* Se implementa el código en p5.js con el fin de poder ejecutarse en un navegador
 
 ## Diseño 
 
@@ -192,7 +192,7 @@ Para que el código sea más legible y fácil de entender, se han implementado d
 
 ![](/My-Processing-Book/images/solid_of_revolution/solid-of-revolution-demo.gif "Ejecución del código en Processing")
 
-Para descargar el código en Processing, acceda a: <a href="https://downgit.github.io/#/home?url=https://github.com/Prashant-JT/My-Processing-Book/blob/master/projects/solid_of_revolution/solid_of_revolution.pde">Descargar código en Processing</a> o acceda a la carpeta del repositorio del proyecto: <a href="https://github.com/Prashant-JT/My-Processing-Book/tree/master/projects/solid_of_revolution">Repositorio con el código en Processing</a>
+Para descargar el código en Processing, acceda a: <a href="https://downgit.github.io/#/home?url=https://github.com/Prashant-JT/My-Processing-Book/blob/master/projects/solid_of_revolution/solid_of_revolution.pde">Descargar código en Processing</a> o acceda a la carpeta del repositorio del proyecto en: <a href="https://github.com/Prashant-JT/My-Processing-Book/tree/master/projects/solid_of_revolution">Repositorio del proyecto</a>
 
 ---
 
