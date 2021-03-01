@@ -221,7 +221,7 @@ Jugador 2: K para mover la pala arriba y M para mover la pala abajo.
 ![](/My-Processing-Book/images/pong/gif-demo.gif "Ejecución del código en Processing")
 
 
-Para descargar el código en Processing, puede acceder al enlace del repositorio y descargar la carpeta del proyecto: <a href="https://github.com/Prashant-JT/My-Processing-Book/tree/master/projects/solid-of-revolution">Ver el código en Processing</a>
+Para descargar el código en Processing, acceda a : <a href="https://downgit.github.io/#/home?url=https://github.com/Prashant-JT/My-Processing-Book/blob/master/projects/solid_of_revolution/solid_of_revolution.pde">Descargar código en Processing</a>
 
 ---
 
