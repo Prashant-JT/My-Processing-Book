@@ -39,7 +39,7 @@ A continuación se describe el trabajo realizado. Primeramente, se crean e inici
       points = new ArrayList<PVector>();
     }
 
-<br>En la función **draw()** se dibuja la línea central y se muestran los controles en la parte inferior izquierda. La variable booleana *drawFigure* se establecerá a verdadero cuando el usuario desee crear el sólido de revolución con los puntos escogidos, mientras tanto el usuario podrá seguir escogiendo nuevos vértices de su figura. Estos vértices son dibujados mediante la función *ellipse(x,y,r,r)* y las aristas de la figura mediante *line(x1,y1,x2,y2)*. Cuando se muestre el sólido de revolución, se transladará la posición del ratón al centro de la figura con el fin de que el usuario sea capaz de mover la figura. Para ello se hace uso de la función 
+<br>En la función **draw()** se dibuja la línea central y se muestran los controles en la parte inferior izquierda. La variable booleana *drawFigure* se establecerá a verdadero cuando el usuario desee crear el sólido de revolución con los puntos escogidos, mientras tanto el usuario podrá seguir escogiendo nuevos vértices de su figura. Estos vértices son dibujados mediante la función **ellipse(x,y,r,r)** y las aristas de la figura mediante **line(x1,y1,x2,y2)**. Cuando se muestre el sólido de revolución, se transladará la posición del ratón al centro de la figura con el fin de que el usuario sea capaz de mover la figura. Para ello se hace uso de la función 
 **minMaxY()** que se explicará más adelante.
 
     void draw() {
