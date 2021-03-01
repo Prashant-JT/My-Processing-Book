@@ -1,3 +1,3 @@
 # My-Processing-Blog
 
-En este blog se explicarán a detalle todos los proyectos realizados en Processing: https://prashant-jt.github.io/My-Processing-Book/
+In this blog all the projects carried out in Processing will be explained in detail (in Spanish): https://prashant-jt.github.io/My-Processing-Book/
