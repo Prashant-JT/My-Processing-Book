@@ -112,7 +112,7 @@ void clearPoints() {
 void controlsMessage() {
   fill(255);
   textFont(createFont("Georgia", 12));
-  text("Draw vertexes on the right side of the centered line", 10, height - 140);
+  text("Draw vertices on the right side of the centered line", 10, height - 140);
   text("Right click to create new vertex", 10, height - 120);
   text("Press 'x' to delete last vertex", 10, height - 80);
   text("Press 'd' to draw solid of revolution", 10, height - 60);
