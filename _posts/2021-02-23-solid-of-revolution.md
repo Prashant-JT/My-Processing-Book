@@ -7,7 +7,7 @@
 {:toc}
 
 ## Introducción
-Se implementa un prototipo que recoge puntos de un perfil del sólido de revolución al hacer clic con el ratón sobre la pantalla. Dicho perfil será utilizado por el prototipo para crear un objeto tridimensional por medio de una superficie de revolución, almacenando la geometría resultante en una variable de tipoPShape. A continuación:
+Se implementa un prototipo que recoge puntos de un perfil del sólido de revolución al hacer clic con el ratón sobre la pantalla. Dicho perfil será utilizado por el prototipo para crear un objeto tridimensional por medio de una superficie de revolución, almacenando la geometría resultante en una variable de tipo *PShape*. A continuación:
 
 * Se describe el trabajo realizado argumentando las decisiones adoptadas para la solución propuesta
 * Se incluye las referencias y herramientas utilizadas
