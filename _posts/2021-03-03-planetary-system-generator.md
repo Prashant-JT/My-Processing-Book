@@ -7,7 +7,7 @@
 {:toc}
 
 ## Introducción
-Se implementa un prototipo que recoge puntos de un perfil del sólido de revolución al hacer clic con el ratón sobre la pantalla. Dicho perfil será utilizado por el prototipo para crear un objeto tridimensional por medio de una superficie de revolución, almacenando la geometría resultante en una variable de tipoPShape. A continuación:
+Se implementa un prototipo que genera un sistema planetario en movimiento que incluye una estrella, varios planetas y lunas, integrando primitivas 3D, texto e imágenes. A continuación:
 
 * Se describe el trabajo realizado argumentando las decisiones adoptadas para la solución propuesta
 * Se incluye las referencias y herramientas utilizadas
@@ -195,10 +195,10 @@ Para la tranformación de las coordenadas se han hecho uso de las siguientes fó
     
 <br>A continuación, se muestra un ejemplo con su resultado final mediante un gif animado: 
 
-![](/My-Processing-Book/images/solid_of_revolution/solid-of-revolution-demo.gif  "Ejecución del código en Processing")
+![](/My-Processing-Book/images/planetary_system_generator/planetary-system-generator-demo.gif  "Ejecución del código en Processing")
 
 ## Descargar código en Processing 
-Para descargar el código en Processing, acceda a: <a href="https://downgit.github.io/#/home?url=https://github.com/Prashant-JT/My-Processing-Book/tree/master/projects/solid_of_revolution">Descargar código en Processing</a> o acceda a la carpeta del repositorio del proyecto en: <a href="https://github.com/Prashant-JT/My-Processing-Book/tree/master/projects/solid_of_revolution">Repositorio del proyecto</a>
+Para descargar el código en Processing, acceda a: <a href="https://downgit.github.io/#/home?url=https://github.com/Prashant-JT/My-Processing-Book/tree/master/projects/planetary_system_generator">Descargar código en Processing</a> o acceda a la carpeta del repositorio del proyecto en: <a href="https://github.com/Prashant-JT/My-Processing-Book/tree/master/projects/planetary_system_generator">Repositorio del proyecto</a>
 
 ---
 
