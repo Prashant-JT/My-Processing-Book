@@ -18,7 +18,7 @@ Se implementa un prototipo que genera un sistema planetario en movimiento que in
 
 El diseño ha sido el que se puede observar en la siguiente figura. Un lienzo con fondo negro dividido en dos por una línea blanca central, el usuario dibuja los vértices que desee en la parte derecha del lienzo con el fin de crear un sólido de revolución:
 
-![](/My-Processing-Book/images/solid_of_revolution/solid_of_revolution.PNG "Diseño del programa en Processing")
+![](/My-Processing-Book/images/planetary_system_generator/planetary_system_generator.PNG "Diseño del programa en Processing")
 
 ## Código implementado
 
