@@ -200,7 +200,7 @@ Para la tranformación de las coordenadas se han hecho uso de las siguientes fó
 ## Descargar código en Processing 
 Para la correcta ejecución en Processing, es necesario instalar la librería PeasyCam (del autor Jonathan Feinberg). Esto se puede hacer de la siguiente manera:
 
-![](/My-Processing-Book/images/planetary_system_generator/peasy-cam-lib.gif   "Instalación de la librería PeasyCam en Processing")
+![](/My-Processing-Book/images/planetary_system_generator/peasy-cam-lib.gif  "Instalación de la librería PeasyCam en Processing")
 
 Para descargar el código en Processing, acceda a: <a href="https://downgit.github.io/#/home?url=https://github.com/Prashant-JT/My-Processing-Book/tree/master/projects/planetary_system_generator">Descargar código en Processing</a> o acceda a la carpeta del repositorio del proyecto en: <a href="https://github.com/Prashant-JT/My-Processing-Book/tree/master/projects/planetary_system_generator">Repositorio del proyecto</a>
 
