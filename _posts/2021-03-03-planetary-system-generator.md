@@ -193,7 +193,7 @@ Para descargar el código en Processing, acceda a: <a href="https://downgit.gith
 Se ha implementado el código a p5.js con el fin de poder probarlo en un navegador. Para ello se han tenido que modificar algunos aspectos como el tamaño de letra, tipos de variables, entre otros:
 {% include info.html text="Para probarlo debe abrir el enlace en un navegador. No se podrá ejecutar en dispositivos móviles" %}
 
-| **Ver demo** | <a href="https://editor.p5js.org/Prashant-JT/full/XKp-ISITk">Dale click para ver demo</a> |
+| **Ver demo** | <a href="https://editor.p5js.org/Prashant-JT/full/lujUj9Jyn">Dale click para ver demo</a> |
 
 ## Referencias
 
