@@ -49,7 +49,7 @@ A continuación se describe el trabajo realizado. Primeramente, se crean e inici
       cam = new PeasyCam(this, 500);
     }
 
-<br>En la función **draw()** se redimiensiona la imagen de fondo en el caso de que el usuario haya decidido verlo en pantalla completa en Processing. Se establece la imagen de fondo con la función **background(b)**, la función **lights()** establece una luz ambiental, una luz direccional con una atenuación. Los valores predeterminados son ambientLight (128, 128, 128) y directionalLight (128, 128, 128, 0, 0, -1), lightFalloff (1, 0, 0) y lightSpecular (0, 0, 0). A continuación, se invoca a las funciones **show()** y **orbit()** de la clase *Planet* y finalmente se llama a la función **help()** la cual imprime en el lado superior izquierdo una pequeña ayuda de los controles que dispone el usuario para añadir, eliminar planetas y mover la cámara.
+<br>En la función **draw()** se redimiensiona la imagen de fondo en el caso de que el usuario haya decidido verlo en pantalla completa en Processing. Se establece la imagen de fondo con la función **background(b)**, la función **lights()** establece una luz ambiental, una luz direccional con una atenuación. Los valores predeterminados son ambientLight (128, 128, 128) y directionalLight (128, 128, 128, 0, 0, -1), lightFalloff (1, 0, 0) y lightSpecular (0, 0, 0). A continuación, se invoca a las funciones **show()** y **orbit()** de la clase *Planet*.
 
     void draw() {
       space.resize(width, height);
@@ -60,7 +60,7 @@ A continuación se describe el trabajo realizado. Primeramente, se crean e inici
       help();
     }
     
-<br>
+<br>Finalmente se llama a la función **help()** la cual imprime en el lado superior izquierdo una pequeña ayuda de los controles que dispone el usuario para añadir y eliminar planetas, además de poder mover la cámara.
 
     void help() {
       fill(255);
@@ -81,133 +81,100 @@ A continuación se describe el trabajo realizado. Primeramente, se crean e inici
       }
     }
 
-<br>Para que el código sea más legible y fácil de entender, se han implementado distintas funciones que realizarán una serie de acciones con el fin de que el programa se ejecute correctamente. Cuando el usuario presione la tecla 'd' para dibujar, se invocará al método **drawFigure()**. Esta función se encarga de calcular las respectivas transformaciones de coordenadas en un bucle que se ejecuta 360 veces para cada vértice (estos puntos se irán almacenando en el array *solid* como un array, es decir, *solid* será un array de arrays).
+<br>Respecto la clase *Planet*, este contiene atributos como el radio, ángulo, distancia al sol, un array de planetas (que representarán las lunas de cada planeta), velocidad de órbita, un vector y una figura PShape con el fin de poder representar un planeta con sus respectivas lunas (si las tiene).
 
-    // Create figure
-    void drawFigure() {
-      ArrayList <ArrayList> solid = new ArrayList<ArrayList>();
-      figureSolid = createShape(GROUP);
-      figure = createShape();
-      figure.beginShape(LINES);
+    class Planet {
+      float radius;
+      float angle;
+      float distance;
+      ArrayList<Planet> planets;
+      float orbitSpeed;
+      PVector vector;
+      PShape globe;
+      
+<br>En el constructor se inicializan dichos atributos con un ángulo de giro aleatorio entre 0-2π y se crea la figura con su textura:
+      
+      Planet(float r, float d, float o, PImage img) {
+        planets = new ArrayList<Planet>();
+        vector = PVector.random3D();
+        radius = r;
+        distance = d;
+        vector.mult(distance);
+        angle = random(TWO_PI);
+        orbitSpeed = o;
 
-      // Translate points
-      for (PVector point : points) {
-        ArrayList <PVector> pointTranslated = new ArrayList<PVector>();
-        for (int i = 0; i < 360; i++) {
-          pointTranslated.add(translatePoints(point, radians(i)));
+        noStroke();
+        noFill();
+        globe = createShape(SPHERE, radius);
+        globe.setTexture(img);
+      }
+    
+<br>La función **orbit()** es la encargada de recalcular la órbita que siguen los planetas (junto a sus lunas) mediante el ángulo y la velocidad a la que giran alrededor del sol llamando a la función recursivamente:
+    
+    void orbit() {
+        angle = angle + orbitSpeed;
+        if (planets != null) {
+          for (int i = 0; i < planets.size(); i++) {
+            planets.get(i).orbit();
+          }
         }
-        solid.add(pointTranslated);
-      }
-
-      // Close shape and add to final figure
-      figure.endShape(CLOSE);
-      figureSolid.addChild(figure);
-
-      // Create solid of revolution
-      drawSolidRevolution(solid);
     }
-    
-<br>En el bucle anterior, se llama la función **translatePoints(PVector point, float theta)** para la rotación de los puntos de dicho perfil y obtener los vértices 3D de la malla del objeto:
-    
-    PVector translatePoints(PVector point, float theta) { 
-      // x2 = x1 * cos0 - y1 * sen0
-      float x2 = (point.x - width/2) * cos(theta) - point.z * sin(theta);
-      // y2 = y1
-      float y2 = point.y;
-      // z2 = x1 * sen0 + z1 * cos0
-      float z2 = (point.x - width/2) * sin(theta) + point.z * cos(theta);
-      figure.vertex(x2, y2, z2);
-      return new PVector(x2, y2, z2);
-    }
-    
-Para la tranformación de las coordenadas se han hecho uso de las siguientes fórmulas:
-![](/My-Processing-Book/images/solid_of_revolution/tranformation.PNG  "Transformaciones de las coordenadas X,Y,Z")
 
-<br>A continuación se llama la función **drawSolidRevolution(ArrayList a)** que se encarga de dibujar el sólido de revolución. También es la responsable de rellenar la figura con triángulos, para ello, se genera un PShape para cada triángulo generado. Finalmente, para construir la figura final, se utiliza el *figureSolid* creado en la función anterior determinado como *GROUP*, cuya finalidad es reunir todas las figuras generadas y mostrarlas como una misma (para adjuntar una figura se emplea la función *addChild()*). 
+<br>A continuación, la función **spawnMoons(int total, int level)** que se encarga de crear los planetas y sus lunas (que se añaden al array de *planets*) con un radio aleatorio (según el número de niveles de lunas), una distancia al sol según su radio, una velocidad de órbita entre -0.02 y 0.02 y se elige una textura aleatoria de las 8 posibles existentes. Finalmente, se crean sus respectivas lunas con llamadas recursivas:
 
-    // Create solid of revolution
-    void drawSolidRevolution(ArrayList solid) {
-      fill(0);
-      for (int i = 1; i < solid.size(); i++) {
-        ArrayList <PVector> currentPoint = (ArrayList) solid.get(i);
-        ArrayList <PVector> previousPoint = (ArrayList) solid.get(i-1);
-        for (int j = 11; j < 360; j = j+10) {
-           PShape t = createShape();
-           t.beginShape(TRIANGLES);
-           t.vertex(currentPoint.get(j).x, currentPoint.get(j).y, currentPoint.get(j).z);
-           t.vertex(previousPoint.get(j).x, previousPoint.get(j).y, previousPoint.get(j).z);
-           t.vertex(currentPoint.get(j-9).x, currentPoint.get(j-9).y, currentPoint.get(j-9).z);
-           t.endShape(CLOSE);
-
-           figureSolid.addChild(t);
+    void spawnMoons(int total, int level) {   
+        for (int i = 0; i < total; i++) {
+          float r = radius/(level*2); // planet radius
+          float d = random((radius+r), (radius+r)*4); // distance to sun
+          float o = random(-0.02, 0.02); // velocity
+          int index = int(random(0, textures.length)); // random texture
+          planets.add(new Planet (r, d, o, textures[index]));
+          if (level < 3) { // number of moons
+            int num = int(random(0, 3));
+            planets.get(i).spawnMoons(num, level+1);
+          }
         }
+    }
+    
+<br>Las funciones **addPlanet()** y **removePlanet()** son las encargadas de añadir y eliminar planetas con sus respectivas lunas cuando el usuario presione alguno de los controles establecidos (vea el método **keyPressed()**).
+
+    void addPlanet() {
+        this.spawnMoons(1,1);
+      }
+
+    void removePlanet() {
+        if(planets.size() > 0)
+        planets.remove(planets.get(planets.size()-1));
+    }
+
+<br>La función **show()** muestra los planetas con sus respectivas lunas (con la función **shape(s)**) utilizando las funciones **pushMatrix()** y **popMatrix()** junto a **rotate()** y **translate()**. Para que cada planeta y luna gire sobre sí mismo y alrededor del sol (y alrededor de su planeta en el caso de una luna), se ha optado por crear un vector arbitrario, calcular su vector perpendicular (mediante el método **cross(v)**). La idea se puede captar mejor visualmente en el siguiente gif:
+
+![](/My-Processing-Book/images/planetary_system_generator/cross-vector.gif  "Ejemplo de rotación de un planeta")
+
+    void show() {
+        pushMatrix();
+        noStroke();
+        fill(255);
+
+        // Create perpendicular vector to orbit and rotate planets 
+        PVector v = new PVector(1, 0, 1);
+        PVector p = vector.cross(v);
+        rotate(angle, p.x, p.y, p.z);
+
+        translate(vector.x, vector.y, vector.z);
+        shape(globe);
+
+        // Draw moons of planets
+        if (planets != null) {
+          for (int i = 0; i < planets.size(); i++) {
+            planets.get(i).show();
+          }
+        }
+        popMatrix();
       }
     }
     
-<br>La función **minMaxY()** se encarga de devolver en un array de tamaño dos con los vértices máximos y mínimos de la coordenada Y con el fin de transladar el ratón en el centro del sólido de revolución (vea el método **draw()**).
-
-    float[] minMaxY() {
-      float maxY = 0;
-      float minY = 0;
-      for (PVector point : points) {
-        if (point.y > maxY) maxY = point.y;
-        if (point.y < minY) minY = point.y;
-      }
-      return new float[] {minY, maxY};
-    }
-
-<br>La función **clearPoints()** elimina todos los vértices del usuario con el fin de que se pueda crear nuevos sólidos de revolución. Esta función se invocará cuando el usuario presione la tecla 'c' para limpiar la pantalla (la función se llamará en el método **keyPressed()** cuando se presione la tecla correspondiente).
-
-    // Clear all points of the figure
-    void clearPoints() {
-      points.clear();
-    }
-
-<br>La finalidad de la función **controlsMessage()** es mostrar los controles del programa. Cabe destacar que tanto el clic izquierdo como el derecho del ratón pueden ser empleados para crear un nuevo vértice en Processing (en el caso de p5.js solo el clic izquierdo).
-
-    void controlsMessage() {
-      fill(255);
-      textFont(createFont("Georgia", 12));
-      text("Draw vertexes on the right side of the centered line", 10, height - 140);
-      text("Right click to create new vertex", 10, height - 120);
-      text("Press 'x' to delete last vertex", 10, height - 80);
-      text("Press 'd' to draw solid of revolution", 10, height - 60);
-      text("Press 'c' to clear screen", 10, height - 100);
-      text("© Prashant Jeswani Tejwani", 10, height - 20);
-    }
-
-<br>La función **mousePressed()** se encarga de detectar las coordenadas del nuevo vértice que ha elegido el usuario en la parte derecha del lienzo. Este se añadirá al vector de los puntos que almacena los vértices elegidos anteriormente:
-
-    // Detect when user clicks to create a new vertex
-    void mousePressed() {
-      if (mouseX >= width/2 && !drawFigure) {
-        points.add(new PVector(mouseX, mouseY));
-      }
-    }
-   
-<br>La función **keyPressed()** chequea los distintos tipos de controles. Los controles establecidos son los siguientes:
-    * Tecla 'c' para limpiar la pantalla y crear una nueva figura. Para ello se establece la variable booleana a falso y se invoca al método **clearPoints()** para eliminar todos los vértices.
-    * Tecla 'x' para eliminar el último vertice creado, cuando el usuario está creando los vértices de la figura. Para ello lo único que se debe hacer es eliminar el último vértice de la lista de puntos/vértices.
-    * Tecla 'd' para cerrar la figura, calcular y mostrar el sólido de revolución. Para ello se establece la variable booleana a verdadero y se invoca al método **drawFigure()** explicado anteriormente.
-
-    // Detect controls
-    void keyPressed() {
-      if (key == 'c') {
-        // Clear screen
-        drawFigure = false;
-        clearPoints();
-      }else if(key == 'x' && points.size() > 0 && !drawFigure) {
-        // Remove last vertex
-        points.remove(points.get(points.size()-1));
-      }else if (key == 'd' && points.size() > 2) {
-        // Draw last vertex
-        line((points.get(points.size()-1).x), (points.get(points.size()-1).y), points.get(0).x, points.get(0).y);
-        drawFigure = true;
-        drawFigure();
-      }
-    }
-    
-<br>A continuación, se muestra un ejemplo con su resultado final mediante un gif animado: 
+<br>A continuación, se muestra el resultado final mediante un gif animado, se muestra el estado inicial del programa y se añaden y eliminan planetas para mostrar su correcto funcionamiento: 
 
 ![](/My-Processing-Book/images/planetary_system_generator/planetary-system-generator-demo.gif  "Ejecución del código en Processing")
 
