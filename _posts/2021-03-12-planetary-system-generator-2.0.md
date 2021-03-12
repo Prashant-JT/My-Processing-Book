@@ -1,4 +1,4 @@
-# Generador de sistema planetario 2.0
+# Perspectivas en el sistema planetario
 > Realizado por Prashant Jeswani Tejwani
 
 Índice del contenido:
