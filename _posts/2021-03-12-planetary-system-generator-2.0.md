@@ -18,7 +18,7 @@ Se implementa un prototipo que genera un sistema planetario en movimiento que in
 
 El diseño ha sido el que se puede observar en la siguiente figura. Un lienzo con un fondo de imagen del espacio en el cual se sitúa un sol en el centro, con planetas que giran entorno su órbita. Estos planetas pueden tener a su vez lunas que giran en una órbita alrededor de ellas. Cada planeta o luna tiene una textura aleatoria.
 
-![](/My-Processing-Book/images/planetary_system_generator/planetary_system_generator.PNG "Diseño del programa en Processing")
+![](/My-Processing-Book/images/planetary_system_generator/planetary_system_generator_2.0/planetary_system_generator_2.0.PNG "Diseño del programa en Processing")
 
 ## Código implementado
 
@@ -176,14 +176,10 @@ A continuación se describe el trabajo realizado. Primeramente, se crean e inici
     
 <br>A continuación, se muestra el resultado final mediante un gif animado, se muestra el estado inicial del programa y se añaden y eliminan planetas para mostrar su correcto funcionamiento: 
 
-![](/My-Processing-Book/images/planetary_system_generator/planetary-system-generator-demo.gif  "Ejecución del código en Processing")
+![](/My-Processing-Book/images/planetary_system_generator_2.0/planetary-system-generator-2.0-demo.gif  "Ejecución del código en Processing")
 
 ## Descargar código en Processing 
-Para la correcta ejecución en Processing, es necesario instalar la librería PeasyCam (del autor Jonathan Feinberg). Esto se puede hacer de la siguiente manera:
-
-![](/My-Processing-Book/images/planetary_system_generator/peasy-cam-lib.gif  "Instalación de la librería PeasyCam en Processing")
-
-Para descargar el código en Processing, acceda a: <a href="https://downgit.github.io/#/home?url=https://github.com/Prashant-JT/My-Processing-Book/tree/master/projects/planetary_system_generator">Descargar código en Processing</a> o acceda a la carpeta del repositorio del proyecto en: <a href="https://github.com/Prashant-JT/My-Processing-Book/tree/master/projects/planetary_system_generator">Repositorio del proyecto</a>
+Para descargar el código en Processing, acceda a: <a href="https://downgit.github.io/#/home?url=https://github.com/Prashant-JT/My-Processing-Book/tree/master/projects/planetary_system_generator_2.0">Descargar código en Processing</a> o acceda a la carpeta del repositorio del proyecto en: <a href="https://github.com/Prashant-JT/My-Processing-Book/tree/master/projects/planetary_system_generator_2.0">Repositorio del proyecto</a>
 
 ---
 
