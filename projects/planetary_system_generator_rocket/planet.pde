@@ -44,16 +44,6 @@ class Planet {
       }
     }
   }
-  
-  /*
-  void addPlanet() {
-    this.spawnMoons(1,1);
-  }
-  
-  void removePlanet() {
-    if(planets.size() > 0)
-      planets.remove(planets.get(planets.size()-1));
-  }*/
 
   void show() {
     pushMatrix();

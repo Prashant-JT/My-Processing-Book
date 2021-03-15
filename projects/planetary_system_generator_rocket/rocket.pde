@@ -1,48 +1,50 @@
 class Rocket {
   float angle;
-  float distance;
-  float orbitSpeed;
   PVector vector;
   PShape rocket;
-  
-  Rocket(float d, float o) {
-    vector = new PVector(0,0,1);
-    //vector = PVector.random3D();
-    distance = d;
-    vector.mult(distance);
+
+  Rocket() {
+    vector = new PVector(0, 0, 400);
     angle = PI/10;
-    //angle = random(TWO_PI);
-    orbitSpeed = o;
-    
+
     rocket = loadShape("rocket.obj");
     rocket.scale(50);
   }
-  
-  void orbit() {
-    angle = angle + orbitSpeed;
-  }
-  
+
   void show() {
     pushMatrix();
     noStroke();
     fill(255);
-    
-    // Create perpendicular vector to orbit and rotate rocket 
-    PVector v = new PVector(1, 0, 1);
-    PVector p = vector.cross(v);
-    
-    //rotate(angle, p.x, p.y, p.z);
+
+    translate(vector.x, vector.y, vector.z);
     rotateZ(PI);
     rotateX(-PI/2);
-    
-    translate(vector.x, vector.y, vector.z);
     shape(rocket);
-    
+
     popMatrix();
   }
-  
+
   PVector getRocketPosition() {
     return vector;
   }
-  
+
+  void setPosition(boolean forward, boolean back, boolean left, boolean right, boolean up, boolean down) {
+    if (forward) {
+      vector.z -= 5;
+    } else if (back) {
+      vector.z += 5;
+    } else if (left) {
+      vector.x -= 5;
+    } else if (right) {
+      vector.x += 5;
+    } else if (up) {
+      vector.y -= 5;
+    } else if (down) {
+      vector.y += 5;
+    }
+  }
+
+  void resetPosition() {
+    vector = new PVector(0, 0, 400);
+  }
 }
