@@ -1,4 +1,4 @@
-# Perspectivas en el sistema planetario
+# Nave en el sistema planetario
 > Realizado por Prashant Jeswani Tejwani
 
 Índice del contenido:
@@ -7,7 +7,7 @@
 {:toc}
 
 ## Introducción
-Se implementa un prototipo que genera un sistema planetario en movimiento que incluye una estrella, varios planetas y lunas, integrando primitivas 3D, texto e imágenes. Se ha añadido la posibilidad de añadir o eliminar planetas al sistema planetario. A continuación:
+Se extiende el programa del artículo anterior. A continuación:
 
 * Se describe el trabajo realizado argumentando las decisiones adoptadas para la solución propuesta
 * Se incluye las referencias y herramientas utilizadas
