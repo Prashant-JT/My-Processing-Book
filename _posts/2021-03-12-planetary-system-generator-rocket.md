@@ -16,7 +16,7 @@ Se extiende el programa del artículo anterior incluyendo una nave/cohete que el
 
 ## Diseño 
 
-El diseño ha sido el que se puede observar en la siguiente figura. Un lienzo con un fondo de imagen del espacio en el cual se sitúa un sol en el centro, con planetas que giran entorno su órbita. Estos planetas pueden tener a su vez lunas que giran en una órbita alrededor de ellas. Cada planeta o luna tiene una textura aleatoria. Se sitúa el cohete en el espacio situando los controles del usuario en la parte superior izquierda.
+El diseño ha sido el que se puede observar en la siguiente figura. Un lienzo con un fondo de imagen del espacio en el cual se sitúa un sol en el centro, con planetas que giran entorno su órbita. Estos planetas pueden tener a su vez lunas que giran en una órbita alrededor de ellas. Cada planeta o luna tiene una textura aleatoria. Se sitúa el cohete en el espacio, se permite que se alterne entre una vista general y la vista desde el cohete mediante los controles situados en la parte superior izquierda.
 
 ![](/My-Processing-Book/images/planetary_system_generator_rocket/planetary_system_generator_rocket.PNG "Diseño del programa en Processing")
 
@@ -197,3 +197,5 @@ Se ha implementado el código a p5.js con el fin de poder probarlo en un navegad
 [Página de Processing](https://processing.org/examples/)
 
 [Creación del enlace de descarga](https://downgit.github.io/#/home)
+
+[Modelo 3D del cohete](https://clara.io/)
