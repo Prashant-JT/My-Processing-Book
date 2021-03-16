@@ -212,7 +212,7 @@ A continuación se describe el trabajo añadido respecto al artículo anterior. 
         }
       }
 
-<br>Finalmente, se llama a la función **resetPosition()** cuando el usuario decide reestablecer la posición inicial del cohete:
+<br>Finalmente, se llama a la función **resetPosition()** cuando el usuario decide reestablecer la posición inicial del cohete.
 
     void resetPosition() {
         vector = new PVector(0, 0, 400);
