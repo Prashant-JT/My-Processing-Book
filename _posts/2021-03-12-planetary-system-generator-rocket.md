@@ -22,15 +22,16 @@ El diseño ha sido el que se puede observar en la siguiente figura. Un lienzo co
 
 ## Código implementado
 
-A continuación se describe el trabajo realizado. Primeramente, se crean e inicializan las variables necesarias para el sol y sus planetas que se irán explicando a medida que se avance. En la función **setup()** se establece el tamaño de la ventana a 800x600 píxeles, se cargan 8 texturas distintas de planetas en un array que contiene elementos de tipo *PImage* y se carga la imagen de fondo para establecerla más adelante. A continuación se crea el sol mediante la clase *Planet* al cual se le pasarán como parámetros al constructor: el radio del planeta, la distancia al sol, la órbita y su textura. Se crean inicialmente 6 planetas alrededor del sol y se inicializa la variable *PeasyCam* con el fin de que el usuario se capaz de mover y hacer zoom, para ello es necesario instalar la librería que se explica en la sección de *Descargar código en Processing*.
-
-    import peasy.*;
+A continuación se describe el trabajo añadido respecto al artículo anterior. Se crean e inicializan las variables necesarias para el control del cohete que se irán explicando a medida que se avance.  se añaden las variables booleanas para contorlar los movimientos del cohete y comprobar si la cámara de primera persona se ha activado o no (variable *rocketCam*). En la función **setup()** se inicializa el cohete creando un objeto de la nueva clase *Rocket* que se explicará más adelante.
 
     Planet sun;
-    PeasyCam cam;
     PImage sunTexture;
     PImage space;
     PImage[] textures = new PImage[8];
+    Rocket rocket;
+    boolean rocketCam;
+    boolean moveLeft, moveRight, moveForward, moveDown, moveUp, moveBack = false;
+    boolean help;
 
     void setup() {
       size(800, 600, P3D);
@@ -46,133 +47,177 @@ A continuación se describe el trabajo realizado. Primeramente, se crean e inici
       textures[7] = loadImage("jupiter.jpg");
       sun = new Planet(50, 0, 0, sunTexture);
       sun.spawnMoons(6, 1);
-      cam = new PeasyCam(this, 500);
+      rocket = new Rocket();
+      rocketCam = false;
+      help = false;
     }
 
-<br>En la función **draw()** se redimiensiona la imagen de fondo en el caso de que el usuario haya decidido verlo en pantalla completa en Processing. Se establece la imagen de fondo con la función **background(b)**, la función **lights()** establece una luz ambiental, una luz direccional con una atenuación. Los valores predeterminados son ambientLight (128, 128, 128) y directionalLight (128, 128, 128, 0, 0, -1), lightFalloff (1, 0, 0) y lightSpecular (0, 0, 0). A continuación, se invoca a las funciones **show()** y **orbit()** de la clase *Planet*.
+<br>En la función **draw()** se añade el chequeo si el usuario ha está en primera o tercera persona. En el caso de que el usuario se encuentre dentro del cohete (primera persona) se establecen los parámetros de la función **camera(x1,y1,z1,x2,y2,z2,x3,y3,z3)** situando la vista en la posición del cohete que se obtiene mediante la función **getRocketPosition()** el cual devuelve las coordenadas. En caso contrario, se establece la vista de tercera persona con sus valores por defecto. Para actualizar las coordenadas del cohete se realiza mediante la función **setPosition(forward, backward, left, right, up, down)**. Se muestra o ocultan los controles si el usuario presiona la tecla 'h'.
 
     void draw() {
       space.resize(width, height);
       background(space);
+      translate(width/2, height/2);
       lights();
+
+      // Check if user is in the rocket or not
+      if (rocketCam) {
+        camera(rocket.getRocketPosition().x, rocket.getRocketPosition().y, rocket.getRocketPosition().z, 
+          0, 0, -width, 0, 1, 0);
+
+      } else {
+        camera(0, 0, (height/2) / tan(PI/6), 0, 0, 0, 0, 1, 0);
+      }
+
+      // Show planetary and position rocket
       sun.show();
       sun.orbit();
-      help();
+      rocket.show();
+      rocket.setPosition(moveForward, moveBack, moveLeft, moveRight, moveUp, moveDown);
+
+      // Show or hide controls
+      if (help) {
+        pushMatrix();
+        camera(0, 0, (height/2) / tan(PI/6), 0, 0, 0, 0, 1, 0); 
+        help();
+        popMatrix();
+      }else{
+        camera(0, 0, (height/2) / tan(PI/6), 0, 0, 0, 0, 1, 0); 
+        textFont(createFont("Georgia", 14));
+        text("Press 'h' to show controls", -(width/2)+20, -(height/2)+30);
+        text("© Prashant Jeswani Tejwani", -(width/2)+20, -(height/2)+70);
+      }
     }
     
-<br>Finalmente se llama a la función **help()** la cual imprime en el lado superior izquierdo una pequeña ayuda de los controles que dispone el usuario para añadir y eliminar planetas, además de poder mover la cámara.
+<br>Se llama a la función **help()** la cual imprime en el lado superior izquierdo una pequeña ayuda de los controles que dispone el usuario.
 
+    // User controls
     void help() {
       fill(255);
-      textFont(createFont("Georgia", 14));
-      text("Press '+' to add planets", -(width/2)+20, -(height/2)+30);
-      text("Press '-' to remove planets", -(width/2)+20, -(height/2)+50);
-      text("Move & zoom camera view with mouse", -(width/2)+20, -(height/2)+70);
-      text("© Prashant Jeswani Tejwani", -(width/2)+20, -(height/2)+100);
+      //textFont(createFont("Georgia", 14));
+      text("Press 'h' to hide controls", -(width/2)+20, -(height/2)+30);
+      if (rocketCam) {
+        text("Press 'e' to exit rocket", -(width/2)+20, -(height/2)+50);
+      } else {
+        text("Press 'c' to enter rocket", -(width/2)+20, -(height/2)+50);
+      }
+      text("Press 'w' to move forward", -(width/2)+20, -(height/2)+70);
+      text("Press 's' to move backward", -(width/2)+20, -(height/2)+90);
+      text("Press 'a' to move left", -(width/2)+20, -(height/2)+110);
+      text("Press 'd' to move right", -(width/2)+20, -(height/2)+130);
+      text("Press 'q' to move up", -(width/2)+20, -(height/2)+150);
+      text("Press 'x' to move down", -(width/2)+20, -(height/2)+170);
+      text("Press 'r' to reset position", -(width/2)+20, -(height/2)+190);
+      text("© Prashant Jeswani Tejwani", -(width/2)+20, -(height/2)+220);
     }
 
-<br>Para añadir y eliminar planetas el usuario debe presionar las teclas '+' para añadir y '-' para eliminar el último. Esto se captura mediante la función **keyPressed()**. Dependiendo de la tecla pulsada, se añadirá o eliminará un planeta (con sus respectivas lunas que giran a su alrededor):
+<br>Para el movimiento del cohete se utiliza las funciones **keyPressed** y **keyReleased**. Dependiendo de la tecla pulsada, se moverá el cohete arriba, abajo, a la izquierda, a la derecha, hacia delante o hacia atrás. El usuario también tiene la opción de reestablecer la posición del cohete al estado inicial en el caso de estar en primera persona y no saber donde se encuentra en el sistema planetario. Para cambiar de vistas, al pulsar la tecla 'c' se establece la vista en primera persona y al pulsar 'e' se regresa a tercera persona.
+
+    void keyReleased() {
+      if (key == 'w') moveForward = false;
+      if (key == 's') moveBack = false;
+      if (key == 'x') moveDown = false;
+      if (key == 'q') moveUp = false;
+      if (key == 'a') moveLeft = false;
+      if (key == 'd') moveRight = false;
+    }
+    
+<br>
 
     void keyPressed() {
-      if (key == '+') {
-        sun.addPlanet();
-      } else if (key == '-') {
-        sun.removePlanet();
+      // Step out from rocket
+      if (key == 'c') {
+        rocketCam = true;
+      } 
+
+      // Enter rocket
+      if (key == 'e') {
+        rocketCam = false;
       }
+
+      // Reset rocket position
+      if (key == 'r') {
+        rocket.resetPosition();
+        rocketCam = false;
+      }
+
+      // Show or hide controls
+      if (key == 'h') {
+        if (help) {
+          help = false;
+        }else{
+          help = true;
+        }
+      }
+
+      // Rocket movement
+      if (key == 'w') moveForward = true;
+      if (key == 's') moveBack = true;
+      if (key == 'x') moveDown = true;
+      if (key == 'q') moveUp = true;
+      if (key == 'a') moveLeft = true;
+      if (key == 'd') moveRight = true;
     }
 
-<br>Respecto la clase *Planet*, este contiene atributos como el radio, ángulo, distancia al sol, un array de planetas (que representarán las lunas de cada planeta), velocidad de órbita, un vector y una figura PShape con el fin de poder representar un planeta con sus respectivas lunas (si las tiene).
+<br>Respecto la clase *Rocket*, este contiene atributos como el ángulo, vector de posiciones y un PShape con el fin de poder representar un cohete cargando una figura 3D mediante la función **loadShape("path")** en el constructor. Se ha tenido que ampliar la figura mediante la función **scale(s)**.
 
-    class Planet {
-      float radius;
+    class Rocket {
       float angle;
-      float distance;
-      ArrayList<Planet> planets;
-      float orbitSpeed;
       PVector vector;
-      PShape globe;
-      
-<br>En el constructor se inicializan dichos atributos con un ángulo de giro aleatorio entre 0-2π y se crea la figura con su textura:
-      
-      Planet(float r, float d, float o, PImage img) {
-        planets = new ArrayList<Planet>();
-        vector = PVector.random3D();
-        radius = r;
-        distance = d;
-        vector.mult(distance);
-        angle = random(TWO_PI);
-        orbitSpeed = o;
+      PShape rocket;
 
-        noStroke();
-        noFill();
-        globe = createShape(SPHERE, radius);
-        globe.setTexture(img);
+      Rocket() {
+        vector = new PVector(0, 0, 400);
+        angle = PI/10;
+
+        rocket = loadShape("rocket.obj");
+        rocket.scale(50);
       }
-    
-<br>La función **orbit()** es la encargada de recalcular la órbita que siguen los planetas (junto a sus lunas) mediante el ángulo y la velocidad a la que giran alrededor del sol llamando a la función recursivamente:
-    
-    void orbit() {
-        angle = angle + orbitSpeed;
-        if (planets != null) {
-          for (int i = 0; i < planets.size(); i++) {
-            planets.get(i).orbit();
-          }
-        }
-    }
-
-<br>A continuación, la función **spawnMoons(int total, int level)** que se encarga de crear los planetas y sus lunas (que se añaden al array de *planets*) con un radio aleatorio (según el número de niveles de lunas), una distancia al sol según su radio, una velocidad de órbita entre -0.02 y 0.02 y se elige una textura aleatoria de las 8 posibles existentes. Finalmente, se crean sus respectivas lunas con llamadas recursivas:
-
-    void spawnMoons(int total, int level) {   
-        for (int i = 0; i < total; i++) {
-          float r = radius/(level*2); // planet radius
-          float d = random((radius+r), (radius+r)*4); // distance to sun
-          float o = random(-0.02, 0.02); // velocity
-          int index = int(random(0, textures.length)); // random texture
-          planets.add(new Planet (r, d, o, textures[index]));
-          if (level < 3) { // number of moons
-            int num = int(random(0, 3));
-            planets.get(i).spawnMoons(num, level+1);
-          }
-        }
-    }
-    
-<br>Las funciones **addPlanet()** y **removePlanet()** son las encargadas de añadir y eliminar planetas con sus respectivas lunas cuando el usuario presione alguno de los controles establecidos (vea el método **keyPressed()**).
-
-    void addPlanet() {
-        this.spawnMoons(1,1);
-      }
-
-    void removePlanet() {
-        if(planets.size() > 0)
-        planets.remove(planets.get(planets.size()-1));
-    }
-
-<br>La función **show()** muestra los planetas con sus respectivas lunas (con la función **shape(s)**) utilizando las funciones **pushMatrix()** y **popMatrix()** junto a **rotate()** y **translate()**. Para que cada planeta y luna gire sobre sí mismo y alrededor del sol (y alrededor de su planeta en el caso de una luna), se ha optado por crear un vector arbitrario, calcular su vector perpendicular (mediante el método **cross(v)**). La idea se puede captar mejor visualmente en el siguiente gif:
-
-    void show() {
+      
+<br>La función **show()** dibuja el cohete en la posición y rota la figura:
+      
+      void show() {
         pushMatrix();
         noStroke();
         fill(255);
 
-        // Create perpendicular vector to orbit and rotate planets 
-        PVector v = new PVector(1, 0, 1);
-        PVector p = vector.cross(v);
-        rotate(angle, p.x, p.y, p.z);
-
         translate(vector.x, vector.y, vector.z);
-        shape(globe);
+        rotateZ(PI);
+        rotateX(-PI/2);
+        shape(rocket);
 
-        // Draw moons of planets
-        if (planets != null) {
-          for (int i = 0; i < planets.size(); i++) {
-            planets.get(i).show();
-          }
-        }
         popMatrix();
       }
-    }
+
+      PVector getRocketPosition() {
+        return vector;
+      }
     
-<br>A continuación, se muestra el resultado final mediante un gif animado, se muestra el estado inicial del programa y se añaden y eliminan planetas para mostrar su correcto funcionamiento: 
+<br>La función **setPosition()** es la encargada de recalcular las posiciones del cohete y el movimiento del mismo:
+    
+    void setPosition(boolean forward, boolean back, boolean left, boolean right, boolean up, boolean down) {
+        if (forward) {
+          vector.z -= 3;
+        } else if (back) {
+          vector.z += 3;
+        } else if (left) {
+          vector.x -= 3;
+        } else if (right) {
+          vector.x += 3;
+        } else if (up) {
+          vector.y -= 3;
+        } else if (down) {
+          vector.y += 3;
+        }
+      }
+
+<br>Finalmente, se llama a la función **resetPosition()** cuando el usuario decide reestablecer la posición inicial del cohete:
+
+    void resetPosition() {
+        vector = new PVector(0, 0, 400);
+    }    
+ 
+<br>A continuación, se muestra el resultado final mediante un gif animado: 
 
 ![](/My-Processing-Book/images/planetary_system_generator_rocket/planetary-system-generator-rocket-demo.gif  "Ejecución del código en Processing")
 
