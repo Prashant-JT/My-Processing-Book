@@ -7,12 +7,11 @@
 {:toc}
 
 ## Introducción
-Se extiende el programa del artículo anterior incluyendo una nave/cohete que el usuario de forma interactiva podrá navegar por el sistema planetario. A continuación:
+Se extiende el programa del artículo anterior incluyendo una nave/cohete con el que usuario de forma interactiva podrá navegar por el sistema planetario. A continuación:
 
 * Se describe el trabajo realizado argumentando las decisiones adoptadas para la solución propuesta
 * Se incluye las referencias y herramientas utilizadas
 * Se muestra el resultado con un gif animado
-* Se implementa el código en p5.js con el fin de poder ejecutarse en un navegador
 
 ## Diseño 
 
@@ -22,7 +21,7 @@ El diseño ha sido el que se puede observar en la siguiente figura. Un lienzo co
 
 ## Código implementado
 
-A continuación se describe el trabajo añadido respecto al artículo anterior. Se crean e inicializan las variables necesarias para el control del cohete que se irán explicando a medida que se avance.  se añaden las variables booleanas para contorlar los movimientos del cohete y comprobar si la cámara de primera persona se ha activado o no (variable *rocketCam*). En la función **setup()** se inicializa el cohete creando un objeto de la nueva clase *Rocket* que se explicará más adelante.
+A continuación se describe el trabajo añadido respecto al artículo anterior. Se crean e inicializan las variables necesarias para el control del cohete que se irán explicando a medida que se avance. Se añaden las variables booleanas para controlar los movimientos del cohete y otra varibale booleana comprobar si la cámara de primera persona se ha activado o no (variable *rocketCam*). En la función **setup()** se inicializa el cohete creando un objeto de la nueva clase *Rocket* que se explicará más adelante.
 
     Planet sun;
     PImage sunTexture;
@@ -52,7 +51,7 @@ A continuación se describe el trabajo añadido respecto al artículo anterior. 
       help = false;
     }
 
-<br>En la función **draw()** se añade el chequeo si el usuario ha está en primera o tercera persona. En el caso de que el usuario se encuentre dentro del cohete (primera persona) se establecen los parámetros de la función **camera(x1,y1,z1,x2,y2,z2,x3,y3,z3)** situando la vista en la posición del cohete que se obtiene mediante la función **getRocketPosition()** el cual devuelve las coordenadas. En caso contrario, se establece la vista de tercera persona con sus valores por defecto. Para actualizar las coordenadas del cohete se realiza mediante la función **setPosition(forward, backward, left, right, up, down)**. Se muestra o ocultan los controles si el usuario presiona la tecla 'h'.
+<br>En la función **draw()** se chequea si el usuario está en primera o tercera persona. En el caso de que el usuario se encuentre dentro del cohete (primera persona) se establecen los parámetros de la función **camera(x1,y1,z1,x2,y2,z2,x3,y3,z3)** situando la vista en la posición del cohete que se obtiene mediante la función **getRocketPosition()** el cual devuelve las coordenadas del cohete. En caso contrario, se establece la vista de tercera persona con sus valores por defecto. Para actualizar las coordenadas del cohete se utiliza la función **setPosition(forward, backward, left, right, up, down)** de la clase *Rocket*. Se muestra o ocultan los controles si el usuario presiona la tecla 'h'.
 
     void draw() {
       space.resize(width, height);
@@ -111,7 +110,7 @@ A continuación se describe el trabajo añadido respecto al artículo anterior. 
       text("© Prashant Jeswani Tejwani", -(width/2)+20, -(height/2)+220);
     }
 
-<br>Para el movimiento del cohete se utiliza las funciones **keyPressed** y **keyReleased**. Dependiendo de la tecla pulsada, se moverá el cohete arriba, abajo, a la izquierda, a la derecha, hacia delante o hacia atrás. El usuario también tiene la opción de reestablecer la posición del cohete al estado inicial en el caso de estar en primera persona y no saber donde se encuentra en el sistema planetario. Para cambiar de vistas, al pulsar la tecla 'c' se establece la vista en primera persona y al pulsar 'e' se regresa a tercera persona.
+<br>Para el movimiento del cohete se utiliza las funciones **keyPressed** y **keyReleased**. Dependiendo de la tecla pulsada, el cohete se moverá arriba, abajo, a la izquierda, a la derecha, hacia delante o hacia atrás. El usuario también tiene la opción de reestablecer la posición del cohete al estado inicial en el caso de estar en primera o tercera persona y no saber donde se encuentra en el sistema planetario. Para cambiar de vistas, al pulsar la tecla 'c' se establece la vista en primera persona y al pulsar 'e' se regresa a tercera persona.
 
     void keyReleased() {
       if (key == 'w') moveForward = false;
@@ -188,6 +187,8 @@ A continuación se describe el trabajo añadido respecto al artículo anterior. 
 
         popMatrix();
       }
+
+<br>Como comentado anteriormente, la siguiente función devuelve el vector de las coordenadas actuales del cohete:
 
       PVector getRocketPosition() {
         return vector;
