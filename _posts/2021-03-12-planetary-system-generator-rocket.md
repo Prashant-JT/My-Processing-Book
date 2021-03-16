@@ -7,7 +7,7 @@
 {:toc}
 
 ## Introducción
-Se extiende el programa del artículo anterior. A continuación:
+Se extiende el programa del artículo anterior incluyendo una nave/cohete que el usuario de forma interactiva podrá navegar por el sistema planetario. A continuación:
 
 * Se describe el trabajo realizado argumentando las decisiones adoptadas para la solución propuesta
 * Se incluye las referencias y herramientas utilizadas
@@ -16,9 +16,9 @@ Se extiende el programa del artículo anterior. A continuación:
 
 ## Diseño 
 
-El diseño ha sido el que se puede observar en la siguiente figura. Un lienzo con un fondo de imagen del espacio en el cual se sitúa un sol en el centro, con planetas que giran entorno su órbita. Estos planetas pueden tener a su vez lunas que giran en una órbita alrededor de ellas. Cada planeta o luna tiene una textura aleatoria.
+El diseño ha sido el que se puede observar en la siguiente figura. Un lienzo con un fondo de imagen del espacio en el cual se sitúa un sol en el centro, con planetas que giran entorno su órbita. Estos planetas pueden tener a su vez lunas que giran en una órbita alrededor de ellas. Cada planeta o luna tiene una textura aleatoria. Se sitúa el cohete en el espacio situando los controles del usuario en la parte superior izquierda.
 
-![](/My-Processing-Book/images/planetary_system_generator/planetary_system_generator_2.0/planetary_system_generator_2.0.PNG "Diseño del programa en Processing")
+![](/My-Processing-Book/images/planetary_system_generator_rocket/planetary_system_generator_rocket.PNG "Diseño del programa en Processing")
 
 ## Código implementado
 
@@ -149,8 +149,6 @@ A continuación se describe el trabajo realizado. Primeramente, se crean e inici
 
 <br>La función **show()** muestra los planetas con sus respectivas lunas (con la función **shape(s)**) utilizando las funciones **pushMatrix()** y **popMatrix()** junto a **rotate()** y **translate()**. Para que cada planeta y luna gire sobre sí mismo y alrededor del sol (y alrededor de su planeta en el caso de una luna), se ha optado por crear un vector arbitrario, calcular su vector perpendicular (mediante el método **cross(v)**). La idea se puede captar mejor visualmente en el siguiente gif:
 
-![](/My-Processing-Book/images/planetary_system_generator/cross-vector.gif  "Ejemplo de rotación de un planeta")
-
     void show() {
         pushMatrix();
         noStroke();
@@ -176,10 +174,10 @@ A continuación se describe el trabajo realizado. Primeramente, se crean e inici
     
 <br>A continuación, se muestra el resultado final mediante un gif animado, se muestra el estado inicial del programa y se añaden y eliminan planetas para mostrar su correcto funcionamiento: 
 
-![](/My-Processing-Book/images/planetary_system_generator_2.0/planetary-system-generator-2.0-demo.gif  "Ejecución del código en Processing")
+![](/My-Processing-Book/images/planetary_system_generator_rocket/planetary-system-generator-rocket-demo.gif  "Ejecución del código en Processing")
 
 ## Descargar código en Processing 
-Para descargar el código en Processing, acceda a: <a href="https://downgit.github.io/#/home?url=https://github.com/Prashant-JT/My-Processing-Book/tree/master/projects/planetary_system_generator_2.0">Descargar código en Processing</a> o acceda a la carpeta del repositorio del proyecto en: <a href="https://github.com/Prashant-JT/My-Processing-Book/tree/master/projects/planetary_system_generator_2.0">Repositorio del proyecto</a>
+Para descargar el código en Processing, acceda a: <a href="https://downgit.github.io/#/home?url=https://github.com/Prashant-JT/My-Processing-Book/tree/master/projects/planetary_system_generator_rocket">Descargar código en Processing</a> o acceda a la carpeta del repositorio del proyecto en: <a href="https://github.com/Prashant-JT/My-Processing-Book/tree/master/projects/planetary_system_generator_rocket">Repositorio del proyecto</a>
 
 ---
 
