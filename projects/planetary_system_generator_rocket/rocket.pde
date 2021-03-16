@@ -30,17 +30,17 @@ class Rocket {
 
   void setPosition(boolean forward, boolean back, boolean left, boolean right, boolean up, boolean down) {
     if (forward) {
-      vector.z -= 5;
+      vector.z -= 3;
     } else if (back) {
-      vector.z += 5;
+      vector.z += 3;
     } else if (left) {
-      vector.x -= 5;
+      vector.x -= 3;
     } else if (right) {
-      vector.x += 5;
+      vector.x += 3;
     } else if (up) {
-      vector.y -= 5;
+      vector.y -= 3;
     } else if (down) {
-      vector.y += 5;
+      vector.y += 3;
     }
   }
 
