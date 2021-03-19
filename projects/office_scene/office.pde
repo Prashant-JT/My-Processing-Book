@@ -2,9 +2,11 @@ class Office {
   PShape window;
   PShape guy;
   PShape girl;
-  PShape desk;
+  PShape desk1;
+  PShape bookshelf;
   PShape lamp;
   PShape tv;
+  PShape painting;
   
   Office() {
     guy = loadShape("office-guy.obj");
@@ -13,12 +15,17 @@ class Office {
     girl.scale(320);
     window = loadShape("window-frame-and-pane.obj");
     window.scale(100);
-    desk = loadShape("office-desk.obj");
-    desk.scale(300);
+    desk1 = loadShape("office-desk.obj");
+    desk1.scale(300);
+    bookshelf = loadShape("bookshelf-antonio-rodriguez.obj");
+    bookshelf.scale(500);
     lamp = loadShape("lamp.obj");
     lamp.scale(20);
     tv = loadShape("screen.obj");
     tv.scale(100);
+    //oil-paintings-with-frame
+    painting = loadShape("oil-paintings-with-frame.obj");
+    painting.scale(30);
   }
   
   void show() {
@@ -27,6 +34,8 @@ class Office {
     showDesk();
     showTV();
     showRoom();
+    showBookshelf();
+    showPainting();
     
     //camera(0, 0, ((height/2) / tan(PI/6)) + 50, 0, 0, 0, 0, 1, 0);
   }
@@ -66,12 +75,12 @@ class Office {
   }
   
   void showDesk() {
-    // Desk
+    // Desk 1
     pushMatrix();
     translate(650, 80, -750);
     rotateX(PI);
-    desk.setFill(color(128, 128, 128));
-    shape(desk);
+    desk1.setFill(color(128, 128, 128));
+    shape(desk1);
     popMatrix();
   
     // Lamp
@@ -99,6 +108,24 @@ class Office {
     pushMatrix();
     noFill();
     box(1500, height, 3000);
+    popMatrix();
+  }
+  
+  void showBookshelf(){
+    // Bookshelf
+    pushMatrix();
+    translate(-400, 370, 1415);
+    rotateX(PI);
+    shape(bookshelf);
+    popMatrix();
+  }
+  
+  void showPainting() {
+    // Painting
+    pushMatrix();
+    translate(300, -20, 1495);
+    rotateX(PI);
+    shape(painting);
     popMatrix();
   }
   

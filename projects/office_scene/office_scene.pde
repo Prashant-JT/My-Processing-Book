@@ -13,13 +13,11 @@ void setup() {
 
 void draw() {
   background(200);
-
+  // Start in the center of the office
   translate(0, 0, -500);
-
+  // Create office scene
   office.show();
 }
-
-
 
 /*
 void keyReleased() {
