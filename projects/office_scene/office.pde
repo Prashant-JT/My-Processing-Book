@@ -7,7 +7,7 @@ class Office {
   PShape lamp;
   PShape tv;
   PShape painting;
-  
+
   Office() {
     guy = loadShape("office-guy.obj");
     guy.scale(3);
@@ -23,11 +23,10 @@ class Office {
     lamp.scale(20);
     tv = loadShape("screen.obj");
     tv.scale(100);
-    //oil-paintings-with-frame
     painting = loadShape("oil-paintings-with-frame.obj");
     painting.scale(30);
   }
-  
+
   void show() {
     showPerson();
     showWindow();
@@ -36,10 +35,8 @@ class Office {
     showRoom();
     showBookshelf();
     showPainting();
-    
-    //camera(0, 0, ((height/2) / tan(PI/6)) + 50, 0, 0, 0, 0, 1, 0);
   }
-  
+
   void showPerson() {
     // Guy
     pushMatrix();
@@ -48,7 +45,7 @@ class Office {
     rotateY(PI);
     shape(guy);
     popMatrix();
-  
+
     // Girl
     pushMatrix();
     translate(400, 300, 1000);
@@ -57,7 +54,7 @@ class Office {
     shape(girl);
     popMatrix();
   }
-  
+
   void showWindow() {
     // Window 1
     pushMatrix();
@@ -65,7 +62,7 @@ class Office {
     rotateY(PI/2);
     shape(window);
     popMatrix();
-  
+
     // Window 2
     pushMatrix();
     translate(750, -100, 700);
@@ -73,7 +70,7 @@ class Office {
     shape(window);
     popMatrix();
   }
-  
+
   void showDesk() {
     // Desk 1
     pushMatrix();
@@ -82,7 +79,7 @@ class Office {
     desk1.setFill(color(128, 128, 128));
     shape(desk1);
     popMatrix();
-  
+
     // Lamp
     pushMatrix();
     translate(650, 90, -1000);
@@ -92,26 +89,29 @@ class Office {
     shape(lamp);
     popMatrix();
   }
-  
+
   void showTV() {
     // Television
     pushMatrix();
     translate(-730, 200, 300);
     rotateY(PI/2);
     rotateZ(PI);
+    ambientLight(10, 10, 10);
+    lightSpecular(255, 255, 255);
+    pointLight(102, 153, 204, -730, 200, 0);
     shape(tv);
     popMatrix();
   }
-  
+
   void showRoom() {
     // Create room
     pushMatrix();
-    noFill();
+    //noFill();
     box(1500, height, 3000);
     popMatrix();
   }
-  
-  void showBookshelf(){
+
+  void showBookshelf() {
     // Bookshelf
     pushMatrix();
     translate(-400, 370, 1415);
@@ -119,14 +119,13 @@ class Office {
     shape(bookshelf);
     popMatrix();
   }
-  
+
   void showPainting() {
-    // Painting
+    // Paintings
     pushMatrix();
     translate(300, -20, 1495);
     rotateX(PI);
     shape(painting);
     popMatrix();
   }
-  
 }
