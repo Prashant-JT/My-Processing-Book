@@ -17,20 +17,17 @@ class Person {
     return vector;
   }
 
-  // Revisear
   void setPosition(boolean forward, boolean back, boolean left, boolean right) {
     if (forward) {
-      //vector.z += 10*s;
-      vector.z -= cos(radians(angle))*10;
-      vector.x += sin(radians(angle))*10;
+      vector.z -= cos(radians(angle))*20;
+      vector.x += sin(radians(angle))*20;
     } else if (back) {
-      //vector.z += 10*s;
-      vector.z += cos(radians(angle))*10;
-      vector.x -= sin(radians(angle))*10;
+      vector.z += cos(radians(angle))*20;
+      vector.x -= sin(radians(angle))*20;
     } else if (left) {
-      angle -= 1;
+      angle -= 2;
     } else if (right) {
-      angle += 1;
+      angle += 2;
     }
   }
 
@@ -44,8 +41,8 @@ class Person {
     if (angle > 360) angle = 0;
   }
 
-
   void resetPosition() {
     vector = new PVector(0, 0, 0);
   }
+  
 }

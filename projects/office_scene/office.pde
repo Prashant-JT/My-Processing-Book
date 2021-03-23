@@ -7,6 +7,7 @@ class Office {
   PShape lamp;
   PShape tv;
   PShape painting;
+  boolean lightsOn;
 
   Office() {
     guy = loadShape("office-guy.obj");
@@ -25,9 +26,12 @@ class Office {
     tv.scale(100);
     painting = loadShape("oil-paintings-with-frame.obj");
     painting.scale(30);
+
+    lightsOn = false;
   }
 
   void show() {
+    textureMode(NORMAL);
     showPerson();
     showWindow();
     showDesk();
@@ -50,7 +54,6 @@ class Office {
     pushMatrix();
     translate(400, 300, 1000);
     rotateX(PI);
-    //rotateY(PI);
     shape(girl);
     popMatrix();
   }
@@ -72,7 +75,7 @@ class Office {
   }
 
   void showDesk() {
-    // Desk 1
+    // Desk
     pushMatrix();
     translate(650, 80, -750);
     rotateX(PI);
@@ -96,19 +99,20 @@ class Office {
     translate(-730, 200, 300);
     rotateY(PI/2);
     rotateZ(PI);
-    ambientLight(10, 10, 10);
-    lightSpecular(255, 255, 255);
-    pointLight(102, 153, 204, -730, 200, 0);
     shape(tv);
     popMatrix();
   }
 
   void showRoom() {
     // Create room
-    pushMatrix();
-    //noFill();
+    //pushMatrix();
+    if (lightsOn) {
+      ambientLight(240, 230, 245);
+    } else {
+      ambientLight(10, 10, 10);
+    }
     box(1500, height, 3000);
-    popMatrix();
+    //popMatrix();
   }
 
   void showBookshelf() {
@@ -127,5 +131,13 @@ class Office {
     rotateX(PI);
     shape(painting);
     popMatrix();
+  }
+
+  void setLights() {
+    if (lightsOn) {
+      lightsOn = false;
+    } else {
+      lightsOn = true;
+    }
   }
 }
