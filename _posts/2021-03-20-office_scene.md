@@ -375,6 +375,7 @@ A continuación se describe el trabajo realizado. Se crean e inicializan las var
 ![](/My-Processing-Book/images/office_scene/office-scene-demo.gif  "Ejecución del código en Processing")
 
 ## Descargar código en Processing 
+{% include info.html text="Es importante destacar que el programa tardará unos segundos para cargar al ejecutar debido a las texturas usadas." %}
 Para descargar el código en Processing, acceda a: <a href="https://downgit.github.io/#/home?url=https://github.com/Prashant-JT/My-Processing-Book/tree/master/projects/office_scene">Descargar código en Processing</a> o acceda a la carpeta del repositorio del proyecto en: <a href="https://github.com/Prashant-JT/My-Processing-Book/tree/master/projects/office_scene">Repositorio del proyecto</a>
 
 ---
