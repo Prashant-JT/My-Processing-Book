@@ -303,7 +303,7 @@ A continuación se describe el trabajo realizado. Se crean e inicializan las var
         }
       }
     
-<br>Respecto la clase *Office*, este contiene atributos como el vector que representa las coordenadas en la que se encuentra actualmente y el ángulo en el que gira cuando el usuario decide rotar hacia la izquierda o derecha.
+<br>Respecto la clase *Office*, este contiene atributos como el vector que representa las coordenadas en la que se encuentra el usuario actualmente y el ángulo en el que gira cuando decide rotar hacia la izquierda o derecha.
     
     class Person {
       PVector vector;
