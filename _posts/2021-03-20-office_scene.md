@@ -35,7 +35,7 @@ A continuación se describe el trabajo realizado. Se crean e inicializan las var
       help = true;
     }
 
-<br>En la función **draw()** se chequea si el usuario ha elegido ver los controles o no. Se dibuja la escena de la oficina mediante la función **show()** de la clase *Office*. Inicialmente, el usuario se encuentra en el centro de la oficina situándolo con los parámetros de la función **camera(x1,y1,z1,x2,y2,z2,x3,y3,z3)** mediante la función **getPosition()** el cual devuelve las coordenadas del usuario. En caso contrario, se establece la vista de tercera persona con sus valores por defecto. Para actualizar las coordenadas del usuario se utiliza la función **setPosition(forward, backward, left, right)** de la clase *Person*. Se muestra o ocultan los controles si el usuario presiona la tecla 'h'.
+<br>En la función **draw()** se chequea si el usuario ha elegido ver los controles o no. Se dibuja la escena de la oficina mediante la función **show()** de la clase *Office*. Inicialmente, el usuario se encuentra en el centro de la oficina situándolo con los parámetros de la función **camera(x1,y1,z1,x2,y2,z2,x3,y3,z3)** mediante la función **getPosition()** el cual devuelve las coordenadas del usuario. Para actualizar las coordenadas del usuario se utiliza la función **setPosition(forward, backward, left, right)** de la clase *Person*. Se muestra o ocultan los controles si el usuario presiona la tecla 'h'.
 
     void draw() {
       // Show controls
