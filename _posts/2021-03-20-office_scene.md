@@ -21,7 +21,7 @@ El diseño ha sido el que se puede observar en la siguiente figura. Una habitaci
 
 ## Código implementado
 
-A continuación se describe el trabajo añadido respecto al artículo anterior. Se crean e inicializan las variables necesarias los controles del usuario que se irán explicando a medida que se avance. Se añaden las variables booleanas para controlar los movimientos del usuario cuando se desplace por la oficina y una variable booleana mostrar los controles cuando el usuario desee. En la función **setup()** se inicializa una persona y una oficina creando un objeto de la clase *Person* y de la clase *Office* que se explicarán más adelante.
+A continuación se describe el trabajo realizado. Se crean e inicializan las variables necesarias los controles del usuario que se irán explicando a medida que se avance. Se añaden las variables booleanas para controlar los movimientos del usuario cuando se desplace por la oficina y una variable booleana mostrar los controles cuando el usuario desee. En la función **setup()** se inicializa una persona y una oficina creando un objeto de la clase *Person* y de la clase *Office* que se explicarán más adelante.
 
     Office office;
     Person person;
