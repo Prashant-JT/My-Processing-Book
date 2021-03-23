@@ -117,7 +117,7 @@ A continuación se describe el trabajo realizado. Se crean e inicializan las var
       office.setLights();
     }
 
-<br>Respecto la clase *Office*, este contiene atributos como los objetos que aparecerán en la escena, cargando las figuras 3D mediante la función **loadShape("path")** en el constructor. Se ha tenido que rescalar las figuras mediante la función **scale(s)**.
+<br>Respecto la clase *Office*, este contiene atributos como los objetos que aparecerán en la escena, cargando las figuras 3D mediante la función **loadShape("path")** junto a sus texturas en el constructor. Se ha tenido que rescalar las figuras mediante la función **scale(s)**.
 
     class Office {
       PShape window;
