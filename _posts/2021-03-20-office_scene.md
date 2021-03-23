@@ -1,4 +1,4 @@
-# Nave en el sistema planetario
+# Oficina con iluminación
 > Realizado por Prashant Jeswani Tejwani
 
 Índice del contenido:
