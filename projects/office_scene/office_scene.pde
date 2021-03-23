@@ -4,14 +4,14 @@ boolean moveLeft, moveRight, moveForward, moveBack = false;
 boolean help;
 
 void setup() {
-  size(800, 600, P3D);
+  size(1000, 600, P3D);
   office = new Office();
   person = new Person();
   help = true;
 }
 
 void draw() {
-  // Show or hide controls
+  // Show controls
   if (help) {
     pushMatrix();
     translate(width/2, height/2, 0);
@@ -42,8 +42,9 @@ void help() {
   text("Press 's' to move backward", 0, -60);
   text("Press 'a' to rotate left", 0, -30);
   text("Press 'd' to rotate right", 0, 0);
-  text("Left click to on/off lights", 0, 30);
-  text("Press 'r' to reset position", 0, 60);
+  text("Left click to create colored spot light (4 max)", 0, 30);
+  text("Move mouse left/right to change color intensity", 0, 60);
+  text("Press 'r' to reset position", 0, 90);
   text("© Prashant Jeswani Tejwani", 0, 150);
   textFont(createFont("Georgia", 12));
   text("Note: Rendering time when hiding controls for the first time is high, it may take a few seconds", 0, 250);
@@ -76,6 +77,7 @@ void keyPressed() {
   }
 }
 
-void mouseClicked() {
+// Create spot lights
+void mousePressed() {
   office.setLights();
 }
