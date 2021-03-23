@@ -303,7 +303,7 @@ A continuación se describe el trabajo añadido respecto al artículo anterior. 
         }
       }
     
-<br>Respecto la clase *Office*, este contiene atributos 
+<br>Respecto la clase *Office*, este contiene atributos como el vector que representa las coordenadas en la que se encuentra actualmente y el ángulo en el que gira cuando el usuario decide rotar hacia la izquierda o derecha.
     
     class Person {
       PVector vector;
@@ -314,7 +314,7 @@ A continuación se describe el trabajo añadido respecto al artículo anterior. 
         angle = 0;
     }
 
-<br>show
+<br>La función **show()** establece las coordenadas y sitúa al usuario en la escena de la oficina.
 
     void show() {
       pushMatrix();
@@ -322,14 +322,14 @@ A continuación se describe el trabajo añadido respecto al artículo anterior. 
       popMatrix();
     }
 
-<br>getposition
+<br>La función **getPosition()** simplemente devuelve la posición actual del usuario.
 
     // Actual position
     PVector getPosition() {
       return vector;
     }
 
-<br>setPosition
+<br>La función **setPosition(forward, back, left, right)** actualiza las posiciones del usuario. Se ha hecho uso del coseno y seno para la rotación del usuario:
 
     // Update positions
     void setPosition(boolean forward, boolean back, boolean left, boolean right) {
@@ -346,7 +346,7 @@ A continuación se describe el trabajo añadido respecto al artículo anterior. 
       }
     }
 
-<br> rotate
+<br>La función **rotatePerson()** es la encargada de indicar la vista del usuario a la función **camera(x1,y1,z1,x2,y2,z2,x3,y3,z3)**: 
 
     // Rotation
     PVector rotatePerson() {
@@ -355,7 +355,7 @@ A continuación se describe el trabajo añadido respecto al artículo anterior. 
       return p;
     }
 
-<br> update
+<br>La función **update()** actualiza el ángulo en el que el usuario está girado:
     
     // Update angle
     void updateAngle() {
@@ -363,7 +363,7 @@ A continuación se describe el trabajo añadido respecto al artículo anterior. 
     }
     
 
-<br>Finalmente, se llama a la función **resetPosition()** cuando el usuario decide reestablecer la posición inicial del cohete.
+<br>Finalmente, se llama a la función **resetPosition()** cuando el usuario decide reestablecer su posición inicial.
     
     // Reset position
     void resetPosition() {
