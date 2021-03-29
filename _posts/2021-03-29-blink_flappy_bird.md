@@ -345,7 +345,7 @@ A continuación se describe el trabajo realizado. Se crean e inicializan las var
 ![](/My-Processing-Book/images/blink_flappy_bird/blink-flappy-bird-demo.gif  "Ejecución del código en Processing")
 
 ## Descargar código en Processing
-Para la correcta ejecución en Processing, es necesario instalar la librería oscP5 (del autor Andreas Schiegel). Esto se puede hacer de la siguiente manera:
+Para la correcta ejecución en Processing, es necesario instalar la librería oscP5 (del autor Andreas Schlegel). Esto se puede hacer de la siguiente manera:
 
 ![](/My-Processing-Book/images/blink_flappy_bird/oscP5-lib.gif  "Instalación de la librería oscP5 en Processing")
 
