@@ -309,23 +309,22 @@ A continuación se describe el trabajo realizado. Se crean e inicializan las var
   
 }
 
-<br>Respecto la clase *Office*, este contiene atributos como el vector que representa las coordenadas en la que se encuentra el usuario actualmente y el ángulo en el que gira cuando decide rotar hacia la izquierda o derecha.
+<br>La clase *Pillar* representa un pilar/pared como forma de obstáculo dibujadas como líneas verticales en la parte superior e inferior de la pantalla de juego. Para ello se declaran como atributos la posición x, el tamaño de apertura y una variable booleana.
     
-    class Person {
-      PVector vector;
-      float angle;
+    class Pillar {
+      float xPos, opening;
+      boolean crashed = false;
 
-      Person() {
-        vector = new PVector(0, 0, 0);
-        angle = 0;
-    }
+      Pillar(int i) {
+        xPos = 100 + (i * 200);
+        opening = random(200) + 100;
+      }
 
-<br>La función **show()** establece las coordenadas y sitúa al usuario en la escena de la oficina.
+<br>La función **show()** dibjua las paredes superiores e inferiores con una apertiura aleatoria para que el usuario tenga la posibilidad de pasar:
 
-    void show() {
-      pushMatrix();
-      translate(vector.x, vector.y, vector.z);
-      popMatrix();
+    void drawPillar() {
+      line(xPos, 0, xPos, opening - 100);  
+      line(xPos, opening + 100, xPos, 800);
     }
 
 <br>La función **getPosition()** simplemente devuelve la posición actual del usuario.
@@ -333,48 +332,24 @@ A continuación se describe el trabajo realizado. Se crean e inicializan las var
     // Actual position
     PVector getPosition() {
       return vector;
-    }
+    }  
 
-<br>La función **setPosition(forward, back, left, right)** actualiza las posiciones del usuario. Se ha hecho uso del coseno y seno para la rotación del usuario:
-
-    // Update positions
-    void setPosition(boolean forward, boolean back, boolean left, boolean right) {
-      if (forward) {
-        vector.z -= cos(radians(angle))*20;
-        vector.x += sin(radians(angle))*20;
-      } else if (back) {
-        vector.z += cos(radians(angle))*20;
-        vector.x -= sin(radians(angle))*20;
-      } else if (left) {
-        angle -= 2;
-      } else if (right) {
-        angle += 2;
+<br>Finalmente, la siguiente función incrementa el contador de puntos cuando no ha habido una colisión:
+    
+    void checkPosition() {
+      if (xPos < 0) {
+        xPos += (200 * 3);
+        opening = random(200) + 100;
+        crashed = false;
+      }
+    
+      if (xPos < 250 && !crashed) {
+        crashed = true;
+        score++;
       }
     }
-
-<br>La función **rotatePerson()** es la encargada de indicar la vista del usuario a la función **camera(x1,y1,z1,x2,y2,z2,x3,y3,z3)**: 
-
-    // Rotation
-    PVector rotatePerson() {
-      PVector p = new PVector(sin(radians(angle))*(width*1000), 
-                              cos(radians(angle))*(-width*1000));
-      return p;
-    }
-
-<br>La función **update()** actualiza el ángulo en el que el usuario está girado:
-    
-    // Update angle
-    void updateAngle() {
-      if (angle > 360) angle = 0;
-    }
-    
-
-<br>Finalmente, se llama a la función **resetPosition()** cuando el usuario decide reestablecer su posición inicial.
-    
-    // Reset position
-    void resetPosition() {
-      vector = new PVector(0, 0, 0);
-    }    
+  
+  }  
  
 <br>A continuación, se muestra el resultado final mediante un gif animado: 
 
