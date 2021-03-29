@@ -17,7 +17,7 @@ Se compone una escena de una oficina, con objetos tridimensionales con texturas,
 
 El diseño ha sido el que se puede observar en la siguiente figura. Una habitación con objetos como escritorio, estantería, televisión, ventanas y personas. El usuario es capaz de moverse por toda la oficina creando nuevos puntos de luz (en unas posiciones preestablecida) con distintos colores al hacer click. Para ir variando la intensidad de los colores puede mover el ratón hacia la izquierda para colores más oscuros o hacia la derecha para más claros. El techo está iluminado por una luz blanca/gris que ilumina la oficina. 
 
-![](/My-Processing-Book/images/office_scene/office_scene.PNG "Diseño del programa en Processing")
+![](/My-Processing-Book/images/blink_flappy_bird/blink_flappy_bird.PNG "Diseño del programa en Processing")
 
 ## Código implementado
 
@@ -372,7 +372,7 @@ A continuación se describe el trabajo realizado. Se crean e inicializan las var
  
 <br>A continuación, se muestra el resultado final mediante un gif animado: 
 
-![](/My-Processing-Book/images/office_scene/office-scene-demo.gif  "Ejecución del código en Processing")
+![](/My-Processing-Book/images/office_scene/blink-flappy-bird-demo.gif  "Ejecución del código en Processing")
 
 ## Descargar código en Processing 
 {% include info.html text="Es necesario descargar FaceOSC para la ejecución." %}
