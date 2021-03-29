@@ -68,7 +68,7 @@ A continuación se describe el trabajo realizado. Se crean e inicializan las var
         drawFacePolygons();
         popMatrix();
 
-        if (eyeLeft < eyeLeftBefore - 0.8) {
+        if (eyeLeft < eyeLeftBefore - 0.8 && eyeRight < eyeRightBefore - 0.8) {
           if (end) {
             bird.jump();
             intro = false;
