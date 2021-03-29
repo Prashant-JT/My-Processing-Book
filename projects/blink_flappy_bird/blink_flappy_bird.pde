@@ -33,6 +33,7 @@ void setup() {
 void draw() {
   background(0);
 
+  // Face found
   if (found > 0) {
     pushMatrix();
     translate(60, height-100);
@@ -41,7 +42,7 @@ void draw() {
     drawFacePolygons();
     popMatrix();
 
-    if (eyeLeft < eyeLeftBefore - 0.8) {
+    if (eyeLeft < eyeLeftBefore - 0.8 && eyeRight < eyeRightBefore - 0.8) {
       if (end) {
         bird.jump();
         intro = false;
@@ -51,12 +52,14 @@ void draw() {
       }
     }
   }
-
+  
+  // Update bird
   if (end) bird.move();
   bird.drawBird();
   if (end) bird.drag();
   bird.checkCollisions();
-
+  
+  // Draw pillars
   for (int i = 0; i < 3; i++) {
     pillars[i].drawPillar();
     pillars[i].checkPosition();
@@ -65,7 +68,8 @@ void draw() {
   fill(0);
   stroke(255);
   textSize(32);
-
+  
+  // Show controls
   if (end) {
     rect(20, 20, 100, 50);
     fill(255);
@@ -75,6 +79,7 @@ void draw() {
   }
 }
 
+// User controls
 void help() {
   rect(110, 105, 300, 50);
   rect(160, 200, 200, 90);
@@ -97,6 +102,7 @@ void help() {
   }
 }
 
+// Reset game
 void reset() {
   end = true;
   score = 0;
@@ -107,6 +113,7 @@ void reset() {
   }
 }
 
+// Alternative jump
 void mousePressed() {
   bird.jump();
   intro = false;
@@ -119,6 +126,7 @@ public void found (int i) {
   found = i;
 }
 
+// Check left blink
 public void eyeLeftReceived(float f) { 
   if (eyeLeftBefore == 6) eyeLeftBefore = f; 
 
@@ -133,6 +141,7 @@ public void eyeLeftReceived(float f) {
   eyeLeft = f;
 }
 
+// Check right blink
 public void eyeRightReceived(float f) {
   if (eyeRightBefore == -1) eyeRightBefore = f; 
 
@@ -147,6 +156,7 @@ public void eyeRightReceived(float f) {
   eyeRight = f;
 }
 
+// Draw face
 void drawFacePoints() {
   int nData = rawArray.length;
   for (int val=0; val<nData; val+=2) {
@@ -218,5 +228,5 @@ void drawFacePolygons() {
 }
 
 public void rawData(float[] raw) {
-  rawArray = raw; 
+  rawArray = raw;
 }
