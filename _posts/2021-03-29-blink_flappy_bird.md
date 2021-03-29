@@ -15,294 +15,300 @@ Se implementa el famoso juego *Flappy Bird* usando reconocimiento facial (median
 
 ## Diseño 
 
-El diseño ha sido el que se puede observar en la siguiente figura. El típico pájaro se ha representado como una pelota y los tubos verdes como líneas negras simulando paredes superiores e inferiores. El usuario es capaz de moverse por toda la oficina creando nuevos puntos de luz (en unas posiciones preestablecida) con distintos colores al hacer click. Para ir variando la intensidad de los colores puede mover el ratón hacia la izquierda para colores más oscuros o hacia la derecha para más claros. El techo está iluminado por una luz blanca/gris que ilumina la oficina. 
+El diseño ha sido el que se puede observar en la siguiente figura. El típico pájaro se ha representado como una pelota y los tubos verdes como líneas negras simulando paredes superiores e inferiores. El usuario es capaz de hacer click con el ratón o pestañear con los ojos para saltar y esquivar las paredes. En la parte inferior izquierda se muestra los puntos detectados de la cara del usuario con los datos crudos que proporciona FaceOSC y en la parte superior izquierda la puntuación actual.
 
 ![](/My-Processing-Book/images/blink_flappy_bird/blink_flappy_bird.PNG "Diseño del programa en Processing")
 
 ## Código implementado
 
-A continuación se describe el trabajo realizado. Se crean e inicializan las variables necesarias para los controles del usuario que se irán explicando a medida que se avance. Se añaden las variables booleanas para controlar los movimientos del usuario cuando se desplace por la oficina y una variable booleana para mostrar los controles cuando el usuario desee. En la función **setup()** se inicializa una persona y una oficina creando un objeto de la clase *Person* y de la clase *Office* que se explicarán más adelante.
+A continuación se describe el trabajo realizado. Se crean e inicializan las variables necesarias para el juego y los controles del usuario que se irán explicando a medida que se avance. En la función **setup()** se inicializa el pájaro y las paredes creando un objeto de la clase *Bird* y de la clase *Pillar* que se explicarán más adelante. También se establece la conexión por el puerto 8338 y se cargan los eventos que capturan los ojos de FaceOSC. 
 
-    Office office;
-    Person person;
-    boolean moveLeft, moveRight, moveForward, moveBack = false;
-    boolean help;
+    import oscP5.*;
+
+    Bird bird = new Bird();
+    Pillar[] pillars = new Pillar[3];
+    boolean end = false;
+    boolean intro = true;
+    int score = 0;
+    OscP5 oscP5;
+    int found;
+    float eyeLeftBefore, eyeRightBefore;
+    float eyeLeft, eyeRight;
+    float[] rawArray;
 
     void setup() {
-      size(1000, 600, P3D);
-      office = new Office();
-      person = new Person();
-      help = true;
+      size(500, 600);
+      frameRate(50);
+
+      for (int i = 0; i < 3; i++) {
+        pillars[i] = new Pillar(i);
+      }
+
+      oscP5 = new OscP5(this, 8338);
+      oscP5.plug(this, "found", "/found");
+      oscP5.plug(this, "eyeLeftReceived", "/gesture/eye/left");
+      oscP5.plug(this, "eyeRightReceived", "/gesture/eye/right");
+      oscP5.plug(this, "rawData", "/raw");
+
+      rawArray = new float[132]; 
+      eyeLeftBefore = -1;
+      eyeRightBefore = -1;
     }
 
-<br>En la función **draw()** se chequea si el usuario ha elegido ver los controles o no. Se dibuja la escena de la oficina mediante la función **show()** de la clase *Office*. Inicialmente, el usuario se encuentra en el centro de la oficina situándolo con los parámetros de la función **camera(x1,y1,z1,x2,y2,z2,x3,y3,z3)** mediante la función **getPosition()** el cual devuelve las coordenadas del usuario. Para actualizar las coordenadas del usuario se utiliza la función **setPosition(forward, backward, left, right)** de la clase *Person*. Se muestra o ocultan los controles si el usuario presiona la tecla 'h'.
+<br>En la función **draw()** se dibuja el rostro del usuario en la parte inferior izquierda mediante las funciones **drawFacePoints()** y **drawFacePolygons()**. A continuación, se detecta si el usuario ha pestañeado comparando la altura de los ojos sumando una restando una tolerancia. Luego, se dibuja la pelota y se chequea si ha habido colisión mediante la función **checkCollisions()** de la clase *Bird*, se dibujan las paredes aleatoriamente con la función **drawPillar()**. 
 
     void draw() {
-      // Show controls
-      if (help) {
-        pushMatrix();
-        translate(width/2, height/2, 0);
-        camera(0, 0, (height/2) / tan(PI/6), 0, 0, 0, 0, 1, 0); 
-        help();
-        popMatrix();
-      } else {
-        // Create office scene
-        office.show();
+      background(0);
 
-        // Update camera
-        person.updateAngle();
-        person.show();
-        person.setPosition(moveForward, moveBack, moveLeft, moveRight);
-        camera(person.getPosition().x, person.getPosition().y, person.getPosition().z, 
-          person.rotatePerson().x, 0, person.rotatePerson().y, 0, 1, 0);
+      if (found > 0) {
+        pushMatrix();
+        translate(60, height-100);
+        scale(2);
+        drawFacePoints(); 
+        drawFacePolygons();
+        popMatrix();
+
+        if (eyeLeft < eyeLeftBefore - 0.8) {
+          if (end) {
+            bird.jump();
+            intro = false;
+            if (!end) {
+              reset();
+            }
+          }
+        }
+      }
+
+      if (end) bird.move();
+      bird.drawBird();
+      if (end) bird.drag();
+      bird.checkCollisions();
+
+      for (int i = 0; i < 3; i++) {
+        pillars[i].drawPillar();
+        pillars[i].checkPosition();
+      }
+
+      fill(0);
+      stroke(255);
+      textSize(32);
+
+      if (end) {
+        rect(20, 20, 100, 50);
+        fill(255);
+        text(score, 30, 58);
+      } else {
+        help();
       }
     }
     
-<br>Se llama a la función **help()** la cual imprime un lienzo de ayuda de los controles que dispone el usuario.
+<br>Se llama a la función **help()** la cual imprime un lienzo de ayuda de los controles que dispone el usuario y para indicar las instrucciones para iniciar o reiniciar el juego.
 
     // User controls
     void help() {
+      rect(110, 105, 300, 50);
+      rect(160, 200, 200, 90);
       fill(255);
-      background(0);
-      textAlign(CENTER);
-      textFont(createFont("Georgia", 18));
-      text("Press 'h' to show/hide controls", 0, -120);
-      text("Press 'w' to move forward", 0, -90);
-      text("Press 's' to move backward", 0, -60);
-      text("Press 'a' to rotate left", 0, -30);
-      text("Press 'd' to rotate right", 0, 0);
-      text("Left click to create colored spot light (4 max)", 0, 30);
-      text("Move mouse left/right to change color intensity", 0, 60);
-      text("Press 'r' to reset position", 0, 90);
-      text("© Prashant Jeswani Tejwani", 0, 150);
-      textFont(createFont("Georgia", 12));
-      text("Note: Rendering time when hiding controls for the first time is high, it may take a few seconds", 0, 250);
+
+      if (intro) {
+        text("Face Flappy bird", 140, 140);
+        text("Click to Play", 175, 240);
+        textFont(createFont("Georgia", 16));
+        text("Click or blink eyes to jump", 166, 270);
+        text("© Prashant Jeswani Tejwani", 10, height-10);
+      } else {
+        text("Game over", 180, 140);
+        text("Score", 195, 240);
+        text(score, 300, 240);
+        textFont(createFont("Georgia", 16));
+        text("Click to restart", 210, 270);
+        textFont(createFont("Georgia", 16));
+        text("© Prashant Jeswani Tejwani", 10, height-10);
+      }
     }
 
-<br>Para el movimiento del usuario se utiliza las funciones **keyPressed** y **keyReleased**. Dependiendo de la tecla pulsada, el usuario se moverá hacia delante, hacia atrás o podrá girar hacia la izquierda o derecha. El usuario también tiene la opción de reestablecer la posición al estado inicial.
+<br>Alternativamente el usuario puede saltar haciendo click, esto se captura mediante la función **mousePressed()**. En el caso de que haya una colisión, se reestablece el juego llamando a la función **reset()**.
 
-    void keyReleased() {
-      if (!help) { 
-        if (key == 'w') moveForward = false;
-        if (key == 's') moveBack = false;
-        if (key == 'a') moveLeft = false;
-        if (key == 'd') moveRight = false;
+    void mousePressed() {
+      bird.jump();
+      intro = false;
+      if (!end) {
+        reset();
       }
     }
     
 <br>
 
-    void keyPressed() {
-      if (key == 'h') {
-        if (help) {
-          help = false;
-        } else {
-          help = true;
-        }
-      }
-
-      if (!help) { 
-        if (key == 'w') moveForward = true;
-        if (key == 's') moveBack = true;
-        if (key == 'a') moveLeft = true;
-        if (key == 'd') moveRight = true;
-        if (key == 'r') person.resetPosition();
+    void reset() {
+      end = true;
+      score = 0;
+      bird.yPos = 300;
+      for (int i = 0; i < 3; i++) {
+        pillars[i].xPos += 550;
+        pillars[i].crashed = false;
       }
     }
 
-<br>El usuario tiene la posibilidad de crear puntos de luz de distinto color que irán apareciendo en las distintas paredes en un sitio predeterminado (como máximo 4, cuando el usuario haga click por quinta vez, se reestablecerá a un solo punto de luz).
+<br>La función **found()** es para la detección de la cara y las funciones **eyeLeftReceived(f)** y **eyeRightReceived(f)** se encargan de manipular la variable booleana detectar el pestañeo del usuario, para ello se compara la altura de los ojos anteriores con el actual menos una tolerancia que se ha establecido a 1,2.
 
-    // Create spot lights
-    void mousePressed() {
-      office.setLights();
+    public void found (int i) {
+      found = i;
     }
 
-<br>Respecto la clase *Office*, este contiene atributos como los objetos que aparecerán en la escena, cargando las figuras 3D mediante la función **loadShape("path")** junto a sus texturas en el constructor. Se ha tenido que rescalar las figuras mediante la función **scale(s)**.
+    public void eyeLeftReceived(float f) { 
+      if (eyeLeftBefore == 6) eyeLeftBefore = f; 
 
-    class Office {
-      PShape window;
-      PShape guy;
-      PShape girl;
-      PShape desk1;
-      PShape bookshelf;
-      PShape lamp;
-      PShape tv;
-      PShape painting;
-      int spotLights;
-
-      Office() {
-        guy = loadShape("office-guy.obj");
-        guy.scale(3);
-        girl = loadShape("mei-posed-001.obj");
-        girl.scale(320);
-        window = loadShape("window-frame-and-pane.obj");
-        window.scale(100);
-        desk1 = loadShape("office-desk.obj");
-        desk1.scale(300);
-        bookshelf = loadShape("bookshelf-antonio-rodriguez.obj");
-        bookshelf.scale(500);
-        lamp = loadShape("lamp.obj");
-        lamp.scale(20);
-        tv = loadShape("screen.obj");
-        tv.scale(100);
-        painting = loadShape("oil-paintings-with-frame.obj");
-        painting.scale(30);
-
-        spotLights = 0;
+      if (f < eyeLeftBefore - 1.2) {
+        eyeLeftBefore = f;
       }
+
+      if (eyeLeft > eyeLeftBefore) {
+        eyeLeftBefore = eyeLeft;
+      }
+
+      eyeLeft = f;
+    }
+
+    public void eyeRightReceived(float f) {
+      if (eyeRightBefore == -1) eyeRightBefore = f; 
+
+      if (f < eyeLeftBefore - 1.2) {
+        eyeLeftBefore = f;
+      }
+
+      if (eyeRight > eyeRightBefore) {
+        eyeRightBefore = eyeRight;
+      }
+
+      eyeRight = f;
+    }
+
+<br>Para dibujar el rostro del usuario anteriormente comentado, se llaman a las tres siguientes funciones:
+
+    void drawFacePoints() {
+      int nData = rawArray.length;
+      for (int val=0; val<nData; val+=2) {
+        fill(255);
+        ellipse(rawArray[val], rawArray[val+1], 3, 3);
+      }
+    }
+
+    void drawFacePolygons() {
+      fill(255);
+      stroke(50); 
+
+      // Face outline
+      beginShape();
+      for (int i=0; i<34; i+=2) {
+        vertex(rawArray[i], rawArray[i+1]);
+      }
+      for (int i=52; i>32; i-=2) {
+        vertex(rawArray[i], rawArray[i+1]);
+      }
+      endShape(CLOSE);
+
+      // Eyes
+      beginShape();
+      for (int i=72; i<84; i+=2) {
+        vertex(rawArray[i], rawArray[i+1]);
+      }
+      endShape(CLOSE);
+      beginShape();
+      for (int i=84; i<96; i+=2) {
+        vertex(rawArray[i], rawArray[i+1]);
+      }
+      endShape(CLOSE);
+
+      // Upper lip
+      beginShape();
+      for (int i=96; i<110; i+=2) {
+        vertex(rawArray[i], rawArray[i+1]);
+      }
+      for (int i=124; i>118; i-=2) {
+        vertex(rawArray[i], rawArray[i+1]);
+      }
+      endShape(CLOSE);
+
+      // Lower lip
+      beginShape();
+      for (int i=108; i<120; i+=2) {
+        vertex(rawArray[i], rawArray[i+1]);
+      }
+      vertex(rawArray[96], rawArray[97]);
+      for (int i=130; i>124; i-=2) {
+        vertex(rawArray[i], rawArray[i+1]);
+      }
+      endShape(CLOSE);
+
+      // Nose bridge
+      beginShape();
+      for (int i=54; i<62; i+=2) {
+        vertex(rawArray[i], rawArray[i+1]);
+      }
+      endShape();
+
+      // Nose bottom
+      beginShape();
+      for (int i=62; i<72; i+=2) {
+        vertex(rawArray[i], rawArray[i+1]);
+      }
+      endShape();
+    }
+
+    public void rawData(float[] raw) {
+      rawArray = raw; 
+    }
       
-<br>La función **show()** dibuja la escena llamando a las funciones que van creando objetos de la oficina:
+<br>La clase *Bird* es la encagada de representar la pelota y se han declarado como atributos de la clase las coordenadas y la velocidad en el eje Y.
       
-      void show() {
-        textureMode(NORMAL);
-        showPerson();
-        showWindow();
-        showDesk();
-        showTV();
-        showRoom();
-        showBookshelf();
-        showPainting();
+    class Bird {
+      float xPos, yPos, ySpeed;
+
+      Bird() {
+        xPos = 250;
+        yPos = 400;
       }
 
-<br> La siguiente función dibuja a las personas:
+<br> La función **drawBird()** dibuja la pelota y es la llamada en la función **draw()**:
 
-      void showPerson() {
-        // Guy
-        pushMatrix();
-        translate(-400, 300, -1000);
-        rotateX(PI-0.25);
-        rotateY(PI);
-        shape(guy);
-        popMatrix();
+    void drawBird() {
+        stroke(255);
+        noFill();
+        strokeWeight(2);
+        ellipse(xPos, yPos, 20, 20);
+    }
 
-        // Girl
-        pushMatrix();
-        translate(400, 300, 1000);
-        rotateX(PI);
-        shape(girl);
-        popMatrix();
-      }
+<br> La siguientes funciones controlan la velocidad al saltar y al bajar de la pelota:
 
-<br> La siguiente función dibuja las ventanas de la pared derecha:
+    void jump() {
+      ySpeed = -10;
+    }
 
-      void showWindow() {
-        // Window 1
-        pushMatrix();
-        translate(750, -100, 0);
-        rotateY(PI/2);
-        shape(window);
-        popMatrix();
-
-        // Window 2
-        pushMatrix();
-        translate(750, -100, 700);
-        rotateY(PI/2);
-        shape(window);
-        popMatrix();
-      }
-
-<br> La siguiente función dibuja un escritorio con una lámpara:
-
-      void showDesk() {
-        // Desk
-        pushMatrix();
-        translate(650, 80, -750);
-        rotateX(PI);
-        shininess(5.0); 
-        desk1.setFill(color(128, 128, 128));
-        shape(desk1);
-        popMatrix();
-
-        // Lamp
-        pushMatrix();
-        translate(650, 90, -1000);
-        rotateX(PI);
-        rotateY(PI);
-        shininess(5.0); 
-        lamp.setFill(color(192, 192, 192));
-        shape(lamp);
-        popMatrix();
-      }
-
-<br> La siguiente función dibuja una televisión en la pared izquierda:
-
-      void showTV() {
-        // Television
-        pushMatrix();
-        translate(-730, 200, 300);
-        rotateY(PI/2);
-        rotateZ(PI);
-        shininess(5.0); 
-        shape(tv);
-        popMatrix();
-      }
-
-<br> La siguiente función es la encargada de crear los distintos puntos de luz en las paredes según las veces que el usuario haya hecho click. Además, se establece luz ambiente y una luz en el techo que ilumina la oficina. También controla la intensidad de los colores según la posición en la que se encuentre el ratón:
-
-      void showRoom() {
-        // Create room
-        // Different spot lights
-        switch (spotLights) {
-        case 1:
-          spotLight(255, 0, 0, 200, -500, 1000, -1, 1, -1, PI/2, 10);
-          break;
-        case 2:
-          spotLight(255, 0, 0, 200, -500, 1000, -1, 1, -1, PI/2, 10);
-          spotLight(255, 255, 0, -1000, -500, 1000, 1, 1, -1, PI/2, 10);
-          break;
-        case 3:
-          spotLight(255, 0, 0, 200, -500, 1000, -1, 1, -1, PI/2, 10);
-          spotLight(255, 255, 0, -1000, -500, 1000, 1, 1, -1, PI/2, 10);
-          spotLight(0, 255, 0, -1000, -500, -1000, 1, 1, 1, PI/2, 10);
-          break;
-        default:
-          spotLight(255, 0, 0, 200, -500, 1000, -1, 1, -1, PI/2, 10);
-          spotLight(255, 255, 0, -1000, -500, 1000, 1, 1, -1, PI/2, 10);
-          spotLight(0, 255, 0, -1000, -500, -1000, 1, 1, 1, PI/2, 10);
-          spotLight(0, 0, 255, 1000, -500, -1000, -1, 1, 1, PI/2, 10);
-          break;
-        }
-
-        // Ceilling light
-        directionalLight(150, 150, 150, 0, -1, 0);
-        lightSpecular(200, 200, 200);
-
-        float val = (float) mouseX / (float) width*(float) 180;
-        ambientLight ((int)val, (int)val, (int)val);
-        box(1500, height, 3000);
-      }
-
-      void showBookshelf() {
-        // Bookshelf
-        pushMatrix();
-        translate(-400, 370, 1415);
-        rotateX(PI);
-        shape(bookshelf);
-        popMatrix();
-      }
-
-<br> La siguiente función dibuja unas pinturas en la pared trasera:
-
-      void showPainting() {
-        // Paintings
-        pushMatrix();
-        translate(300, -20, 1495);
-        rotateX(PI);
-        shape(painting);
-        popMatrix();
-      }
-
-<br> Finalmente, la función **setLights()** controla el número de puntos de luz:
-
-      // Set number of spot lights
-      void setLights() {
-        if (spotLights < 4) {
-          spotLights++;
-        } else {
-          spotLights = 0;
-        }
-      }
+    void drag() {
+      ySpeed += 0.4;
+    }
     
+    void move() {
+      yPos += ySpeed; 
+      for (int i = 0; i < 3; i++) {
+        pillars[i].xPos -= 3;
+      }
+    }
+
+<br>Finalmente, la función **checkCollisions()** detecta cuando la pelota ha colisionado con alguna de las paredes:
+  
+    void checkCollisions() {
+      if (yPos > 800) end = false;
+      for (int i = 0; i < 3; i++) {
+          if ((xPos < pillars[i].xPos + 10 && xPos > pillars[i].xPos - 10) && 
+              (yPos < pillars[i].opening - 100||yPos > pillars[i].opening + 100)) {
+              end = false;
+          }
+      }
+    }
+  
+}
+
 <br>Respecto la clase *Office*, este contiene atributos como el vector que representa las coordenadas en la que se encuentra el usuario actualmente y el ángulo en el que gira cuando decide rotar hacia la izquierda o derecha.
     
     class Person {
