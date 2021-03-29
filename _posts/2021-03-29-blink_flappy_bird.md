@@ -318,7 +318,7 @@ A continuación se describe el trabajo realizado. Se crean e inicializan las var
         opening = random(200) + 100;
       }
 
-<br>La función **show()** dibjua las paredes superiores e inferiores con una apertura aleatoria para que el usuario tenga la posibilidad de pasar:
+<br>La función **show()** dibuja las paredes superiores e inferiores con una apertura aleatoria para que el usuario tenga la posibilidad de pasar:
 
     void drawPillar() {
       line(xPos, 0, xPos, opening - 100);  
