@@ -1,4 +1,4 @@
-# Blink Flappy Bird: FaceOSC
+# FaceOSC: Blink Flappy Bird
 > Realizado por Prashant Jeswani Tejwani
 
 Índice del contenido:
