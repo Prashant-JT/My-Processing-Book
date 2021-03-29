@@ -55,7 +55,7 @@ A continuación se describe el trabajo realizado. Se crean e inicializan las var
       eyeRightBefore = -1;
     }
 
-<br>En la función **draw()** se dibuja el rostro del usuario en la parte inferior izquierda mediante las funciones **drawFacePoints()** y **drawFacePolygons()**. A continuación, se detecta si el usuario ha pestañeado comparando la altura de los ojos sumando una restando una tolerancia. Luego, se dibuja la pelota y se chequea si ha habido colisión mediante la función **checkCollisions()** de la clase *Bird*, se dibujan las paredes aleatoriamente con la función **drawPillar()**. 
+<br>En la función **draw()** se dibuja el rostro del usuario en la parte inferior izquierda mediante las funciones **drawFacePoints()** y **drawFacePolygons()**. A continuación, se detecta si el usuario ha pestañeado comparando la altura de los ojos restando una restando una tolerancia. Luego, se dibuja la pelota y se chequea si ha habido colisión mediante la función **checkCollisions()** de la clase *Bird*, se dibujan las paredes aleatoriamente con la función **drawPillar()**. 
 
     void draw() {
       background(0);
@@ -149,7 +149,7 @@ A continuación se describe el trabajo realizado. Se crean e inicializan las var
       }
     }
 
-<br>La función **found()** es para la detección de la cara y las funciones **eyeLeftReceived(f)** y **eyeRightReceived(f)** se encargan de manipular la variable booleana detectar el pestañeo del usuario, para ello se compara la altura de los ojos anteriores con el actual menos una tolerancia que se ha establecido a 1,2.
+<br>La función **found()** es para la detección de la cara y las funciones **eyeLeftReceived(f)** y **eyeRightReceived(f)** se encargan de detectar el pestañeo del usuario. Para ello se compara la altura de los ojos anteriores con el actual menos una tolerancia que se ha establecido a 1,2.
 
     public void found (int i) {
       found = i;
@@ -259,7 +259,7 @@ A continuación se describe el trabajo realizado. Se crean e inicializan las var
       rawArray = raw; 
     }
       
-<br>La clase *Bird* es la encagada de representar la pelota y se han declarado como atributos de la clase las coordenadas y la velocidad en el eje Y.
+<br>La clase *Bird* es la encagada de representar la pelota y se han declarado como atributos de la clase las coordenadas y su velocidad en el eje Y.
       
     class Bird {
       float xPos, yPos, ySpeed;
@@ -306,10 +306,8 @@ A continuación se describe el trabajo realizado. Se crean e inicializan las var
           }
       }
     }
-  
-}
 
-<br>La clase *Pillar* representa un pilar/pared como forma de obstáculo dibujadas como líneas verticales en la parte superior e inferior de la pantalla de juego. Para ello se declaran como atributos la posición x, el tamaño de apertura y una variable booleana.
+<br>La clase *Pillar* representa un pilar/pared como forma de obstáculo dibujadas como líneas verticales en la parte superior e inferior de la pantalla de juego. Para ello se declaran como atributos la posición X, el tamaño de apertura y una variable booleana.
     
     class Pillar {
       float xPos, opening;
@@ -320,19 +318,12 @@ A continuación se describe el trabajo realizado. Se crean e inicializan las var
         opening = random(200) + 100;
       }
 
-<br>La función **show()** dibjua las paredes superiores e inferiores con una apertiura aleatoria para que el usuario tenga la posibilidad de pasar:
+<br>La función **show()** dibjua las paredes superiores e inferiores con una apertura aleatoria para que el usuario tenga la posibilidad de pasar:
 
     void drawPillar() {
       line(xPos, 0, xPos, opening - 100);  
       line(xPos, opening + 100, xPos, 800);
     }
-
-<br>La función **getPosition()** simplemente devuelve la posición actual del usuario.
-
-    // Actual position
-    PVector getPosition() {
-      return vector;
-    }  
 
 <br>Finalmente, la siguiente función incrementa el contador de puntos cuando no ha habido una colisión:
     
@@ -347,9 +338,7 @@ A continuación se describe el trabajo realizado. Se crean e inicializan las var
         crashed = true;
         score++;
       }
-    }
-  
-  }  
+    }  
  
 <br>A continuación, se muestra el resultado final mediante un gif animado: 
 
