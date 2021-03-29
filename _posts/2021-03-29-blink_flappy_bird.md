@@ -7,7 +7,7 @@
 {:toc}
 
 ## Introducción
-Se compone una escena de una oficina, con objetos tridimensionales con texturas, luces y movimiento de cámara. A continuación:
+Se implementa el famoso juego *Flappy Bird* usando reconocimiento facial (mediante FaceOSC) para implementar los controles del juego. A continuación:
 
 * Se describe el trabajo realizado argumentando las decisiones adoptadas para la solución propuesta
 * Se incluye las referencias y herramientas utilizadas
@@ -15,7 +15,7 @@ Se compone una escena de una oficina, con objetos tridimensionales con texturas,
 
 ## Diseño 
 
-El diseño ha sido el que se puede observar en la siguiente figura. Una habitación con objetos como escritorio, estantería, televisión, ventanas y personas. El usuario es capaz de moverse por toda la oficina creando nuevos puntos de luz (en unas posiciones preestablecida) con distintos colores al hacer click. Para ir variando la intensidad de los colores puede mover el ratón hacia la izquierda para colores más oscuros o hacia la derecha para más claros. El techo está iluminado por una luz blanca/gris que ilumina la oficina. 
+El diseño ha sido el que se puede observar en la siguiente figura. El típico pájaro se ha representado como una pelota y los tubos verdes como líneas negras simulando paredes superiores e inferiores. El usuario es capaz de moverse por toda la oficina creando nuevos puntos de luz (en unas posiciones preestablecida) con distintos colores al hacer click. Para ir variando la intensidad de los colores puede mover el ratón hacia la izquierda para colores más oscuros o hacia la derecha para más claros. El techo está iluminado por una luz blanca/gris que ilumina la oficina. 
 
 ![](/My-Processing-Book/images/blink_flappy_bird/blink_flappy_bird.PNG "Diseño del programa en Processing")
 
