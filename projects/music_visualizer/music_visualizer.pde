@@ -58,8 +58,8 @@ void createCircle() {
   for (int i = 0; i <= 180; i ++) {
     int index = floor(map(i, 0, 180, 0, wave.length-1));
     float r = map(wave[index], -1, 1, 150, 350);
-    float x = r * sin(radians(i));
-    float y = r * cos(radians(i));
+    float x = r * sin(degrees(i));
+    float y = r * cos(degrees(i));
     vertex(x, y);
   }
   endShape();
@@ -69,8 +69,8 @@ void createCircle() {
   for (int i = 0; i <= 180; i ++) {
     int index = floor(map(i, 0, 180, 0, wave.length-1));
     float r = map(wave[index], -1, 1, 150, 350);
-    float x = r * -sin(radians(i));
-    float y = r * cos(radians(i));
+    float x = r * -sin(degrees(i));
+    float y = r * cos(degrees(i));
     vertex(x, y);
   }
   endShape();
