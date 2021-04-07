@@ -45,8 +45,9 @@ void draw() {
 
   createCircle();
   createParticles();
-
-  //text("© Prashant Jeswani Tejwani", 10, height-10);
+  
+  fill(255);
+  text("© Prashant Jeswani Tejwani", -(width/2) + 5, (height/2) - 10);
 }
 
 
