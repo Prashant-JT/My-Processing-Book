@@ -50,7 +50,7 @@ A continuación se describe el trabajo realizado. Se crean e inicializan las var
       level.input(song);
     }
     
-<br>En la función **draw()** se muestra u oculta el menú si el usuario ha presionado la tecla 'h'. En el caso de que el menú esté oculto, se analiza la amplitud de la canción mediante la función **analyze()** que obtiene un valor entre 0-1, si es mayor que 0.8 se agita la imagen de fondo. También se crea un rectángulo para tener una capa de transparencia que será más o menos transparente dependiendo de la amplitud. Finalmente se crea el círculo central y las partículas que también moverán acorde las música.
+<br>En la función **draw()** se muestra u oculta el menú si el usuario ha presionado la tecla 'h'. En el caso de que el menú esté oculto, se analiza la amplitud de la canción mediante la función **analyze()** que obtiene un valor entre 0-1, si es mayor que 0.8 se agita la imagen de fondo. También se crea un rectángulo para tener una capa de transparencia que será más o menos transparente dependiendo de la amplitud. Finalmente, se crea el círculo central y las partículas que también se moverán acorde la música.
 
     void draw() {
       background(0);
