@@ -149,7 +149,7 @@ A continuación se describe el trabajo realizado. Se crean e inicializan las var
       }
     }
       
-<br>La clase *Bird* es la encagada de representar la pelota y se han declarado como atributos de la clase las coordenadas y su velocidad en el eje Y.
+<br>Las funciones **keyPressed()** y **keyClicked()** detectan cuando el usuario presiona la tecla 'h' para mostrar u ocultar el menú y para reproducir o pausar la canción, respectivamente.
       
     void keyPressed() {
       if (key == 'h') {
@@ -167,16 +167,7 @@ A continuación se describe el trabajo realizado. Se crean e inicializan las var
       }
     }
 
-<br> La función **drawBird()** dibuja la pelota y es la llamada en la función **draw()**:
-
-    void drawBird() {
-        stroke(255);
-        noFill();
-        strokeWeight(2);
-        ellipse(xPos, yPos, 20, 20);
-    }
-
-<br> La siguientes funciones controlan la velocidad al saltar y al bajar de la pelota:
+<br>La clase *Particle* representa una partícula, para ello, se necesita la posición, velocidad, aceleración, tamaño y color de la partícula. Estos se inicializan en el constructor aleatoriamente a partir de la circunferencia y colores entre el rango 200-255:
 
     class Particle {
       PVector pos;
@@ -196,7 +187,7 @@ A continuación se describe el trabajo realizado. Se crean e inicializan las var
         }
       }
 
-<br>Finalmente, la función **checkCollisions()** detecta cuando la pelota ha colisionado con alguna de las paredes:
+<br>La función **update(cond)** acelera las partículas cuando la amplitud es mayor que 0.8:
   
     void update(boolean cond) {
       vel.add(acc);
@@ -209,7 +200,7 @@ A continuación se describe el trabajo realizado. Se crean e inicializan las var
       }
     }
 
-<br>La clase *Pillar* representa un pilar/pared como forma de obstáculo dibujadas como líneas verticales en la parte superior e inferior de la pantalla de juego. Para ello se declaran como atributos la posición X, el tamaño de apertura y una variable booleana.
+<br>La función **edges()** devuelve verdadero si una partícula sobrepasa el tamaño de la ventana:
     
     boolean edges() {
       if (pos.x < -width / 2 || pos.x > width / 2 || pos.y < -height / 2 || pos.y > height / 2) {
@@ -219,7 +210,7 @@ A continuación se describe el trabajo realizado. Se crean e inicializan las var
       }
     }
 
-<br>Finalmente, la función **show()** dibuja las paredes superiores e inferiores con una apertura aleatoria para que el usuario tenga la posibilidad de pasar:
+<br>Finalmente, la función **show()** dibuja las partículas con los colores aleatorios:
 
     void show() {
       noStroke();
