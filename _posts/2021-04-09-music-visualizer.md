@@ -149,7 +149,7 @@ A continuación se describe el trabajo realizado. Se crean e inicializan las var
       }
     }
       
-<br>Las funciones **keyPressed()** y **keyClicked()** detectan cuando el usuario presiona la tecla 'h' para mostrar u ocultar el menú y para reproducir o pausar la canción, respectivamente.
+<br>Las funciones **keyPressed()** y **mouseClicked()** detectan cuando el usuario presiona la tecla 'h' para mostrar u ocultar el menú y para reproducir o pausar la canción, respectivamente.
       
     void keyPressed() {
       if (key == 'h') {
