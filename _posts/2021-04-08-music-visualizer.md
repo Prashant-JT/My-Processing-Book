@@ -344,7 +344,7 @@ A continuación se describe el trabajo realizado. Se crean e inicializan las var
  
 <br>A continuación, se muestra el resultado final mediante un gif animado: 
 
-![](/My-Processing-Book/images/blink_flappy_bird/blink-flappy-bird-demo.gif  "Ejecución del código en Processing")
+![](/My-Processing-Book/images/music_visualizer/music-visualizer-demo.gif  "Ejecución del código en Processing")
 
 ## Descargar código en Processing
 Para la correcta ejecución en Processing, es necesario instalar la librería oscP5 (del autor Andreas Schlegel). Esto se puede hacer de la siguiente manera:
