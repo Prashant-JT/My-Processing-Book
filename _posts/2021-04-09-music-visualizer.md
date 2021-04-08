@@ -237,14 +237,14 @@ Para la correcta ejecución en Processing, es necesario instalar la librería So
 
 Para descargar el código en Processing, acceda a: <a href="https://downgit.github.io/#/home?url=https://github.com/Prashant-JT/My-Processing-Book/tree/master/projects/music_visualizer">Descargar código en Processing</a> o acceda a la carpeta del repositorio del proyecto en: <a href="https://github.com/Prashant-JT/My-Processing-Book/tree/master/projects/music_visualizer">Repositorio del proyecto</a>
 
+---
+
 ## Probar demo 
 
 Se ha implementado el código a p5.js con el fin de poder ejecutarse en un navegador. Para ello se han tenido que modificar algunos aspectos como el tamaño de letra, la visualización (ya que en p5 existen más funciones interesantes como *fft.getEnergy()*), entre otros:
 {% include info.html text="Para jugar debe abrir el enlace en un navegador. No se podrá ejecutar en dispositivos móviles" %}
 
 | **Probar demo** | <a href="https://editor.p5js.org/Prashant-JT/full/cdnNL5Oqx">Dale click para probar demo</a> |
-
----
 
 ## Referencias
 
