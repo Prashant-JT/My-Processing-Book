@@ -103,7 +103,7 @@ A continuación se describe el trabajo realizado. Se crean e inicializan las var
 
 ![](/My-Processing-Book/images/music_visualizer/menu.PNG "Diseño del menú")
 
-<br>La función **createCircle()** crea la circunferencia central, para ello se utiliza las coordenadas polares para representar la parte derecha e izquierda del círculo. Para ello se analiza la onda de mediante la función **analyze()** del objeto *FFT*.
+<br>La función **createCircle()** crea la circunferencia central, para ello se utiliza las coordenadas polares para representar la parte derecha e izquierda del círculo. Se analiza la onda de mediante la función **analyze()** del objeto *FFT*.
 
     void createCircle() {
       float[] wave = fft.analyze();
