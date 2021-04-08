@@ -216,7 +216,7 @@ A continuación se describe el trabajo realizado. Se crean e inicializan las var
       ellipse(pos.x, pos.y, w, w);
     }
  
-<br>A continuación, se muestra el resultado final mediante un gif animado: 
+<br>A continuación, se muestra el resultado final mediante un gif animado. Aunque no se puede apreciar el progrma ya que no se puede escuchar la música, por ello se ha implementado en p5.js (sección "Probar demo"): 
 
 ![](/My-Processing-Book/images/music_visualizer/music-visualizer-demo.gif  "Ejecución del código en Processing")
 
