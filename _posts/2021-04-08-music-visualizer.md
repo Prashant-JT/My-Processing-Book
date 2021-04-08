@@ -7,7 +7,7 @@
 {:toc}
 
 ## Introducción
-Se implementa el famoso juego *Flappy Bird* usando reconocimiento facial (mediante FaceOSC) para implementar los controles del juego. A continuación:
+Se implementa un visualizador de música utilizando la librería *Sound* usando los objetos *FFT* y *Amplitude*, con el objetivo de analizar la canción para su visualización. A continuación:
 
 * Se describe el trabajo realizado argumentando las decisiones adoptadas para la solución propuesta
 * Se incluye las referencias y herramientas utilizadas
