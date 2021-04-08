@@ -17,7 +17,7 @@ Se implementa el famoso juego *Flappy Bird* usando reconocimiento facial (median
 
 El diseño ha sido el que se puede observar en la siguiente figura. El típico pájaro se ha representado como una pelota y los tubos verdes como líneas negras simulando paredes superiores e inferiores. El usuario es capaz de hacer click con el ratón o pestañear con los ojos para saltar y esquivar las paredes. En la parte inferior izquierda se muestra los puntos detectados de la cara del usuario con los datos crudos que proporciona FaceOSC y en la parte superior izquierda la puntuación actual.
 
-![](/My-Processing-Book/images/blink_flappy_bird/blink_flappy_bird.PNG "Diseño del programa en Processing")
+![](/My-Processing-Book/images/music_visualizer.PNG "Diseño del programa en Processing")
 
 ## Código implementado
 
@@ -339,6 +339,8 @@ A continuación se describe el trabajo realizado. Se crean e inicializan las var
         score++;
       }
     }  
+ 
+ ![](/My-Processing-Book/images/menu.PNG "Diseño del programa en Processing")
  
 <br>A continuación, se muestra el resultado final mediante un gif animado: 
 
