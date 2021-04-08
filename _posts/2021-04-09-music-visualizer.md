@@ -133,7 +133,7 @@ A continuación se describe el trabajo realizado. Se crean e inicializan las var
       endShape();
     }
 
-<br>Para dibujar el rostro del usuario anteriormente comentado, se llaman a las tres siguientes funciones:
+<br>La función **createParticles()** crea las partículas que parten de la circunferencia, se van creando partículas y se aceleran dependiendo de la amplitud de la canción en todo momento para dar un efecto inmersivo. Las partículas que sobrepasan el tamaño de la ventana se eliminan (para que no se crean partículas infinitamente y ralentice la ejecución), esto se puede comprobar mediante la función **edges()** de la clase *Particle*.
 
     void createParticles() {
       particles.add(new Particle());
