@@ -1,4 +1,3 @@
-// https://pixabay.com/music/search/genre/beats/
 import processing.sound.*;
 
 SoundFile song;
