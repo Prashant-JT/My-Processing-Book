@@ -16,13 +16,13 @@ Se implementa un visualizador de música utilizando la librería *Sound* usando 
 
 ## Diseño 
 
-El diseño ha sido el que se puede observar en la siguiente figura. El típico pájaro se ha representado como una pelota y los tubos verdes como líneas negras simulando paredes superiores e inferiores. El usuario es capaz de hacer click con el ratón o pestañear con los ojos para saltar y esquivar las paredes. En la parte inferior izquierda se muestra los puntos detectados de la cara del usuario con los datos crudos que proporciona FaceOSC y en la parte superior izquierda la puntuación actual.
+El diseño ha sido el que se puede observar en la siguiente figura. Se representa una circunferencia que visualiza la canción con partículas que salen de ella. La velocidad de las partículas dependerán de la amplitud de la canción. El lienzo también tiene una concreta transparencia y el fondo se agitará dependiendo de la amplitud. El usuario al hacer click con el ratón podrá reproducir o pausar la canción.
 
 ![](/My-Processing-Book/images/music_visualizer/music_visualizer.PNG "Diseño del programa en Processing")
 
 ## Código implementado
 
-A continuación se describe el trabajo realizado. Se crean e inicializan las variables necesarias para el juego y los controles del usuario que se irán explicando a medida que se avance. En la función **setup()** se inicializa el pájaro y las paredes creando un objeto de la clase *Bird* y de la clase *Pillar* que se explicarán más adelante. También se establece la conexión por el puerto 8338 y se cargan los eventos que capturan los ojos de FaceOSC. 
+A continuación se describe el trabajo realizado. Se crean e inicializan las variables necesarias para la visualización de la canción que se irán explicando a medida que se avance. Se importa también la librería Sound que se debe descargar antes de la ejecución (sección "Descargar código en Processing").
 
     import processing.sound.*;
 
@@ -35,7 +35,7 @@ A continuación se describe el trabajo realizado. Se crean e inicializan las var
     Amplitude amp;
     float amplitude;
 
-<br>En la función **draw()** se dibuja el rostro del usuario en la parte inferior izquierda mediante las funciones **drawFacePoints()** y **drawFacePolygons()**. A continuación, se detecta si el usuario ha pestañeado comparando la altura de los ojos restando una restando una tolerancia. Luego, se dibuja la pelota y se chequea si ha habido colisión mediante la función **checkCollisions()** de la clase *Bird*, se dibujan las paredes aleatoriamente con la función **drawPillar()**. 
+<br>En la función **setup()** se inicializan las variables definidas anteriormente, y se asocia la amplitud y el objeto *FFT* con la canción 'sample.mp3' cargada mediante *SoundFile(this, s)*, la cual se encuentra en la carpeta 'data' del proyecto.  
 
     void setup() {
       size(900, 600);
