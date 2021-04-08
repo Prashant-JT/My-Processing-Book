@@ -23,251 +23,148 @@ El diseño ha sido el que se puede observar en la siguiente figura. El típico p
 
 A continuación se describe el trabajo realizado. Se crean e inicializan las variables necesarias para el juego y los controles del usuario que se irán explicando a medida que se avance. En la función **setup()** se inicializa el pájaro y las paredes creando un objeto de la clase *Bird* y de la clase *Pillar* que se explicarán más adelante. También se establece la conexión por el puerto 8338 y se cargan los eventos que capturan los ojos de FaceOSC. 
 
-    import oscP5.*;
+    import processing.sound.*;
 
-    Bird bird = new Bird();
-    Pillar[] pillars = new Pillar[3];
-    boolean end = false;
-    boolean intro = true;
-    int score = 0;
-    OscP5 oscP5;
-    int found;
-    float eyeLeftBefore, eyeRightBefore;
-    float eyeLeft, eyeRight;
-    float[] rawArray;
-
-    void setup() {
-      size(500, 600);
-      frameRate(50);
-
-      for (int i = 0; i < 3; i++) {
-        pillars[i] = new Pillar(i);
-      }
-
-      oscP5 = new OscP5(this, 8338);
-      oscP5.plug(this, "found", "/found");
-      oscP5.plug(this, "eyeLeftReceived", "/gesture/eye/left");
-      oscP5.plug(this, "eyeRightReceived", "/gesture/eye/right");
-      oscP5.plug(this, "rawData", "/raw");
-
-      rawArray = new float[132]; 
-      eyeLeftBefore = -1;
-      eyeRightBefore = -1;
-    }
+    SoundFile song;
+    PImage background;
+    ArrayList<Particle> particles = new ArrayList<Particle>();
+    boolean menu;
+    FFT fft;
+    Amplitude level;
+    Amplitude amp;
+    float amplitude;
 
 <br>En la función **draw()** se dibuja el rostro del usuario en la parte inferior izquierda mediante las funciones **drawFacePoints()** y **drawFacePolygons()**. A continuación, se detecta si el usuario ha pestañeado comparando la altura de los ojos restando una restando una tolerancia. Luego, se dibuja la pelota y se chequea si ha habido colisión mediante la función **checkCollisions()** de la clase *Bird*, se dibujan las paredes aleatoriamente con la función **drawPillar()**. 
 
-    void draw() {
-      background(0);
-
-      if (found > 0) {
-        pushMatrix();
-        translate(60, height-100);
-        scale(2);
-        drawFacePoints(); 
-        drawFacePolygons();
-        popMatrix();
-
-        if (eyeLeft < eyeLeftBefore - 0.8 && eyeRight < eyeRightBefore - 0.8) {
-          if (end) {
-            bird.jump();
-            intro = false;
-            if (!end) {
-              reset();
-            }
-          }
-        }
-      }
-
-      if (end) bird.move();
-      bird.drawBird();
-      if (end) bird.drag();
-      bird.checkCollisions();
-
-      for (int i = 0; i < 3; i++) {
-        pillars[i].drawPillar();
-        pillars[i].checkPosition();
-      }
-
-      fill(0);
-      stroke(255);
-      textSize(32);
-
-      if (end) {
-        rect(20, 20, 100, 50);
-        fill(255);
-        text(score, 30, 58);
-      } else {
-        help();
-      }
+    void setup() {
+      size(900, 600);
+      song = new SoundFile(this, "sample.mp3");
+      background = loadImage("background.jpg");
+      menu = true;
+      imageMode(CENTER);
+      rectMode(CENTER);
+      fft = new FFT(this);
+      level = new Amplitude(this);
+      fft.input(song);
+      level.input(song);
     }
     
 <br>Se llama a la función **help()** la cual imprime un lienzo de ayuda de los controles que dispone el usuario y para indicar las instrucciones para iniciar o reiniciar el juego.
 
-    // User controls
-    void help() {
-      rect(110, 105, 300, 50);
-      rect(160, 200, 200, 90);
-      fill(255);
-
-      if (intro) {
-        text("Face Flappy bird", 140, 140);
-        text("Click to Play", 175, 240);
-        textFont(createFont("Georgia", 16));
-        text("Click or blink eyes to jump", 166, 270);
-        text("© Prashant Jeswani Tejwani", 10, height-10);
+    void draw() {
+      background(0);
+      translate(width/2, height/2);
+      if (menu) {
+        menu();
       } else {
-        text("Game over", 180, 140);
-        text("Score", 195, 240);
-        text(score, 300, 240);
-        textFont(createFont("Georgia", 16));
-        text("Click to restart", 210, 270);
-        textFont(createFont("Georgia", 16));
-        text("© Prashant Jeswani Tejwani", 10, height-10);
+        // Shake image depending on amplitude
+        amplitude = level.analyze();
+        //pushMatrix();
+        if (amplitude > 0.8) rotate(random(-0.003, 0.003));
+        image(background, 0, 0, width + 100, height + 100);
+        //popMatrix();
+
+        // Transparency depending on amplitude
+        float alpha = map(amplitude*100, 0, 255, 180, 150);
+        fill(0, alpha);
+        noStroke();
+        rect(0, 0, width, height);
+
+        stroke(255);
+        strokeWeight(3);
+        noFill();
+
+        createCircle();
+        createParticles();
+
+        fill(255);
+        text("Press 'h' to show menu", (width/2) - 180, (height/2) - 10);
       }
+
+      fill(255);
+      text("© Prashant Jeswani Tejwani", -(width/2) + 10, (height/2) - 10);
     }
 
 <br>Alternativamente el usuario puede saltar haciendo click, esto se captura mediante la función **mousePressed()**. En el caso de que haya una colisión, se reestablece el juego llamando a la función **reset()**.
 
-    void mousePressed() {
-      bird.jump();
-      intro = false;
-      if (!end) {
-        reset();
-      }
-    }
-    
-<br>
+    // Main menu
+    void menu() {
+      noFill();
+      stroke(255);
+      rect(0, -155, 300, 80);
+      fill(255);
 
-    void reset() {
-      end = true;
-      score = 0;
-      bird.yPos = 300;
-      for (int i = 0; i < 3; i++) {
-        pillars[i].xPos += 550;
-        pillars[i].crashed = false;
-      }
+      textFont(createFont("Georgia", 20));
+      text("Music visualizer", -70, -150);
+      textFont(createFont("Georgia", 16));
+      text("The song called 'sample.mp3' will be played and visualized", -220, 0);
+      text("Click to play/pause song", -85, 30);
+      text("Press 'h' to hide menu", (width/2) - 180, (height/2) - 10);
     }
+
+![](/My-Processing-Book/images/music_visualizer/menu.PNG "Diseño del menú")
 
 <br>La función **found()** es para la detección de la cara y las funciones **eyeLeftReceived(f)** y **eyeRightReceived(f)** se encargan de detectar el pestañeo del usuario. Para ello se compara la altura de los ojos anteriores con el actual menos una tolerancia que se ha establecido a 1,2.
 
-    public void found (int i) {
-      found = i;
-    }
+    void createCircle() {
+      float[] wave = fft.analyze();
 
-    public void eyeLeftReceived(float f) { 
-      if (eyeLeftBefore == 6) eyeLeftBefore = f; 
-
-      if (f < eyeLeftBefore - 1.2) {
-        eyeLeftBefore = f;
+      // Draw right side of circle
+      beginShape();  
+      for (int i = 0; i <= 180; i ++) {
+        int index = floor(map(i, 0, 180, 0, wave.length-1));
+        float r = map(wave[index], -1, 1, 150, 350);
+        float x = r * sin(degrees(i));
+        float y = r * cos(degrees(i));
+        vertex(x, y);
       }
+      endShape();
 
-      if (eyeLeft > eyeLeftBefore) {
-        eyeLeftBefore = eyeLeft;
+      // Draw left side of circle
+      beginShape();  
+      for (int i = 0; i <= 180; i ++) {
+        int index = floor(map(i, 0, 180, 0, wave.length-1));
+        float r = map(wave[index], -1, 1, 150, 350);
+        float x = r * -sin(degrees(i));
+        float y = r * cos(degrees(i));
+        vertex(x, y);
       }
-
-      eyeLeft = f;
-    }
-
-    public void eyeRightReceived(float f) {
-      if (eyeRightBefore == -1) eyeRightBefore = f; 
-
-      if (f < eyeLeftBefore - 1.2) {
-        eyeLeftBefore = f;
-      }
-
-      if (eyeRight > eyeRightBefore) {
-        eyeRightBefore = eyeRight;
-      }
-
-      eyeRight = f;
+      endShape();
     }
 
 <br>Para dibujar el rostro del usuario anteriormente comentado, se llaman a las tres siguientes funciones:
 
-    void drawFacePoints() {
-      int nData = rawArray.length;
-      for (int val=0; val<nData; val+=2) {
-        fill(255);
-        ellipse(rawArray[val], rawArray[val+1], 3, 3);
+    void createParticles() {
+      particles.add(new Particle());
+      for (int i = particles.size() - 1; i >= 0; i--) {
+        if (!particles.get(i).edges()) {
+          // Accelerate particles when amplitude > 0.8
+          particles.get(i).update(amplitude > 0.8);
+          particles.get(i).show();
+        } else {
+          // Remove particle when out of borders
+          particles.remove(i);
+        }
       }
-    }
-
-    void drawFacePolygons() {
-      fill(255);
-      stroke(50); 
-
-      // Face outline
-      beginShape();
-      for (int i=0; i<34; i+=2) {
-        vertex(rawArray[i], rawArray[i+1]);
-      }
-      for (int i=52; i>32; i-=2) {
-        vertex(rawArray[i], rawArray[i+1]);
-      }
-      endShape(CLOSE);
-
-      // Eyes
-      beginShape();
-      for (int i=72; i<84; i+=2) {
-        vertex(rawArray[i], rawArray[i+1]);
-      }
-      endShape(CLOSE);
-      beginShape();
-      for (int i=84; i<96; i+=2) {
-        vertex(rawArray[i], rawArray[i+1]);
-      }
-      endShape(CLOSE);
-
-      // Upper lip
-      beginShape();
-      for (int i=96; i<110; i+=2) {
-        vertex(rawArray[i], rawArray[i+1]);
-      }
-      for (int i=124; i>118; i-=2) {
-        vertex(rawArray[i], rawArray[i+1]);
-      }
-      endShape(CLOSE);
-
-      // Lower lip
-      beginShape();
-      for (int i=108; i<120; i+=2) {
-        vertex(rawArray[i], rawArray[i+1]);
-      }
-      vertex(rawArray[96], rawArray[97]);
-      for (int i=130; i>124; i-=2) {
-        vertex(rawArray[i], rawArray[i+1]);
-      }
-      endShape(CLOSE);
-
-      // Nose bridge
-      beginShape();
-      for (int i=54; i<62; i+=2) {
-        vertex(rawArray[i], rawArray[i+1]);
-      }
-      endShape();
-
-      // Nose bottom
-      beginShape();
-      for (int i=62; i<72; i+=2) {
-        vertex(rawArray[i], rawArray[i+1]);
-      }
-      endShape();
-    }
-
-    public void rawData(float[] raw) {
-      rawArray = raw; 
     }
       
 <br>La clase *Bird* es la encagada de representar la pelota y se han declarado como atributos de la clase las coordenadas y su velocidad en el eje Y.
       
-    class Bird {
-      float xPos, yPos, ySpeed;
-
-      Bird() {
-        xPos = 250;
-        yPos = 400;
+    void keyPressed() {
+      if (key == 'h') {
+        menu = !menu;
       }
+    }
+
+<br>
+
+    void mouseClicked() {
+      if (song.isPlaying()) {
+        song.pause();
+      } else {
+        song.play();
+      }
+    }
 
 <br> La función **drawBird()** dibuja la pelota y es la llamada en la función **draw()**:
 
@@ -280,67 +177,54 @@ A continuación se describe el trabajo realizado. Se crean e inicializan las var
 
 <br> La siguientes funciones controlan la velocidad al saltar y al bajar de la pelota:
 
-    void jump() {
-      ySpeed = -10;
-    }
+    class Particle {
+      PVector pos;
+      PVector vel;
+      PVector acc;
+      float w;
+      float[] colorP;
 
-    void drag() {
-      ySpeed += 0.4;
-    }
-    
-    void move() {
-      yPos += ySpeed; 
-      for (int i = 0; i < 3; i++) {
-        pillars[i].xPos -= 3;
+      Particle() {
+        pos = PVector.random2D().mult(250);
+        vel = new PVector(0, 0);
+        acc = pos.copy().mult(random(0.0001, 0.00001));
+        w = random(3, 5);
+        colorP = new float[3];
+        for (int i = 0; i < colorP.length; i++) {
+          colorP[i] = random(200, 255);
+        }
       }
-    }
 
 <br>Finalmente, la función **checkCollisions()** detecta cuando la pelota ha colisionado con alguna de las paredes:
   
-    void checkCollisions() {
-      if (yPos > 800) end = false;
-      for (int i = 0; i < 3; i++) {
-          if ((xPos < pillars[i].xPos + 10 && xPos > pillars[i].xPos - 10) && 
-              (yPos < pillars[i].opening - 100||yPos > pillars[i].opening + 100)) {
-              end = false;
-          }
+    void update(boolean cond) {
+      vel.add(acc);
+      pos.add(vel);
+      // Accelerate particle
+      if (cond) {
+        pos.add(vel);
+        pos.add(vel);
+        pos.add(vel);
       }
     }
 
 <br>La clase *Pillar* representa un pilar/pared como forma de obstáculo dibujadas como líneas verticales en la parte superior e inferior de la pantalla de juego. Para ello se declaran como atributos la posición X, el tamaño de apertura y una variable booleana.
     
-    class Pillar {
-      float xPos, opening;
-      boolean crashed = false;
-
-      Pillar(int i) {
-        xPos = 100 + (i * 200);
-        opening = random(200) + 100;
+    boolean edges() {
+      if (pos.x < -width / 2 || pos.x > width / 2 || pos.y < -height / 2 || pos.y > height / 2) {
+        return true;
+      } else {
+        return false;
       }
-
-<br>La función **show()** dibuja las paredes superiores e inferiores con una apertura aleatoria para que el usuario tenga la posibilidad de pasar:
-
-    void drawPillar() {
-      line(xPos, 0, xPos, opening - 100);  
-      line(xPos, opening + 100, xPos, 800);
     }
 
-<br>Finalmente, la siguiente función incrementa el contador de puntos cuando no ha habido una colisión:
-    
-    void checkPosition() {
-      if (xPos < 0) {
-        xPos += (200 * 3);
-        opening = random(200) + 100;
-        crashed = false;
-      }
-    
-      if (xPos < 250 && !crashed) {
-        crashed = true;
-        score++;
-      }
-    }  
- 
- ![](/My-Processing-Book/images/music_visualizer/menu.PNG "Diseño del programa en Processing")
+<br>Finalmente, la función **show()** dibuja las paredes superiores e inferiores con una apertura aleatoria para que el usuario tenga la posibilidad de pasar:
+
+    void show() {
+      noStroke();
+      fill(colorP[0], colorP[1], colorP[2]);
+      ellipse(pos.x, pos.y, w, w);
+    }
  
 <br>A continuación, se muestra el resultado final mediante un gif animado: 
 
