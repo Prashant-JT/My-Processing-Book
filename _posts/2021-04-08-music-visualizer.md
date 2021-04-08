@@ -17,7 +17,7 @@ Se implementa el famoso juego *Flappy Bird* usando reconocimiento facial (median
 
 El diseño ha sido el que se puede observar en la siguiente figura. El típico pájaro se ha representado como una pelota y los tubos verdes como líneas negras simulando paredes superiores e inferiores. El usuario es capaz de hacer click con el ratón o pestañear con los ojos para saltar y esquivar las paredes. En la parte inferior izquierda se muestra los puntos detectados de la cara del usuario con los datos crudos que proporciona FaceOSC y en la parte superior izquierda la puntuación actual.
 
-![](/My-Processing-Book/images/music_visualizer.PNG "Diseño del programa en Processing")
+![](/My-Processing-Book/images/music_visualizer/music_visualizer.PNG "Diseño del programa en Processing")
 
 ## Código implementado
 
@@ -340,7 +340,7 @@ A continuación se describe el trabajo realizado. Se crean e inicializan las var
       }
     }  
  
- ![](/My-Processing-Book/images/menu.PNG "Diseño del programa en Processing")
+ ![](/My-Processing-Book/images/music_visualizer/menu.PNG "Diseño del programa en Processing")
  
 <br>A continuación, se muestra el resultado final mediante un gif animado: 
 
@@ -349,10 +349,10 @@ A continuación se describe el trabajo realizado. Se crean e inicializan las var
 ## Descargar código en Processing
 Para la correcta ejecución en Processing, es necesario instalar la librería oscP5 (del autor Andreas Schlegel). Esto se puede hacer de la siguiente manera:
 
-![](/My-Processing-Book/images/blink_flappy_bird/oscP5-lib.gif  "Instalación de la librería oscP5 en Processing")
+![](/My-Processing-Book/images/music_visualizer/sound-gif.gif  "Instalación de la librería oscP5 en Processing")
 
 {% include info.html text="Es necesario descargar FaceOSC para la ejecución el cual se puede obtener accediendo al siguiente enlace: https://github.com/kylemcdonald/ofxFaceTracker/releases (descargando FaceOSC-v1.11-win.zip). Debe estar en ejecución antes de iniciar el juego con todas sus casillas (en la parte superior izquierda) seleccionadas." %}
-Para descargar el código en Processing, acceda a: <a href="https://downgit.github.io/#/home?url=https://github.com/Prashant-JT/My-Processing-Book/tree/master/projects/blink_flappy_bird">Descargar código en Processing</a> o acceda a la carpeta del repositorio del proyecto en: <a href="https://github.com/Prashant-JT/My-Processing-Book/tree/master/projects/blink_flappy_bird">Repositorio del proyecto</a>
+Para descargar el código en Processing, acceda a: <a href="https://downgit.github.io/#/home?url=https://github.com/Prashant-JT/My-Processing-Book/tree/master/projects/music_visualizer">Descargar código en Processing</a> o acceda a la carpeta del repositorio del proyecto en: <a href="https://github.com/Prashant-JT/My-Processing-Book/tree/master/projects/music_visualizer">Repositorio del proyecto</a>
 
 ---
 
