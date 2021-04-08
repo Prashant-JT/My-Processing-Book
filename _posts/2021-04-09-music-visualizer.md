@@ -12,6 +12,7 @@ Se implementa un visualizador de música utilizando la librería *Sound* usando 
 * Se describe el trabajo realizado argumentando las decisiones adoptadas para la solución propuesta
 * Se incluye las referencias y herramientas utilizadas
 * Se muestra el resultado con un gif animado
+* Se implementa el código en p5.js con el fin de poder ejecutarse en un navegador
 
 ## Diseño 
 
