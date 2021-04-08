@@ -50,7 +50,7 @@ A continuación se describe el trabajo realizado. Se crean e inicializan las var
       level.input(song);
     }
     
-<br>Se llama a la función **help()** la cual imprime un lienzo de ayuda de los controles que dispone el usuario y para indicar las instrucciones para iniciar o reiniciar el juego.
+<br>En la función **draw()** se muestra u oculta el menú si el usuario ha presionado la tecla 'h'. En el caso de que el menú esté oculto, se analiza la amplitud de la canción mediante la función **analyze()** que obtiene un valor entre 0-1, si es mayor que 0.8 se agita la imagen de fondo. También se crea un rectángulo para tener una capa de transparencia que será más o menos transparente dependiendo de la amplitud. Finalmente se crea el círculo central y las partículas que también moverán acorde las música.
 
     void draw() {
       background(0);
@@ -60,10 +60,8 @@ A continuación se describe el trabajo realizado. Se crean e inicializan las var
       } else {
         // Shake image depending on amplitude
         amplitude = level.analyze();
-        //pushMatrix();
         if (amplitude > 0.8) rotate(random(-0.003, 0.003));
         image(background, 0, 0, width + 100, height + 100);
-        //popMatrix();
 
         // Transparency depending on amplitude
         float alpha = map(amplitude*100, 0, 255, 180, 150);
@@ -86,7 +84,7 @@ A continuación se describe el trabajo realizado. Se crean e inicializan las var
       text("© Prashant Jeswani Tejwani", -(width/2) + 10, (height/2) - 10);
     }
 
-<br>Alternativamente el usuario puede saltar haciendo click, esto se captura mediante la función **mousePressed()**. En el caso de que haya una colisión, se reestablece el juego llamando a la función **reset()**.
+<br>Se llama a la función **menu()** la cual imprime un lienzo de ayuda de los controles que dispone el usuario.
 
     // Main menu
     void menu() {
@@ -105,7 +103,7 @@ A continuación se describe el trabajo realizado. Se crean e inicializan las var
 
 ![](/My-Processing-Book/images/music_visualizer/menu.PNG "Diseño del menú")
 
-<br>La función **found()** es para la detección de la cara y las funciones **eyeLeftReceived(f)** y **eyeRightReceived(f)** se encargan de detectar el pestañeo del usuario. Para ello se compara la altura de los ojos anteriores con el actual menos una tolerancia que se ha establecido a 1,2.
+<br>La función **createCircle()** crea la circunferencia central, para ello se utiliza las coordenadas polares para representar la parte derecha e izquierda del círculo. Para ello se analiza la onda de mediante la función **analyze()** del objeto *FFT*.
 
     void createCircle() {
       float[] wave = fft.analyze();
