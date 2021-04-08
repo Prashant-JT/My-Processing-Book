@@ -231,7 +231,7 @@ Para descargar el código en Processing, acceda a: <a href="https://downgit.gith
 
 ## Probar demo 
 
-Se ha implementado el código a p5.js con el fin de poder ejecutarse en un navegador. Para ello se han tenido que modificar algunos aspectos como el tamaño de letra, la visualización (ya que en p5 existen más funciones interesantes como *fft.getEnergy()*), entre otros:
+Se ha implementado el código a p5.js con el fin de poder ejecutarse en un navegador. Para ello se han tenido que modificar algunos aspectos como el tamaño de letra, la visualización (ya que en p5 existen más funciones interesantes como *fft.getEnergy()*), se ha eliminado el menú, entre otros:
 {% include info.html text="Para jugar debe abrir el enlace en un navegador. No se podrá ejecutar en dispositivos móviles" %}
 
 | **Probar demo** | <a href="https://editor.p5js.org/Prashant-JT/full/cdnNL5Oqx">Dale click para probar demo</a> |
