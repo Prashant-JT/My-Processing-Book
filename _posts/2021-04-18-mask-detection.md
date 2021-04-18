@@ -218,13 +218,13 @@ A continuación se describe el trabajo realizado. Se crean e inicializan las var
 
 ## Cómo ejecutar el programa
 
-## Creación del conjunto de datos
+### Creación del conjunto de datos
 Crear + gif
 
-## Entrenamiento de la red neuronal
+### Entrenamiento de la red neuronal
 Entrenar red neuronal + gif
 
-## Pruebas con la red neuronal
+### Pruebas con la red neuronal
 Probar + gif
 ![](/My-Processing-Book/images/music_visualizer/music-visualizer-demo.gif  "Ejecución del código en Processing")
 
