@@ -24,33 +24,13 @@ El diseño ha sido el que se puede observar en la siguiente figura. En la parte 
 
 ## Código implementado
 
-A continuación se describe el trabajo realizado. Se crean e inicializan las variables necesarias que se irán explicando a medida que se avance. Se incluye la librería ml5.js en el fichero index.js.
+A continuación se describe el trabajo realizado. Se crean e inicializan las variables necesarias que se irán explicando a medida que se avance. Se incluye la librería ml5.js en el fichero index.html:
 
     import processing.sound.*;
 
-    SoundFile song;
-    PImage background;
-    ArrayList<Particle> particles = new ArrayList<Particle>();
-    boolean menu;
-    FFT fft;
-    Amplitude level;
-    Amplitude amp;
-    float amplitude;
-
-<br>En la función **setup()** se inicializan las variables definidas anteriormente, y se asocia la amplitud y el objeto *FFT* con la canción 'sample.mp3' cargada mediante *SoundFile(this, s)*, la cual se encuentra en la carpeta 'data' del proyecto.  
+<br>En la función **setup()** se inicializan las variables definidas anteriormente, se captura el video desde la webcam mostrándolo en el lienzo. Se crea el modelo de la red neuronal utilizando una red neuronal convolucional para clasificación de imágenes. Para ello se establece el tamaño de entrada que espera la red, el tipo de clasificación de la red (*task:"imageClassification"*) y se establece *debug:true* para que al entrenarse, se muestre al usuario la arquitectura que se está utilizando y la función de pérdida a medida que avanza el entrenamiento. A continuación se crea la red neuronal con las opciones comentadas anteriormente mediante la función **ml5.neuralNetwork(m)**.
 
     void setup() {
-      size(900, 600);
-      song = new SoundFile(this, "sample.mp3");
-      background = loadImage("background.jpg");
-      menu = true;
-      imageMode(CENTER);
-      rectMode(CENTER);
-      fft = new FFT(this);
-      level = new Amplitude(this);
-      fft.input(song);
-      level.input(song);
-    }
     
 <br>En la función **draw()** se muestra u oculta el menú si el usuario ha presionado la tecla 'h'. En el caso de que el menú esté oculto, se analiza la amplitud de la canción mediante la función **analyze()** que obtiene un valor entre 0-1, si es mayor que 0.8 se agita la imagen de fondo. También se crea un rectángulo para tener una capa de transparencia que será más o menos transparente dependiendo de la amplitud. Finalmente, se crea el círculo central y las partículas que también se moverán acorde la música.
 
