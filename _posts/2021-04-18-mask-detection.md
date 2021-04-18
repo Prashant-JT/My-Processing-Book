@@ -13,17 +13,18 @@ Se implementa un programa el cual es capaz de obtener un conjunto de datos media
 * Se describe el trabajo realizado argumentando las decisiones adoptadas para la solución propuesta
 * Se incluye las referencias y herramientas utilizadas
 * Se muestra cómo ejecutar correctamente el programa paso a paso
-* Se implementa el código en p5.js 
 
 ## Diseño 
 
-El diseño ha sido el que se puede observar en la siguiente figura. Se representa una circunferencia que visualiza la canción con partículas que salen de ella. La velocidad de las partículas dependerán de la amplitud de la canción. El lienzo también tiene una concreta transparencia y el fondo se agitará dependiendo de la amplitud. El usuario al hacer click con el ratón podrá reproducir o pausar la canción.
+El diseño ha sido el que se puede observar en la siguiente figura. En la parte superior de la página se muestra las instrucciones paso a paso para el usuario. Más abajo se muestra el programa el cual necesita acceso a la cámara del usuario y en la parte inferior izquierda del lienzo se muestra el número de imágenes que se ha tomado de momento para cada clase:
 
-![](/My-Processing-Book/images/music_visualizer/music_visualizer.PNG "Diseño del programa en Processing")
+![](/My-Processing-Book/images/mask_detection/mask_detection_instruction.PNG "Instrucciones para ejecutar el programa")
+
+![](/My-Processing-Book/images/mask_detection/mask_detection.PNG "Diseño del programa")
 
 ## Código implementado
 
-A continuación se describe el trabajo realizado. Se crean e inicializan las variables necesarias para la visualización de la canción que se irán explicando a medida que se avance. Se importa también la librería Sound que se debe descargar antes de la ejecución (sección "Descargar código en Processing").
+A continuación se describe el trabajo realizado. Se crean e inicializan las variables necesarias que se irán explicando a medida que se avance.
 
     import processing.sound.*;
 
