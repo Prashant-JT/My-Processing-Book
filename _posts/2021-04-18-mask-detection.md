@@ -248,8 +248,8 @@ Se ha implementado el código a p5.js con el fin de poder ejecutarse en un naveg
 
 [Guión de prácticas](https://ncvt-aep.ulpgc.es/cv/ulpgctp21/pluginfile.php/412240/mod_resource/content/37/CIU_Pr_cticas.pdf)
 
-[Página de Processing](https://processing.org/examples/)
+[Página de p5.js](https://p5js.org/es/)
 
 [Creación del enlace de descarga](https://downgit.github.io/#/home)
 
-[Música sin copyright](https://pixabay.com/music/search/genre/beats)
+[Página de ml5.js](https://ml5js.org/)
