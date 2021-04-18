@@ -215,12 +215,20 @@ A continuación se describe el trabajo realizado. Se crean e inicializan las var
       fill(colorP[0], colorP[1], colorP[2]);
       ellipse(pos.x, pos.y, w, w);
     }
- 
-<br>A continuación, se muestra el resultado final mediante un gif animado. Aunque no se puede apreciar el programa ya que no se puede escuchar la música, por ello se ha implementado en p5.js (sección "Probar demo"): 
 
+## Cómo ejecutar el programa
+
+## Creación del conjunto de datos
+Crear + gif
+
+## Entrenamiento de la red neuronal
+Entrenar red neuronal + gif
+
+## Pruebas con la red neuronal
+Probar + gif
 ![](/My-Processing-Book/images/music_visualizer/music-visualizer-demo.gif  "Ejecución del código en Processing")
 
-## Descargar código en Processing
+## Descargar código en p5.js
 Para la correcta ejecución en Processing, es necesario instalar la librería Sound. Esto se puede hacer de la siguiente manera:
 
 ![](/My-Processing-Book/images/music_visualizer/sound-lib.gif  "Instalación de la librería Sound en Processing")
