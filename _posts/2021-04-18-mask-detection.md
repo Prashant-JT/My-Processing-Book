@@ -7,12 +7,12 @@
 {:toc}
 
 ## Introducción
-Se implementa un visualizador de música utilizando la librería *Sound* usando los objetos *FFT* y *Amplitude*, con el objetivo de analizar la canción para su visualización. A continuación:
+Reto: implementar un código de programación creativa de menos de 1024 caracteres en p5.js. Se implementa un programa el cual es capaz de obtener un conjunto de datos mediante la cámara, entrenar una red neuronal que sea capaz de clasificar y detectar si el usuario tiene una mascarilla puesta o no. A continuación:
 
 * Se describe el trabajo realizado argumentando las decisiones adoptadas para la solución propuesta
 * Se incluye las referencias y herramientas utilizadas
-* Se muestra el resultado con un gif animado
-* Se implementa el código en p5.js con el fin de poder ejecutarse en un navegador
+* Se muestra cómo ejecutar correctamente el programa paso a paso
+* Se implementa el código en p5.js 
 
 ## Diseño 
 
