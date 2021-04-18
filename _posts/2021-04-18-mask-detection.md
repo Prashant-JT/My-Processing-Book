@@ -82,14 +82,16 @@ Primeramente, se debe dar permiso para el acceso a la webcam y hacer click sobre
 **+ gif**
 
 ### Entrenamiento de la red neuronal
-Una vez que haya creado el conunto de datos, presione 't' para entrenar su red neuronal. La red neuronal comenzará a entrenarse y podrás visualizar la función pérdida (que debe ir disminuyendo). 
+Una vez que haya creado el conunto de datos, presione 't' para entrenar su red neuronal. La red neuronal comenzará a entrenarse y podrás visualizar la función pérdida (que debe ir disminuyendo). La arquitectura usada es la que viene por defecto, la cual es la siguiente:
+**+ arquitectura de la red**
+
 Nota: Dependiendo del navegador, al iniciar el entrenamiento, el navegador puede bloquearse o avisar que hay una tarea que está relentizando el navegador (presione 'Esperar'). Esto depende también del tamaño de datos de entrada que se está pasando, por lo que espere pacientemente. El entrenamiento puede llevar un tiempo.
 Una vez que esté entrenada (50 épocas), haga clic en el botón 'Hide'.
 **+ gif**
 
 ### Pruebas con la red neuronal
 ¡Pon a prueba tu red neuronal!
-Nota: Si no clasifica correctamente, es probable que necesite más ejemplos. Puede reiniciar el programa para crear una nueva red neuronal actualizando el navegador. 
+Nota: Si no clasifica correctamente, es probable que necesite más ejemplos o los ejemplos tomados no son suficientemente variados. Puede reiniciar el programa para crear una nueva red neuronal actualizando el navegador. 
 **+ gif**
 
 
