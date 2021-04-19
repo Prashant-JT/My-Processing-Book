@@ -81,9 +81,7 @@ Primeramente, se debe dar permiso para el acceso a la webcam y hacer click sobre
 * Nota: Intente agregar tantos ejemplos como pueda para que la red neuronal tenga suficientes datos para el entrenamiento. **IMPORTANTE:** debe haber números de ejemplos parecidos para cada clase para no crear un conjunto de datos desbalanceado (normalmente unos 100 para cada clase son suficientes, aunque no es un número fijo ya que depende mucho de la calidad de la cámara, luminosidad de la sala...). 
 **+ tabla gifs**
 
-| ![](/My-Processing-Book/images/mask_detection/model_architecture.PNG "Arquitectura de la red neuronal") | ![](/My-Processing-Book/images/mask_detection/model_architecture.PNG "Arquitectura de la red neuronal") |
-| - | - |
-| Conjunto de datos con mascarilla | Conjunto de datos sin mascarilla |
+| ![](/My-Processing-Book/images/mask_detection/model_architecture.PNG "Conjunto de datos con mascarilla") | ![](/My-Processing-Book/images/mask_detection/model_architecture.PNG "Conjunto de datos sin mascarilla") |
 
 ### Entrenamiento de la red neuronal
 Una vez que haya creado el conunto de datos, presione 't' para entrenar su red neuronal. La red neuronal comenzará a entrenarse y podrás visualizar la función pérdida (que debe ir disminuyendo). La arquitectura usada es la que viene por defecto, la cual es la siguiente:
