@@ -78,7 +78,9 @@ A continuación, se muestra cómo ejecutar correctamente el programa siguiendo l
 Primeramente, se debe dar permiso para el acceso a la webcam y hacer click sobre el lienzo. Luego, cree el conjunto de datos moviendo su cara en diferentes lugares del canvas (hacia atrás, adelante, izquierda y derecha) y en distintos ángulos. 
 * Presione 'm' para agregar ejemplos con mascarilla.
 * Presione 'n' para agregar ejemplos sin mascarilla.
-* Nota: Intente agregar tantos ejemplos como pueda para que la red neuronal tenga suficientes datos para el entrenamiento. **IMPORTANTE:** debe haber números de ejemplos parecidos para cada clase para no crear un conjunto de datos desbalanceado (normalmente unos 100 para cada clase son suficientes, aunque no es un número fijo ya que depende mucho de la calidad de la cámara, luminosidad de la sala...).
+* **Nota:** Intente agregar tantos ejemplos como pueda para que la red neuronal tenga suficientes datos para el entrenamiento. 
+
+**IMPORTANTE:** debe haber números de ejemplos parecidos para cada clase para no crear un conjunto de datos desbalanceado (normalmente unos 100 para cada clase son suficientes, aunque no es un número fijo ya que depende mucho de la calidad de la cámara, luminosidad de la sala...).
 
 | ![](/My-Processing-Book/images/mask_detection/model_architecture.PNG "Conjunto de datos con mascarilla") | ![](/My-Processing-Book/images/mask_detection/model_architecture.PNG "Conjunto de datos sin mascarilla") |
 
