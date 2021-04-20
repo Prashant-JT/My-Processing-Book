@@ -84,15 +84,11 @@ A continuación se describe el trabajo realizado. Se crean e inicializan las var
 
 <br>La función **add(l)** comentada anteriormente, se encarga de añadir un ejemplo de la clase/etiqueta que se le pasa por parámetro mediante la función de *ml5.js* llamada **addData(in, out)**.
 
-    function add(l){
-        NN.addData({image: video},{l});
-    }
+    function add(l){NN.addData({image: video},{l});}
 
 <br>Respecto al entrenamiento de la red, se utiliza la función de *ml5.js* llamada **train(epochs, callFunction)** la cual se le pasa el número de épocas y una función de *callback* para saber cuando ha terminado el entrenamiento. Esta función se ha denominado **classifyV()** la cual simplemente llama a la función **classify(in, result)** la cual realiza la clasificación. Esta función, también tiene como segundo parámetro una función *callback* la cual se ha implementado para el manejo de errores (función **res(error, result)**).
 
-    function classifyV(){
-      NN.classify({image:video},res);
-    }
+    function classifyV(){NN.classify({image:video},res);}
     
     function res(e,r){
       if(!e){
@@ -127,7 +123,6 @@ Una vez que haya creado el conunto de datos, presione 't' para entrenar su red n
 | ![](/My-Processing-Book/images/mask_detection/firefox_warning.PNG "Bloqueo del navegador Firefox") | ![](/My-Processing-Book/images/mask_detection/chrome_warning.PNG "Bloqueo del navegador Chrome") |
 
 El entrenamiento puede llevar un tiempo. Una vez que esté entrenada (50 épocas), haga clic en el botón 'Hide'.
-
 
 ![](/My-Processing-Book/images/mask_detection/model_architecture.PNG "Entrenamiento de la red neuronal")
 
