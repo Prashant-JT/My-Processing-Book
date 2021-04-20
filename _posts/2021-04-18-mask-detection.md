@@ -112,6 +112,10 @@ Primeramente, se debe dar permiso para el acceso a la webcam y hacer click sobre
 
 | ![](/My-Processing-Book/images/mask_detection/mask-dataset-demo.gif "Creación del conjunto de datos con mascarilla") | ![](/My-Processing-Book/images/mask_detection/no-mask-dataset-demo.gif "Creación del conjunto de datos sin mascarilla") |
 
+![](https://github.com/Prashant-JT/My-Processing-Book/blob/master/images/mask_detection/no-mask-dataset-demo.gif "Creación del conjunto de datos con mascarilla")
+
+
+
 ### Entrenamiento de la red neuronal
 Una vez que haya creado el conunto de datos, presione 't' para entrenar su red neuronal. La red neuronal comenzará a entrenarse y podrás visualizar la función de pérdida (que debe ir disminuyendo). La arquitectura usada es la que viene por defecto, la cual es la siguiente:
 
