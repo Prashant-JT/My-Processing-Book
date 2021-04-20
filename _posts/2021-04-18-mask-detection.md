@@ -76,8 +76,8 @@ A continuación, se muestra cómo ejecutar correctamente el programa siguiendo l
 
 ### Creación del conjunto de datos
 Primeramente, se debe dar permiso para el acceso a la webcam y hacer click sobre el lienzo. Luego, cree el conjunto de datos moviendo su cara en diferentes lugares del canvas (hacia atrás, adelante, izquierda y derecha) y en distintos ángulos. 
-* Presione 'm' para agregar ejemplos con mascarilla.
-* Presione 'n' para agregar ejemplos sin mascarilla.
+* Póngase la mascarilla y presione 'm' para agregar ejemplos con mascarilla.
+* Quítese la mascarilla y presione 'n' para agregar ejemplos sin mascarilla.
 * **Nota:** Intente agregar tantos ejemplos como pueda para que la red neuronal tenga suficientes datos para el entrenamiento. 
 
 **IMPORTANTE:** debe haber números de ejemplos parecidos para cada clase para no crear un conjunto de datos desbalanceado (normalmente unos 100 para cada clase son suficientes, aunque no es un número fijo ya que depende mucho de la calidad de la cámara, luminosidad de la sala...).
@@ -90,7 +90,7 @@ Una vez que haya creado el conunto de datos, presione 't' para entrenar su red n
 
 ![](/My-Processing-Book/images/mask_detection/model_architecture.PNG "Arquitectura de la red neuronal")
 
-**Nota:** Dependiendo del navegador, al iniciar el entrenamiento, el navegador puede bloquearse o avisar que hay una tarea que está relentizando el navegador (presione 'Esperar'). Esto depende también del tamaño de datos de entrada que se está pasando, por lo que espere pacientemente. 
+**Nota:** Dependiendo del navegador, al iniciar el entrenamiento, el navegador puede bloquearse o avisar que hay una tarea que está relentizando el navegador (**presione 'Esperar'**). Esto depende también del tamaño de datos de entrada que se está pasando, por lo que espere pacientemente. 
 
 | ![](/My-Processing-Book/images/mask_detection/firefox_warning.PNG "Bloqueo del navegador Firefox") | ![](/My-Processing-Book/images/mask_detection/chrome_warning.PNG "Bloqueo del navegador Chrome") |
 
