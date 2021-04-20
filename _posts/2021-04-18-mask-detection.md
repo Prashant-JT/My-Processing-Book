@@ -124,7 +124,7 @@ Una vez que haya creado el conunto de datos, presione 't' para entrenar su red n
 
 El entrenamiento puede llevar un tiempo. Una vez que esté entrenada (50 épocas), haga clic en el botón 'Hide'.
 
-![](/My-Processing-Book/images/mask_detection/training-model.gif  "Entrenamiento de la red neuronal")
+![](/My-Processing-Book/images/mask_detection/training-demo.gif "Entrenamiento de la red neuronal")
 
 ### Prueba la red neuronal
 ¡Pon a prueba tu red neuronal!
