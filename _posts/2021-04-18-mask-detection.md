@@ -124,16 +124,13 @@ Una vez que haya creado el conunto de datos, presione 't' para entrenar su red n
 
 El entrenamiento puede llevar un tiempo. Una vez que esté entrenada (50 épocas), haga clic en el botón 'Hide'.
 
-![](/My-Processing-Book/images/mask_detection/model_architecture.PNG "Entrenamiento de la red neuronal")
+![](/My-Processing-Book/images/mask_detection/training-model.gif "Entrenamiento de la red neuronal")
 
 
-### Pruebas con la red neuronal
+### Prueba la red neuronal
 ¡Pon a prueba tu red neuronal!
 
-Nota: Si no clasifica correctamente, es probable que necesite más ejemplos o los ejemplos tomados no son suficientemente variados. Puede reiniciar el programa para crear una nueva red neuronal actualizando el navegador. 
-
-
-![](/My-Processing-Book/images/mask_detection/model_architecture.PNG "Pruebas con la red neuronal")
+Nota: Si no clasifica correctamente, es probable que necesite más ejemplos o los ejemplos tomados no son suficientemente variados. Puede reiniciar el programa para crear una nueva red neuronal actualizando el navegador.
 
 
 ## Descargar código en p5.js
