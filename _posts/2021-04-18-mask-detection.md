@@ -97,7 +97,7 @@ A continuación se describe el trabajo realizado. Se crean e inicializan las var
       }
     }
 
-<br>Finalmente, se han añadido las instrucciones paso a paso en el archivo index.html de guía para el usuario.
+Finalmente, se han añadido las instrucciones paso a paso en el archivo index.html de guía para el usuario.
 
 ## Cómo ejecutar el programa
 A continuación, se muestra cómo ejecutar correctamente el programa siguiendo los pasos descritos.
