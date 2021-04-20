@@ -8,7 +8,7 @@
 
 ## Introducción
 **Reto: implementar un código de programación creativa de menos de 1024 caracteres en p5.js.**
-Se implementa un programa el cual es capaz de obtener un conjunto de datos mediante la cámara, entrenar una red neuronal que sea capaz de clasificar y detectar si el usuario tiene una mascarilla puesta o no usando la librería **ml5.js**. A continuación:
+Se implementa un programa (en 976 bytes) el cual es capaz de obtener un conjunto de datos mediante la cámara, entrenar una red neuronal que sea capaz de clasificar y detectar si el usuario tiene una mascarilla puesta o no usando la librería **ml5.js**. A continuación:
 
 * Se describe el trabajo realizado argumentando las decisiones adoptadas para la solución propuesta
 * Se incluye las referencias y herramientas utilizadas
