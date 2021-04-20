@@ -18,36 +18,68 @@ Se implementa un programa el cual es capaz de obtener un conjunto de datos media
 
 El diseño ha sido el que se puede observar en la siguiente figura. En la parte superior de la página se muestra las instrucciones paso a paso para el usuario. Más abajo se muestra el programa el cual necesita acceso a la cámara del usuario y en la parte inferior izquierda del lienzo se muestra el número de imágenes que se ha tomado de momento para cada clase:
 
-![](/My-Processing-Book/images/mask_detection/mask_detection_instruction.PNG "Instrucciones para ejecutar el programa")
-
-![](/My-Processing-Book/images/mask_detection/mask_detection.PNG "Diseño del programa")
+![](/My-Processing-Book/images/mask_detection/mask_detection.PNG "Instrucciones para ejecutar el programa y diseño del programa")
 
 ## Código implementado
 
-A continuación se describe el trabajo realizado. Se crean e inicializan las variables necesarias que se irán explicando a medida que se avance. Se incluye la librería ml5.js en el fichero index.html:
+A continuación se describe el trabajo realizado. Se crean e inicializan las variables necesarias que se irán explicando a medida que se avance. 
 
-    import processing.sound.*;
+    let video;
+    let r=false;
+    let NN;
+    let label='';
+    let mask=0;
+    let noMask=0;
 
+<br>Se incluye la librería ml5.js en el fichero index.html:
+
+    <script src="https://unpkg.com/ml5@latest/dist/ml5.min.js"></script>
 
 <br>En la función **setup()** se inicializan las variables definidas anteriormente, se captura el video desde la webcam mostrándolo en el lienzo. Se crea el modelo de la red neuronal utilizando una red neuronal convolucional para clasificación de imágenes. Para ello se establece el tamaño de entrada que espera la red, el tipo de clasificación de la red (*task:"imageClassification"*) y se establece *debug:true* para que al entrenarse, se muestre al usuario la arquitectura que se está utilizando y la función de pérdida a medida que avanza el entrenamiento. A continuación se crea la red neuronal con las opciones comentadas anteriormente mediante la función **ml5.neuralNetwork(options)**.
 
-    void setup() {
+    function setup(){
+      createCanvas(500,400);
+      video=createCapture(VIDEO,vR);
+      video.size(64,64);
+      video.hide();
+      let m={inputs: [64, 64, 4],task:'imageClassification',debug:true};
+      NN=ml5.neuralNetwork(m);
+    }
     
-
 <br>En la función **createCapture()** se pasa como parámetro la función **vR()** para comprobar si la webcam está preparada para ser usada, si esta es llamada por la función **createCapture()** quiere decir que se ha podido acceder a la webcam por lo que se establece el booleano a verdadero:
     
-    function vR(){
-      r=true;
-    }
+    function vR(){r=true;}
 
 <br>En la función **draw()** se muestra la imagen de la webcam y el número de imágenes que se han tomado para cada clase: 
 
-    void draw() {
-
+    function draw(){
+      background(0);
+      if(r)image(video,0,0,width,height);
+      textSize(64);
+      textAlign(CENTER,CENTER);
+      fill(255);
+      text(label,width/2,height/2);
+      textSize(16);
+      text("Mask dataset: "+mask,70,height-60);
+      text("No mask dataset: "+noMask,82,height-30);
+    }
 
 <br>Para la creación del conjunto de datos, se ha establecido que al pulsar la tecla 'm' se recoge una captura de un ejemplo con mascarilla y al pulsar la tecla 'n' un ejemplo sin mascarilla. Al pulsar la tecla 't' se normaliza los datos y se entrena la red neuronal para 50 épocas. Esto se recoge en la función **keyPressed()** la cual va añadiendo ejemplos mediante la función **add(label)** con las etiquetas 'Nice mask!' (al pulsar 'm') y 'No mask!' (al pulsar 'n'), creando así dos clases. 
 
     function keyPressed(){
+      if(key=='t'){
+        NN.normalizeData();
+        NN.train({epochs: 50},classifyV);
+      }
+      if(key=='m'){
+        add('Nice mask!');
+        mask++;
+      }
+      if(key=='n'){
+        add('No mask!');
+        noMask++;
+      }
+    }
 
 
 <br>La función **add(l)** comentada anteriormente, se encarga de añadir un ejemplo de la clase/etiqueta que se le pasa por parámetro mediante la función de *ml5.js* llamada **addData(in, out)**.
@@ -117,7 +149,7 @@ Para descargar el código en p5.js, acceda a: <a href="https://downgit.github.io
 ## Probar demo 
 {% include info.html text="Para probar debe abrir el enlace en un navegador. No se podrá ejecutar en dispositivos móviles" %}
 
-| **Probar demo** | <a href="https://editor.p5js.org/Prashant-JT/full/cdnNL5Oqx">Dale click para probar demo</a> |
+| **Probar demo** | <a href="https://editor.p5js.org/Prashant-JT/full/A83fz2GLg">Dale click para probar demo</a> |
 
 ## Referencias
 
