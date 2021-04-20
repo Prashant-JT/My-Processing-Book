@@ -92,7 +92,7 @@ Una vez que haya creado el conunto de datos, presione 't' para entrenar su red n
 
 **Nota:** Dependiendo del navegador, al iniciar el entrenamiento, el navegador puede bloquearse o avisar que hay una tarea que está relentizando el navegador (presione 'Esperar'). Esto depende también del tamaño de datos de entrada que se está pasando, por lo que espere pacientemente. 
 
-| ![](/My-Processing-Book/images/mask_detection/model_architecture.PNG "Bloqueo del navegador Firefox") | ![](/My-Processing-Book/images/mask_detection/model_architecture.PNG "Bloqueo del navegador Chrome") |
+| ![](/My-Processing-Book/images/mask_detection/firefox_warning.PNG "Bloqueo del navegador Firefox") | ![](/My-Processing-Book/images/mask_detection/chrome_warning.PNG "Bloqueo del navegador Chrome") |
 
 El entrenamiento puede llevar un tiempo. Una vez que esté entrenada (50 épocas), haga clic en el botón 'Hide'.
 
