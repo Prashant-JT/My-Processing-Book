@@ -1,0 +1,30 @@
+<!DOCTYPE html><html lang="en"><head>
+    <script src="p5.js"></script>
+    <script src="ml5.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta charset="utf-8">
+
+  </head>
+  <body>
+    <script src="sketch.js"></script>
+    
+    <div>
+    <h3>Mask detection with ml5.js</h3>
+    <p><b>Step 1:</b> Give permission to your browser to access your camera and click on the canvas. Then, create the dataset by moving your face in different places and angles through the canvas:</p>
+    <ul>
+      <li>Wear your mask and press 'm' to add examples with mask.</li>
+      <li>Remove your mask and press 'n' to add examples without mask.</li>
+      <li><b>Note:</b> Try to add as many examples as you can so the neural network has enough data for training. </li>
+      <li><b>IMPORTANT:</b> there must be similar numbers of examples for each class, else it will create an unbalanced dataset (normally about 100 for each class is enough, although it is not a fixed number since it depends on the quality of the camera, the brightness of the room ...).</li>
+    </ul>
+    <p><b>Step 2:</b> Press 't' to train your neural network. The neural network will start training and you can visualize the loss (which must be decreasing).</p>
+    <ul>
+      <li><b>Note:</b> Depending on the browser, when starting the training, the browser may hang. Please wait patiently. Training may take a while.</li>
+    </ul>
+    <p><b>Step 3:</b> Once it is trained (50 epochs), click the 'Hide' button.</p>
+    <p><b>Step 4:</b> Test your neural network!</p>
+    <p><b>Note:</b> If it doesn't classify correctly, probabily it needed more examples or the examples taken are not varied enough. You can restart the sketch to create a new neural network.</p>
+      </div>
+  
+
+</body></html>
