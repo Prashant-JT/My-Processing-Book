@@ -79,7 +79,7 @@ A continuación se describe el trabajo realizado. Se crean e inicializan las var
       text("Note: Rendering time when hiding controls for the first time is high, it may take a few seconds", 0, 250);
     }
 
-<br>Para el movimiento del usuario se utiliza las funciones **keyPressed** y **keyReleased**. Dependiendo de la tecla pulsada, el usuario se moverá hacia delante, hacia atrás o podrá girar hacia la izquierda o derecha. El usuario también tiene la opción de reestablecer la posición al estado inicial.
+<br>Para el movimiento del usuario se utiliza las funciones **keyPressed()** y **keyReleased()**. Dependiendo de la tecla pulsada, el usuario se moverá hacia delante, hacia atrás o podrá girar hacia la izquierda o derecha. El usuario también tiene la opción de reestablecer la posición al estado inicial.
 
     void keyReleased() {
       if (!help) { 
@@ -303,7 +303,7 @@ A continuación se describe el trabajo realizado. Se crean e inicializan las var
         }
       }
     
-<br>Respecto la clase *Office*, este contiene atributos como el vector que representa las coordenadas en la que se encuentra el usuario actualmente y el ángulo en el que gira cuando decide rotar hacia la izquierda o derecha.
+<br>Respecto la clase *Person*, este contiene atributos como el vector que representa las coordenadas en la que se encuentra el usuario actualmente y el ángulo en el que gira cuando decide rotar hacia la izquierda o derecha.
     
     class Person {
       PVector vector;
