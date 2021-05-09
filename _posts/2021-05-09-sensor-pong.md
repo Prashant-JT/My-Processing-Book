@@ -26,7 +26,7 @@ A continuación se describe el trabajo realizado. Se crean e inicializan las var
     Serial arduino;
     String value = "0";
 
-<br>En la función **setup()** se obtiene una lista de todos los puertos serie disponibles y se escoge el puerto adecuado. A continuación, se crea objeto *Serial* para leer los datos que son enviados desde Arduino a través de la función [^1]**Serial.println(msg)**.
+<br>En la función **setup()** se obtiene una lista de todos los puertos serie disponibles y se escoge el puerto adecuado. A continuación, se crea objeto *Serial* para leer los datos que son enviados desde Arduino a través de la función **Serial.println(msg)**[^1].
 
 **Nota:** Según el puerto que se esté utilizando en Arduino, se deberá escoger el mismo puerto.
 
