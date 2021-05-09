@@ -111,12 +111,11 @@ A continuación se describe el trabajo realizado. Se crean e inicializan las var
       
 <br>A continuación, se muestra el resultado final mediante un gif animado: 
 
-| ![](/My-Processing-Book/images/blink_led/blink-led-serial-demo.gif "Salida del monitor serie") |
-| ![](https://media.giphy.com/media/xx9DkkDZIqvtpPQFNa/giphy.gif "Prueba del código en vivo") |
+| ![](/My-Processing-Book/images/sensor_pong/sensor-pong-canvas-demo.gif "Salida del monitor serie") | ![](/My-Processing-Book/images/sensor_pong/sensor-pong-demo.gif "Prueba del código en vivo") |
 
 
 ## Descargar código en Arduino
-Para descargar el código en Arduino, acceda a: <a href="https://downgit.github.io/#/home?url=https://github.com/Prashant-JT/My-Processing-Book/tree/master/projects/blink_led">Descargar código en Arduino</a> o acceda a la carpeta del repositorio del proyecto en: <a href="https://github.com/Prashant-JT/My-Processing-Book/tree/master/projects/blink_led">Repositorio del proyecto</a>
+Para descargar el código en Arduino, acceda a: <a href="https://downgit.github.io/#/home?url=https://github.com/Prashant-JT/My-Processing-Book/tree/master/projects/sensor_pong">Descargar código en Arduino</a> o acceda a la carpeta del repositorio del proyecto en: <a href="https://github.com/Prashant-JT/My-Processing-Book/tree/master/projects/sensor_pong">Repositorio del proyecto</a>
 
 <a href="https://josemap-99.github.io/2021/05/08/blink_led.html"><b>Repositorio del proyecto de José María Amusquívar Poppe</b></a>
 
