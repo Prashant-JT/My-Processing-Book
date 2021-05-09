@@ -21,7 +21,7 @@ El diseño y configuración ha sido el que se puede observar en la siguiente fig
 
 ## Código implementado
 
-A continuación se describe el trabajo realizado. Respecto el código de Processing, se crean e inicializan las variables necesarias para el correcto funcionamiento y establecimiento de la conexión con Arduino.
+A continuación se describe el trabajo realizado. Respecto al código de Processing, se crean e inicializan las variables necesarias para el correcto funcionamiento y establecimiento de la conexión con Arduino.
 
     Serial arduino;
     String value = "0";
@@ -86,7 +86,7 @@ A continuación se describe el trabajo realizado. Respecto el código de Process
       this.posy2 = posRemapped;
     }
 
-<br>Respecto el código de Arduino, se inicializan las variables que almacenarán los resultado obtenidos del sensor de distancia, conectando el sensor en el pin analógico A0. En la función **setup()** se abre el monitor de serie para visualizar la distancia que se obtiene. 
+<br>Respecto al código de Arduino, se inicializan las variables que almacenarán los resultado obtenidos del sensor de distancia, conectando el sensor en el pin analógico A0. En la función **setup()** se abre el monitor de serie para visualizar la distancia que se obtiene. 
       
     int IR_SENSOR = 0; // Sensor connected to the analog A0
     int sensorResult = 0; // Sensor result
@@ -114,8 +114,8 @@ A continuación se describe el trabajo realizado. Respecto el código de Process
 | ![](/My-Processing-Book/images/sensor_pong/sensor-pong-canvas-demo.gif "Pong en Processing") | ![](/My-Processing-Book/images/sensor_pong/sensor-pong-demo.gif "Prueba del código en vivo del jugador 2") |
 
 
-## Descargar código en Arduino
-Para descargar el código en Arduino, acceda a: <a href="https://downgit.github.io/#/home?url=https://github.com/Prashant-JT/My-Processing-Book/tree/master/projects/sensor_pong">Descargar código en Arduino</a> o acceda a la carpeta del repositorio del proyecto en: <a href="https://github.com/Prashant-JT/My-Processing-Book/tree/master/projects/sensor_pong">Repositorio del proyecto</a>
+## Descargar código en Processing y Arduino
+Para descargar el código en Processing y Arduino, acceda a: <a href="https://downgit.github.io/#/home?url=https://github.com/Prashant-JT/My-Processing-Book/tree/master/projects/sensor_pong">Descargar código en Processing y Arduino</a> o acceda a la carpeta del repositorio del proyecto en: <a href="https://github.com/Prashant-JT/My-Processing-Book/tree/master/projects/sensor_pong">Repositorio del proyecto</a>
 
 <a href="https://josemap-99.github.io/2021/05/08/blink_led.html"><b>Repositorio del proyecto de José María Amusquívar Poppe</b></a>
 
