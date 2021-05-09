@@ -21,14 +21,14 @@ El diseño y configuración ha sido el que se puede observar en la siguiente fig
 
 ## Código implementado
 
-A continuación se describe el trabajo realizado. Se crean e inicializan las variables necesarias, como la frequencia mínima, máxima y normal la cual se establecen a 600, 60 y 250 respectivamente. Se inicializan las variables *jump* (incremento), *value* (valor en radianes del seno con rango entre -PI/2 y PI/2) y *senFreq* (resultado del seno con rango entre -1 y 1). 
+A continuación se describe el trabajo realizado. Respecto el código de Processing, se crean e inicializan las variables necesarias para el correcto funcionamiento y establecimiento de la conexión con Arduino.
 
     Serial arduino;
     String value = "0";
 
 <br>En la función **setup()** se obtiene una lista de todos los puertos serie disponibles y se escoge el puerto adecuado. A continuación, se crea objeto *Serial* para leer los datos que son enviados desde Arduino a través de la función **Serial.println(msg)** (véase la función **loop()** del programa en Arduino).
 
-**Nota:** Según el puerto que se esté utilizando en Arduino, se deberá escoger el mismo puerto.
+**Nota:** Se deberá escoger el mismo puerto que se esté utilizando en Arduino (en nuestro caso es el primero de la lista).
 
     void setup() {
       ...
@@ -86,7 +86,7 @@ A continuación se describe el trabajo realizado. Se crean e inicializan las var
       this.posy2 = posRemapped;
     }
 
-<br>Se inicializan las variables que almacenarán los resultado obtenidos del sensor de distancia, conectando el sensor en el pin analógico A0. En la función **setup()** se abre el monitor de serie para visualizar la distancia que se obtiene. 
+<br>Respecto el código de Arduino, se inicializan las variables que almacenarán los resultado obtenidos del sensor de distancia, conectando el sensor en el pin analógico A0. En la función **setup()** se abre el monitor de serie para visualizar la distancia que se obtiene. 
       
     int IR_SENSOR = 0; // Sensor connected to the analog A0
     int sensorResult = 0; // Sensor result
