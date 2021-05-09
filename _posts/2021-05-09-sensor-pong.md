@@ -23,50 +23,88 @@ El diseño y configuración ha sido el que se puede observar en la siguiente fig
 
 A continuación se describe el trabajo realizado. Se crean e inicializan las variables necesarias, como la frequencia mínima, máxima y normal la cual se establecen a 600, 60 y 250 respectivamente. Se inicializan las variables *jump* (incremento), *value* (valor en radianes del seno con rango entre -PI/2 y PI/2) y *senFreq* (resultado del seno con rango entre -1 y 1). 
 
-    // En milisegundos
-    const float threshold = 0.75;
-    const int freqMax = 60;
-    const int freqMin = 600;
-    const int freqNormal = 250;
-    
-    float jump = 0.1;
-    float value = 0;
-    float senFreq = 0;
+    Serial arduino;
+    String value = "0";
 
 <br>En la función **setup()** se habilita el monitor serie y se establece el led incorporado en el Arduino como salida.
     
-    void setup() {  
-      Serial.begin(9600);
-      pinMode(LED_BUILTIN, OUTPUT);
+    void setup() {
+      ...
+      // Arduino port
+      String portName = Serial.list()[0];
+      arduino = new Serial(this, portName, 9600);
+      ...
     }
 
 <br>En la función **loop()** se calcula el seno de la variable *value* y se actualiza la variable. A continuación, se comprueba que esta variable esté en el rango -PI/2 y PI/2. Se cambia la frecuencia del parpadeo según el valor del seno calculado llamando la función **blinkLed()**.
 
-    void loop() {
-      senFreq = sin(value);
-      value += jump;
-
-      if (value >= PI/2 || value <= -PI/2) jump = -jump;
-
-      Serial.println(senFreq);
-
-      if (senFreq > threshold) {
-        blinkLed(freqMax);
-      } else if (senFreq < -threshold) {
-        blinkLed(freqMin);                       
+    void draw() {
+      if (start) {
+        ...
+        paddle.move(getSensorDistance());
+        ...
       } else {
-        blinkLed(freqNormal);
+        ...
       }
     }
     
-<br>La función **blinkLed(freq)** se encarga de encender y apagar el led acorde a una frecuencia que es pasada como parámetro. 
+<br>En la función **getSensorDistance()** se habilita el monitor serie y se establece el led incorporado en el Arduino como salida.
+    
+    float getSensorDistance() {
+      if (arduino.available() > 0) {
+        value = arduino.readStringUntil('\n');
+      }
+
+      return (value != null) ? float(value) : -1;
+    }
+    
+<br>La Clase *Paddle* se encarga de encender y apagar el led acorde a una frecuencia que es pasada como parámetro. 
+    
+    private float minDistance;
+    private float maxDistance;
+    private float posRemapped;
+    
+    public Paddle() {
+      ...
+      this.minDistance = 7.0;
+      this.maxDistance = 30.0;
+    }
       
-    void blinkLed (int freq) {
-      digitalWrite(LED_BUILTIN, HIGH);  
-      delay(freq);
-      digitalWrite(LED_BUILTIN, LOW);    
-      delay(freq);  
-    }    
+<br>La función **move(distance)** se encarga de encender y apagar el led acorde a una frecuencia que es pasada como parámetro. 
+
+    void move(float distance) {
+      ...
+      if (distance == -1) return;    
+      if (distance > maxDistance) distance = maxDistance;
+      if (distance < minDistance) distance = minDistance;
+    
+      // Map player 2 position 
+      posRemapped = map(distance, minDistance, maxDistance, 0, height-89);
+      this.posy2 = posRemapped;
+    }
+
+<br>La función **setup(freq)** se encarga de encender y apagar el led acorde a una frecuencia que es pasada como parámetro. 
+      
+    int IR_SENSOR = 0; // Sensor connected to the analog A0
+    int sensorResult = 0; // Sensor result
+    float sensorDistance = 0; // Calculated value
+
+    void setup() {
+      // Setup communication with serial monitor
+      Serial.begin(9600);
+    }
+
+<br>La función **loop()** se encarga de encender y apagar el led acorde a una frecuencia que es pasada como parámetro. 
+
+    void loop() {
+      // Read the value from the ir sensor
+      sensorResult = analogRead(IR_SENSOR);
+      // Calculate distance in cm
+      sensorDistance = (6787.0 / (sensorResult - 3.0)) - 4.0;
+      // Send distance to Processing
+      Serial.println(sensorDistance);
+      delay(200); // Wait
+    } 
       
 <br>A continuación, se muestra el resultado final mediante un gif animado: 
 
