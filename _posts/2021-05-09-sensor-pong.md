@@ -86,7 +86,7 @@ A continuación se describe el trabajo realizado. Respecto al código de Process
       this.posy2 = posRemapped;
     }
 
-<br>Respecto al código de Arduino, se inicializan las variables que almacenarán los resultado obtenidos del sensor de distancia, conectando el sensor en el pin analógico A0. En la función **setup()** se abre el monitor de serie para visualizar la distancia que se obtiene. 
+<br>Respecto al código de Arduino, se inicializan las variables que almacenarán los resultado obtenidos del sensor de distancia, conectando el sensor en el pin analógico A0. En la función **setup()** se abre el monitor de serie para visualizar las distancias que se obtienen. 
       
     int IR_SENSOR = 0; // Sensor connected to the analog A0
     int sensorResult = 0; // Sensor result
