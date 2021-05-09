@@ -38,7 +38,7 @@ A continuación se describe el trabajo realizado. Respecto el código de Process
       ...
     }
 
-<br>En la función **draw()** se llama la función **move()** de la clase *Paddle* para el movimiento de las palas de los jugadores. Como el movimiento de la pala del el jugador 2 se realiza mediante el sensor, se pasa como parámetro la distancia en cm obtenido desde Arduino mediante la función **getSensorDistance()**.
+<br>En la función **draw()** se llama la función **move()** de la clase *Paddle* para el movimiento de las palas de los jugadores. Como el movimiento de la pala del el jugador 2 se realiza mediante el sensor, se pasa como parámetro la distancia mediante la función **getSensorDistance()**.
 
     void draw() {
       if (start) {
@@ -50,7 +50,7 @@ A continuación se describe el trabajo realizado. Respecto el código de Process
       }
     }
     
-<br>La función **getSensorDistance()** devuelve la distancia en cm obtenida de Arduino, en el caso de que el valor es nulo se devuelve -1.
+<br>La función **getSensorDistance()** devuelve la distancia en cm obtenida de Arduino, en el caso de que el valor sea nulo se devuelve -1.
     
     float getSensorDistance() {
       if (arduino.available() > 0) {
