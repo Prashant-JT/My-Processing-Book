@@ -119,7 +119,7 @@ Para descargar el código en Processing y Arduino, acceda a: <a href="https://do
 
 <a href="https://josemap-99.github.io/2021/05/08/blink_led.html"><b>Repositorio del proyecto de José María Amusquívar Poppe</b></a>
 
-<a href="#"><b>Repositorio del proyecto de Fabián Alfonso Beirutti Pérez</b></a>
+<a href="https://github.com/Fabbeiru/DistanceSensorPong"><b>Repositorio del proyecto de Fabián Alfonso Beirutti Pérez</b></a>
 
 ---
 
