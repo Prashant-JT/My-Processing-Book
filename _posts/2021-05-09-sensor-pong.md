@@ -1,4 +1,4 @@
-# Sensor pong (Processing & Arduino)
+# Sensor pong (Processing y Arduino)
 > Realizado por José María Amusquívar Poppe, Fabián Alfonso Beirutti Pérez y Prashant Jeswani Tejwani
 
 Índice del contenido:
