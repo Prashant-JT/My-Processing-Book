@@ -48,7 +48,7 @@ A continuación se describe el trabajo realizado. Se crean e inicializan las var
       }
     }
     
-<br>En la función **getSensorDistance()** se habilita el monitor serie y se establece el led incorporado en el Arduino como salida.
+<br>La función **getSensorDistance()** devuelve la distancia en cm, en el caso de que el valor es nulo se devuelve -1.
     
     float getSensorDistance() {
       if (arduino.available() > 0) {
@@ -58,8 +58,9 @@ A continuación se describe el trabajo realizado. Se crean e inicializan las var
       return (value != null) ? float(value) : -1;
     }
     
-<br>La Clase *Paddle* se encarga de encender y apagar el led acorde a una frecuencia que es pasada como parámetro. 
+<br>La Clase *Paddle* representa las palas de ambos jugadores. Para el jugador 2 se inicializan las variables para establecer un rango mínimo y máximo de distancia.  
     
+    ...
     private float minDistance;
     private float maxDistance;
     private float posRemapped;
@@ -70,7 +71,7 @@ A continuación se describe el trabajo realizado. Se crean e inicializan las var
       this.maxDistance = 30.0;
     }
       
-<br>La función **move(distance)** se encarga de encender y apagar el led acorde a una frecuencia que es pasada como parámetro. 
+<br>La función **move(distance)** se encarga mover las palas de ambos jugadores. Para el movimiento de pala del jugador 2, la variable *posRemapped* mapea la distancia obtenida de la mano entre 0 y la parte inferior del tablero de juego.
 
     void move(float distance) {
       ...
@@ -83,7 +84,7 @@ A continuación se describe el trabajo realizado. Se crean e inicializan las var
       this.posy2 = posRemapped;
     }
 
-<br>La función **setup(freq)** se encarga de encender y apagar el led acorde a una frecuencia que es pasada como parámetro. 
+<br>Se inicializan las variables que almacenarán los resultado obtenidos del sensor de distancia, conectando el sensor en el pin analógico A0. En la función **setup()** se abre el monitor de serie para visualizar la distancia que se obtiene. 
       
     int IR_SENSOR = 0; // Sensor connected to the analog A0
     int sensorResult = 0; // Sensor result
@@ -94,7 +95,7 @@ A continuación se describe el trabajo realizado. Se crean e inicializan las var
       Serial.begin(9600);
     }
 
-<br>La función **loop()** se encarga de encender y apagar el led acorde a una frecuencia que es pasada como parámetro. 
+<br>La función **loop()** se encarga de leer el valor del sensor y convertirlo en centímetros el cual se manda a Processing. 
 
     void loop() {
       // Read the value from the ir sensor
