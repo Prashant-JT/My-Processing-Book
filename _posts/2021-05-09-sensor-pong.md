@@ -7,8 +7,7 @@
 {:toc}
 
 ## Introducción
-Se programa un Arduino de manera que se genere una pulsación de frecuencia variable en el LED integrado en la placa. 
-Se produce una señal senoidal que define la envolvente, de manera que cuando dicha señal alcance su valor máximo el  LED  parpadeará  a  una cierta frecuencia *freqMax*, mientras que cuando alcance el valor mínimo parpadeará a una frecuencia mínima *freqMin*.  A continuación:
+Se programa una interfaz que utiliza la información de distancia suministrada por el sensor Sharp GP2D12, leída a través del Arduino, para controlar el movimiento de la pala del Jugador 2 en el juego Pong implementado con Processing. Se ha reutilizado y refactorizado en clases el código del juego multijugador implementado anteriormente (![https://prashant-jt.github.io/My-Processing-Book/2021/02/09/pong.html](código)).A continuación:
 
 * Se describe el trabajo realizado argumentando las decisiones adoptadas para la solución propuesta
 * Se incluye las referencias y herramientas utilizadas
