@@ -26,8 +26,10 @@ A continuación se describe el trabajo realizado. Se crean e inicializan las var
     Serial arduino;
     String value = "0";
 
-<br>En la función **setup()** se habilita el monitor serie y se establece el led incorporado en el Arduino como salida.
-    
+<br>En la función **setup()** se obtiene una lista de todos los puertos serie disponibles y se escoge el puerto adecuado. A continuación, se crea objeto *Serial* para leer los datos que son enviados desde Arduino a través de la función [^1]**Serial.println(msg)**.
+
+**Nota:** Según el puerto que se esté utilizando en Arduino, se deberá escoger el mismo puerto.
+
     void setup() {
       ...
       // Arduino port
@@ -95,7 +97,7 @@ A continuación se describe el trabajo realizado. Se crean e inicializan las var
       Serial.begin(9600);
     }
 
-<br>La función **loop()** se encarga de leer el valor del sensor y convertirlo en centímetros el cual se manda a Processing. 
+<br>La función **loop()** se encarga de leer el valor del sensor y convertirlo en centímetros el cual se manda a Processing. [^1]
 
     void loop() {
       // Read the value from the ir sensor
