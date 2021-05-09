@@ -26,7 +26,7 @@ A continuación se describe el trabajo realizado. Se crean e inicializan las var
     Serial arduino;
     String value = "0";
 
-<br>En la función **setup()** se obtiene una lista de todos los puertos serie disponibles y se escoge el puerto adecuado. A continuación, se crea objeto *Serial* para leer los datos que son enviados desde Arduino a través de la función **Serial.println(msg)**[^1].
+<br>En la función **setup()** se obtiene una lista de todos los puertos serie disponibles y se escoge el puerto adecuado. A continuación, se crea objeto *Serial* para leer los datos que son enviados desde Arduino a través de la función **Serial.println(msg)** (véase la función **loop()** del programa en Arduino).
 
 **Nota:** Según el puerto que se esté utilizando en Arduino, se deberá escoger el mismo puerto.
 
@@ -38,7 +38,7 @@ A continuación se describe el trabajo realizado. Se crean e inicializan las var
       ...
     }
 
-<br>En la función **loop()** se calcula el seno de la variable *value* y se actualiza la variable. A continuación, se comprueba que esta variable esté en el rango -PI/2 y PI/2. Se cambia la frecuencia del parpadeo según el valor del seno calculado llamando la función **blinkLed()**.
+<br>En la función **draw()** se llama la función **move()** de la clase *Paddle* para el movimiento de las palas de los jugadores. Como el movimiento de la pala del el jugador 2 se realiza mediante el sensor, se pasa como parámetro la distancia en cm obtenido desde Processing mediante la función **getSensorDistance()**.
 
     void draw() {
       if (start) {
@@ -50,7 +50,7 @@ A continuación se describe el trabajo realizado. Se crean e inicializan las var
       }
     }
     
-<br>La función **getSensorDistance()** devuelve la distancia en cm, en el caso de que el valor es nulo se devuelve -1.
+<br>La función **getSensorDistance()** devuelve la distancia en cm obtenida de Arduino, en el caso de que el valor es nulo se devuelve -1.
     
     float getSensorDistance() {
       if (arduino.available() > 0) {
