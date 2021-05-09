@@ -15,7 +15,7 @@ Se programa una interfaz que utiliza la información de distancia suministrada p
 
 ## Diseño y configuración 
 
-El diseño y configuración ha sido el que se puede observar en la siguiente figura. Se adjunta el <a href=" https://www.tinkercad.com/things/cknacAsoMJE">enlace de la configuración en Tinkercad</a> para visualizar la simulación y modificar el código si se desea.
+El diseño y configuración ha sido el que se puede observar en la siguiente figura. Se adjunta el <a href="https://www.tinkercad.com/things/e77wAqxA3kJ">enlace de la configuración en Tinkercad</a> para visualizar las conexiones del Arduino.
 
 ![](/My-Processing-Book/images/sensor_pong/sensor-pong-tinkercard.PNG "Diseño y configuración del Arduino en Tinkercad")
 
