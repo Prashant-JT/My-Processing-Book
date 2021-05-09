@@ -97,7 +97,7 @@ A continuación se describe el trabajo realizado. Respecto al código de Process
       Serial.begin(9600);
     }
 
-<br>La función **loop()** se encarga de leer el valor del sensor y convertirlo en centímetros el cual se manda a Processing. [^1]
+<br>La función **loop()** se encarga de leer el valor del sensor, convertirlo en centímetros y enviarlo a Processing.
 
     void loop() {
       // Read the value from the ir sensor
