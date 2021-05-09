@@ -111,7 +111,7 @@ A continuación se describe el trabajo realizado. Respecto el código de Process
       
 <br>A continuación, se muestra el resultado final mediante un gif animado: 
 
-| ![](/My-Processing-Book/images/sensor_pong/sensor-pong-canvas-demo.gif "Salida del monitor serie") | ![](/My-Processing-Book/images/sensor_pong/sensor-pong-demo.gif "Prueba del código en vivo") |
+| ![](/My-Processing-Book/images/sensor_pong/sensor-pong-canvas-demo.gif "Pong en Processing") | ![](/My-Processing-Book/images/sensor_pong/sensor-pong-demo.gif "Prueba del código en vivo del jugador 2") |
 
 
 ## Descargar código en Arduino
