@@ -28,7 +28,7 @@ class Message {
     rect(width/2 - 265, height/2 + 35, 530, 130);
     fill(255);
     text("Player 1 - A to move up | Z to move down", width/2, height/2 + 55);
-    text("Player 2 - Move hand away to move up | Bring hand near to move down", width/2, height/2 + 85);
+    text("Player 2 - Move hand away to move down | Bring hand near to move up", width/2, height/2 + 85);
     text("To restart scores, press r", width/2, height/2 + 115);
     text("To play/pause, press h", width/2, height/2 + 140);
   }
