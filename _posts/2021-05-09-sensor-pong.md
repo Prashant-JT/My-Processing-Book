@@ -109,7 +109,7 @@ A continuación se describe el trabajo realizado. Respecto al código de Process
       delay(200); // Wait
     } 
       
-<br>A continuación, se muestra el resultado final mediante un gif animado: 
+<br>A continuación, se muestra el resultado final mediante un gif animado. La pala de la derecha es del jugador 2, controlado mediante el sensor de distancia: 
 
 ![](/My-Processing-Book/images/sensor_pong/sensor-pong-demo.gif "Prueba del código en vivo")
 
