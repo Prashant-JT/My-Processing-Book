@@ -117,7 +117,7 @@ A continuación se describe el trabajo realizado. Respecto al código de Process
 ## Descargar código en Processing y Arduino
 Para descargar el código en Processing y Arduino, acceda a: <a href="https://downgit.github.io/#/home?url=https://github.com/Prashant-JT/My-Processing-Book/tree/master/projects/sensor_pong">Descargar código en Processing y Arduino</a> o acceda a la carpeta del repositorio del proyecto en: <a href="https://github.com/Prashant-JT/My-Processing-Book/tree/master/projects/sensor_pong">Repositorio del proyecto</a>
 
-<a href="https://josemap-99.github.io/2021/05/08/blink_led.html"><b>Repositorio del proyecto de José María Amusquívar Poppe</b></a>
+<a href="https://josemap-99.github.io/2021/05/16/sensor_pong.html"><b>Repositorio del proyecto de José María Amusquívar Poppe</b></a>
 
 <a href="https://github.com/Fabbeiru/DistanceSensorPong"><b>Repositorio del proyecto de Fabián Alfonso Beirutti Pérez</b></a>
 
